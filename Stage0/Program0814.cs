@@ -20,7 +20,7 @@ namespace Stage0
         {
             Console.WriteLine("Enter your name: ");
             string name = Console.ReadLine();
-            Console.WriteLine("{0} welcom to my first console appliction", name);
+            Console.WriteLine("{0} welcom to my first console appliction",  name);
         }
     }
 
