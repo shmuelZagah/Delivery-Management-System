@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StageK0
+namespace Stage0
 {
 
     partial class Program

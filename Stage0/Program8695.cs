@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Stage0
 {
-    internal class Program8695
+    partial class Program
     {
-        static void Welcome8695()
+        static partial void Welcome8695()
         {
             Console.WriteLine("I am also here!");
         }
