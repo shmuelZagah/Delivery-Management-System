@@ -33,7 +33,7 @@ public record Courier
     /// Default constructor , initializes with neutral defaults.
     /// </summary>
     public Courier() : this(0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, 
-        true, null, ShipmentType.Unknow, DateTime.Now) { }
+        true, null, ShipmentType.Foot, DateTime.Now) { }
 
 }
 
