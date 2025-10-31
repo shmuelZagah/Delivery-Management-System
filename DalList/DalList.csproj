@@ -14,11 +14,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
+    <Compile Remove="Dal\**" />
+    <EmbeddedResource Remove="Dal\**" />
+    <None Remove="Dal\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dal\" />
+    <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
   </ItemGroup>
 
 </Project>
