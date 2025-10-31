@@ -1,12 +1,25 @@
-﻿namespace DalApi;
-using DO;
+﻿//namespace DalApi;
+//public interface IConfig
+//{
+//    int NextOrderId { get; }
+//    int NextDeliveryId { get; }
 
-public interface IConfig
-{
-    void Create(Config item);        //Creates new entity object in DAL
-    Config? Read(int id);            //Reads entity object by its ID
-    void Update(Config item);        //Updates entity object
-    void Delete(int id);             //Deletes an object by its Id
-    void DeleteAll();                //Delete all entity objects
-    List<Config> ReadAll();          //stage 1 only, Reads all entity objects
-}
+//    DateTime Clock { get; set; }
+//    int ManagerId { get; set; }
+//    int ManagerPass { get; set; }
+
+//    string? CompanyAddress { get; set; }
+//    double? Latitude { get; set; }
+//    double? Longitude { get; set; }
+//    double? MaxAirRange { get; set; }
+
+//    double AvgCarSpeed { get; set; }
+//    double AvgMotocyclerSpeed { get; set; }
+//    double AvgWalkingSpeed { get; set; }
+
+//    TimeSpan maxSupplayTime { get; set; }
+//    TimeSpan RiskRange { get; set; }
+//    TimeSpan UnactivityRange { get; set; }
+
+//    void Reset();
+//}
