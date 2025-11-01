@@ -14,7 +14,7 @@ internal class mainTry
         ICourier courierDal = new CourierImplemention();
         IDelivery deliveryDal = new DeliveryImplemention();
         IOrder orderDal = new OrderImplementation();
-        IConfig? configDal = new ();
+        IConfig? configDal = new ConfigImplementation();
 
         // 2. run initialization
         Intialization.Do(
@@ -50,6 +50,12 @@ internal class mainTry
             Console.WriteLine(
                 $"Id={o.Id}, Type={o.OrderType}, Customer={o.CustomerName}, Phone={o.CustomerPhone}, Address={o.FullAddress}, Created={o.OrderCreationTime}");
         }
+
+        // 6. print config
+        Console.WriteLine("\n--- Config ---");
+        Console.WriteLine(
+            $"Clock={configDal.Clock}, Address={configDal.CompanyAddress}, MaxAirRange={configDal.MaxAirRange}, ManagerId={configDal.ManagerId}"
+        );
 
 
         Console.WriteLine("\n=== DAL TEST END ===");

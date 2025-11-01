@@ -4,7 +4,7 @@ using DalApi;
 using DO;
 using System;
 
-internal class ConfigImplementation : IConfig
+public class ConfigImplementation : IConfig
 {
     // --- SYSTEM DATA ---
     public DateTime Clock
