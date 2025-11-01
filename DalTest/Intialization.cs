@@ -15,6 +15,36 @@ public static class Intialization
 
     private static readonly Random s_rand = new();
 
+    public static void Do(
+    ICourier? dalCourier,
+    IDelivery? dalDelivery,
+    IOrder? dalOrder,
+    IConfig? dalConfig)
+    {
+        // store refs
+        s_DalCourier = dalCourier ?? throw new NullReferenceException("DAL courier cannot be null!");
+        s_DalDelivery = dalDelivery ?? throw new NullReferenceException("DAL delivery cannot be null!");
+        s_DalOrder = dalOrder ?? throw new NullReferenceException("DAL order cannot be null!");
+        s_DalConfig = dalConfig ?? throw new NullReferenceException("DAL config cannot be null!");
+
+        Console.WriteLine("Reset configuration and lists...");
+
+        // stage 1 reset
+        s_DalConfig.Reset();
+        s_DalCourier.DeleteAll();
+        s_DalDelivery.DeleteAll();
+        s_DalOrder.DeleteAll();
+
+        Console.WriteLine("Create initial data...");
+
+        createConfig();
+        createCourier();
+        createDelivery();
+        createOrders();
+
+        Console.WriteLine("Init done.");
+    }
+
     private static void createConfig()
     {
         
