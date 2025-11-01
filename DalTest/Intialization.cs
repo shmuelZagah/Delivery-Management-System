@@ -15,48 +15,6 @@ public static class Intialization
 
     private static readonly Random s_rand = new();
 
-    public static class Initialization
-    {
-        // private static fields
-        private static ICourier? s_dalCourier;
-        private static IDelivery? s_dalDelivery;
-        private static IOrder? s_dalOrder;
-        private static IConfig? s_dalConfig;
-
-        // THIS is the method the document talks about:
-        public static void Do(
-            ICourier? dalCourier,
-            IDelivery? dalDelivery,
-            IOrder? dalOrder,
-            IConfig? dalConfig)
-        {
-            // 1. save the parameters into the static fields
-            s_dalCourier = dalCourier ?? throw new NullReferenceException("DAL courier cannot be null!");
-            s_dalDelivery = dalDelivery ?? throw new NullReferenceException("DAL delivery cannot be null!");
-            s_dalOrder = dalOrder ?? throw new NullReferenceException("DAL order cannot be null!");
-            s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL config cannot be null!");
-
-            Console.WriteLine("Reset configuration and lists...");
-
-            // 2. reset configuration & lists  (stage 1)
-            s_dalConfig.Reset();         // or your createConfig()
-            s_dalCourier.DeleteAll();
-            s_dalDelivery.DeleteAll();
-            s_dalOrder.DeleteAll();
-
-            Console.WriteLine("Create initial data...");
-
-            // 3. now call your private init functions
-            createConfig();
-            createCourier();
-            createDelivery();
-            createOrders();
-
-            Console.WriteLine("Init done.");
-        }
-    }
-
-
     private static void createConfig()
     {
         
