@@ -10,6 +10,7 @@ public static class Intialization
     private static IDelivery? s_DalDelivery;
     private static IOrder? s_DalOrder;
 
+
     const int MINID = 100_000_000;  
     const int MAXID = 999_999_999;   
 
