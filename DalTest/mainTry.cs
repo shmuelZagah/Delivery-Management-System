@@ -14,7 +14,7 @@ internal class mainTry
         ICourier courierDal = new CourierImplemention();
         IDelivery deliveryDal = new DeliveryImplemention();
         IOrder orderDal = new OrderImplementation();
-        IConfig? configDal = new ConfigImplementation();
+        IConfig? configDal = new ();
 
         // 2. run initialization
         Intialization.Do(
