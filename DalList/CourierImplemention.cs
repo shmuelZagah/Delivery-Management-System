@@ -43,15 +43,15 @@ public class CourierImplemention : ICourier
         int index = DataSource.couriers.FindIndex(courier => courier.Id == item.Id);
 
         //If courier not found , throw exception
-        if (index != -1)
+        if (index == -1)
         {
-            throw new Exception($"courier with Id: {item.Id} exist");
+            throw new Exception($"courier with Id: {item.Id} dos'nt exist");
         }
 
         // If found, remove the old courier and add the updated one
         else
         {
-            DataSource.couriers.Add (item);
+            DataSource.couriers[index] = item;
         }
     }
 }
