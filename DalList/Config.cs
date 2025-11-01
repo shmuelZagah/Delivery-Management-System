@@ -16,7 +16,7 @@ internal static class Config
     // --- SYSTEM DATA ---
     internal static DateTime Clock { get; set; } = DateTime.Now;  // Current simulation or system time
     internal static int ManagerId { get; set; }                   // Manager identification
-    internal static int ManagerPass { get; set; }                 // Manager password or passcode
+    internal static string ManagerPass { get; set; } = string.Empty;        // Manager password or passcode
 
     // --- COMPANY DETAILS ---
     internal static string? CompanyAddress { get; set; } = null;  // Company main address
@@ -27,6 +27,7 @@ internal static class Config
     // --- AVERAGE SPEEDS ---
     internal static double AvgCarSpeed { get; set; }              // Average car speed (km/h)
     internal static double AvgMotocyclerSpeed { get; set; }       // Average motorcycle speed (km/h)
+    internal static double AvgBicycleSpeed { get; set; }          // Average Bicycle speed (km/h)
     internal static double AvgWalkingSpeed { get; set; }          // Average walking speed (km/h)
 
     // --- TIME RANGES ---
@@ -37,7 +38,6 @@ internal static class Config
     // --- RESET FUNCTION ---
     /// <summary>
     /// Resets all configuration values to their default state.
-    /// Used for testing or restarting the system with clean settings.
     /// </summary>
     internal static void Reset()
     {
@@ -66,6 +66,6 @@ internal static class Config
 
         // Reset manager data
         ManagerId = 0;
-        ManagerPass = 0;
+        ManagerPass = string.Empty;
     }
 }

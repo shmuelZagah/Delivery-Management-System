@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace Dal;
-
+﻿namespace Dal;
 using DalApi;
 using DO;
 
@@ -26,7 +18,7 @@ public class OrderImplementation : IOrder
         Order newOrder = item with { Id = Config.NextOrderId };
 
         DataSource.orders.Add(newOrder);
-         
+
     }
     public Order? Read(int id)
     {
@@ -52,7 +44,7 @@ public class OrderImplementation : IOrder
     public void Delete(int id)
     {
 
-        Order? toDel = DataSource.orders.Find( x => x.Id == id);
+        Order? toDel = DataSource.orders.Find(x => x.Id == id);
         if (toDel == null)
         {
             throw new Exception($"Order with ID {id} does not exist.");
@@ -63,7 +55,7 @@ public class OrderImplementation : IOrder
             DataSource.orders.Remove(toDel);
         }
 
-        }
+    }
 
     public void DeleteAll()
     {
