@@ -118,7 +118,7 @@ public static class Intialization
             int range = (s_DalConfig.Clock - startBase).Days;
             DateTime employmentStartTime = startBase.AddDays(s_rand.Next(range));
 
-            s_DalCourier.Update(new DO.Courier
+            s_DalCourier!.Create(new DO.Courier
             {
                 Id = id,
                 Name = name,
