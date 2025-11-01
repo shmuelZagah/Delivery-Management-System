@@ -22,20 +22,64 @@ internal class ConfigImplementation : IConfig
         get => Config.ManagerPass;
         set => Config.ManagerPass = value;
     }
-    public string? CompanyAddress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public double? Latitude { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public double? Longitude { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public double? MaxAirRange { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public double AvgCarSpeed { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public double AvgMotocyclerSpeed { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public double AvgBicycleSpeed { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public double AvgWalkingSpeed { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public TimeSpan maxSupplayTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public TimeSpan RiskRange { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public TimeSpan UnactivityRange { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public string? CompanyAddress
+    {
+        get => Config.CompanyAddress;
+        set => Config.CompanyAddress = value;
+    }
+    public double? Latitude
+    {
+        get => Config.Latitude;
+        set => Config.Latitude = value;
+    }
+    public double? Longitude
+    {
+        get => Config.Longitude;
+        set => Config.Longitude = value;
+    }
+    public double? MaxAirRange
+    {
+        get => Config.MaxAirRange;
+        set => Config.MaxAirRange = value;
+    }
+    public double AvgCarSpeed
+    {
+        get => Config.AvgCarSpeed;
+        set => Config.AvgCarSpeed = value;
+    }
+    public double AvgMotocyclerSpeed
+    {
+        get => Config.AvgMotocyclerSpeed;
+        set => Config.AvgMotocyclerSpeed = value;
+    }
+    public double AvgBicycleSpeed
+    {
+        get => Config.AvgBicycleSpeed;
+        set => Config.AvgBicycleSpeed = value;
+    }
+    public double AvgWalkingSpeed
+    {
+        get=>Config.AvgWalkingSpeed;
+        set => Config.AvgWalkingSpeed = value;
+    }
+    public TimeSpan maxSupplayTime
+    {
+        get => Config.maxSupplayTime;
+        set => Config.maxSupplayTime = value;
+    }
+    public TimeSpan RiskRange
+    {
+        get => Config.RiskRange;
+        set => Config.RiskRange = value;
+    }
+    public TimeSpan UnactivityRange
+    {
+        get => Config.UnactivityRange;
+        set => Config.UnactivityRange = value;
+    }
 
     public void Reset()
     {
-        throw new NotImplementedException();
+        Config.Reset();
     }
 }
