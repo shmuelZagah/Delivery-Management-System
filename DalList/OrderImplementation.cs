@@ -8,13 +8,7 @@ public class OrderImplementation : IOrder
     public void Create(Order item)
     {
 
-        // looking if there is any existing id
-        if (DataSource.orders.Exists(x => x.Id == item.Id))
-        {
-            throw new Exception($"Order with ID {item.Id} already exists.");
-        }
-
-        //creating a copy and adding the item
+       //creating a copy and adding the item
         Order newOrder = item with { Id = Config.NextOrderId };
 
         DataSource.orders.Add(newOrder);
