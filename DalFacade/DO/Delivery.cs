@@ -6,7 +6,7 @@
 /// <param name="Id">Unique ID of the delivery entity (running ID) (main key).</param>
 /// <param name="OrderId">Unique ID of the order being delivered (same Id of the Order.id).</param>
 /// <param name="CourierId">ID of the courier handling the delivery.</param>
-/// <param name="DeliveryType">Type of delivery (enum).</param>
+/// <param name="DeliveryType">Type of delivery (car/foot...).</param>
 /// <param name="StartTime">Time when the delivery started.</param>
 /// <param name="DistanceKm">Actual distance traveled in km (nullable).</param>
 /// <param name="DeliveryEndType">(Null=not end yet,Cancelled,Finished) (enum, nullable).</param>
@@ -16,7 +16,7 @@ public record Delivery
     int Id,
     int OrderId,
     int CourierId,
-    DeliveryType DeliveryType,
+    ShipmentType DeliveryType,
     DateTime StartTime,
     double? DistanceKm,
     DeliveryEndType? DeliveryEndType,
@@ -31,7 +31,7 @@ public record Delivery
             0,                      // Id
             0,                      // OrderId
             0,                      // CourierId
-            DeliveryType.Standard,  // DeliveryType
+            ShipmentType.Foot,      // DeliveryType
             DateTime.Now,           // StartTime
             null,                   // DistanceKm
             null,                   // DeliveryEndType

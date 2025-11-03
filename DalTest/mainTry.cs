@@ -89,7 +89,7 @@ internal class MainTry
         {
             case MainMenuOption.INIT_DB:
                 Console.WriteLine("Initializing database (random data)...");
-                Intialization.Do(courierDal, deliveryDal, orderDal, configDal);
+                Initialization.Do(courierDal, deliveryDal, orderDal, configDal);
                 Console.WriteLine("Initialization done.");
                 break;
 

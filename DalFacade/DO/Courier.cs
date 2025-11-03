@@ -24,7 +24,7 @@ public record Courier
     string Password,
     string Address,
     bool IsActive,
-    double? PersonalMaxWeightKg,
+    double? PersonalMaxDistance,
     ShipmentType PreferredShipmentType,
     DateTime EmploymentStartTime
 )
