@@ -53,7 +53,7 @@ enum ConfigMenuOption
 
 #endregion
 
-internal class MainTry
+internal class Program
 {
     // DAL objects
     private static ICourier courierDal = new CourierImplemention();
@@ -67,13 +67,19 @@ internal class MainTry
 
         while (true)
         {
-            PrintMainMenu();
-            int choice = ReadIntInRange(0, 5, "Enter your choice (0-5): ");
-
-            if ((MainMenuOption)choice == MainMenuOption.EXIT)
-                break;
-
-            HandleMainMenu(choice);
+            try { 
+                PrintMainMenu();
+                int choice = ReadIntInRange(0, 5, "Choose main menu option (0-5): ");
+                if (choice == (int)MainMenuOption.EXIT)
+                    break;
+                HandleMainMenu(choice);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\n------------Error: {ex.Message}---------------\n");
+                continue;
+            }
+            
         }
 
         Console.WriteLine("Bye 👋");
@@ -85,9 +91,12 @@ internal class MainTry
     {
         MainMenuOption option = (MainMenuOption)choice;
 
+
+
         switch (option)
         {
             case MainMenuOption.INIT_DB:
+              
                 Console.WriteLine("Initializing database (random data)...");
                 Initialization.Do(courierDal, deliveryDal, orderDal, configDal);
                 Console.WriteLine("Initialization done.");
@@ -141,7 +150,8 @@ internal class MainTry
 
             if (option == EntityMenuOption.BACK)
                 break;
-
+            
+          
             switch (option)
             {
                 case EntityMenuOption.COURIER:
@@ -182,32 +192,41 @@ internal class MainTry
             if (option == CrudMenuOption.BACK)
                 break;
 
-            switch (option)
+            try
             {
-                case CrudMenuOption.CREATE:
-                    CreateEntity(entityName);
-                    break;
+                switch (option)
+                {
+                    case CrudMenuOption.CREATE:
+                        CreateEntity(entityName);
+                        break;
 
-                case CrudMenuOption.READ_ALL:
-                    ReadAllEntities(entityName);
-                    break;
+                    case CrudMenuOption.READ_ALL:
+                        ReadAllEntities(entityName);
+                        break;
 
-                case CrudMenuOption.READ_BY_ID:
-                    ReadEntityById(entityName);
-                    break;
+                    case CrudMenuOption.READ_BY_ID:
+                        ReadEntityById(entityName);
+                        break;
 
-                case CrudMenuOption.UPDATE:
-                    UpdateEntity(entityName);
-                    break;
+                    case CrudMenuOption.UPDATE:
+                        UpdateEntity(entityName);
+                        break;
 
-                case CrudMenuOption.DELETE:
-                    DeleteEntity(entityName);
-                    break;
+                    case CrudMenuOption.DELETE:
+                        DeleteEntity(entityName);
+                        break;
 
-                case CrudMenuOption.DELETE_ALL:
-                    DeleteAllEntities(entityName);
-                    break;
+                    case CrudMenuOption.DELETE_ALL:
+                        DeleteAllEntities(entityName);
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\n------------Error: {ex.GetType} , {ex.Message}---------------\n");
+                continue;
+            }
+             
         }
     }
 
@@ -301,7 +320,23 @@ internal class MainTry
     static void CreateEntity(string entityName)
     {
         Console.WriteLine($"[stub] Create {entityName} here...");
-        // כאן תוכל לקרוא ל-courierDal.Create(...) וכן הלאה
+        
+
+        if(entityName == "Courier")
+        {
+            courierDal.Create(BuildCourierFromInput());
+
+        }
+        if (entityName == "Delivery")
+        {
+            Console.WriteLine("cannot create delivery from user input yet");
+        }
+        if(entityName == "Order")
+        {
+            orderDal.Create(BuildOrderFromInput());
+        }
+
+
     }
 
     static void ReadAllEntities(string entityName)
@@ -332,24 +367,36 @@ internal class MainTry
         if (entityName == "Courier")
         {
             var c = courierDal.Read(id);
-            Console.WriteLine(c == null ? "Not found" : $"{c.Id} | {c.Name} | {c.Phone}");
+            Console.WriteLine( $"{c!.Id} | {c.Name} | {c.Phone}");
         }
         else if (entityName == "Delivery")
         {
             var d = deliveryDal.Read(id);
-            Console.WriteLine(d == null ? "Not found" : $"{d.Id} | {d.OrderId} | {d.CourierId}");
+            Console.WriteLine($"{d!.Id} | {d.OrderId} | {d.CourierId}");
         }
         else if (entityName == "Order")
         {
             var o = orderDal.Read(id);
-            Console.WriteLine(o == null ? "Not found" : $"{o.Id} | {o.CustomerName} | {o.FullAddress}");
+            Console.WriteLine($"{o!.Id} | {o.CustomerName} | {o.FullAddress}");
         }
     }
 
     static void UpdateEntity(string entityName)
     {
         Console.WriteLine($"[stub] Update {entityName}...");
-        // תוכל להשלים לפי הדרישה
+        if (entityName == "Courier")
+        {
+            courierDal.Update(BuildCourierFromInput());
+
+        }
+        if (entityName == "Delivery")
+        {
+            Console.WriteLine("cannot create delivery from user input yet");
+        }
+        if (entityName == "Order")
+        {
+            orderDal.Create(BuildOrderFromInput());
+        }
     }
 
     static void DeleteEntity(string entityName)
@@ -408,4 +455,160 @@ internal class MainTry
             Console.WriteLine("Invalid input, try again.");
         }
     }
+
+    // ================= CREATE FUNCTIONS =================
+
+static Courier BuildCourierFromInput()
+{
+
+        int id;
+    Console.WriteLine("\n--- Enter Courier Details ---");
+
+    Console.Write("Id ");
+        while (true)
+        {
+            if (int.TryParse(Console.ReadLine(), out id)) break;
+
+        }
+
+        Console.Write("Full name: ");
+    string name = Console.ReadLine()?.Trim() ?? "";
+
+    Console.Write("Phone (e.g. 050-1234567): ");
+    string phone = Console.ReadLine()?.Trim() ?? "";
+
+    Console.Write("Email: ");
+    string email = Console.ReadLine()?.Trim() ?? "";
+
+    Console.Write("Password: ");
+    string password = Console.ReadLine()?.Trim() ?? "";
+
+    Console.Write("Address: ");
+    string address = Console.ReadLine()?.Trim() ?? "";
+
+    bool isActive = false;
+    while (true)
+    {
+        Console.Write("Is the courier active? (y/n): ");
+        string? activeInput = Console.ReadLine()?.Trim().ToLower();
+        if (activeInput == "y") { isActive = true; break; }
+        if (activeInput == "n") { isActive = false; break; }
+        Console.WriteLine("❌ Please enter 'y' or 'n'.");
+    }
+
+    Console.Write("Enter personal max distance (km, or leave empty): ");
+    string? distInput = Console.ReadLine()?.Trim();
+    double? personalMaxDistance = null;
+    if (double.TryParse(distInput, out double distance))
+        personalMaxDistance = distance;
+
+    Console.WriteLine("\nSelect preferred shipment type:");
+    Console.WriteLine("1. Foot");
+    Console.WriteLine("2. Bicycle");
+    Console.WriteLine("3. Motorcycle");
+    Console.WriteLine("4. Car");
+    ShipmentType preferredType;
+    while (true)
+    {
+        Console.Write("Your choice (1-4): ");
+        if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1 && choice <= 4)
+        {
+            preferredType = (ShipmentType)(choice - 1);
+            break;
+        }
+        Console.WriteLine("❌ Invalid input. Please enter 1–4.");
+    }
+
+    DateTime employmentStart = DateTime.Now;
+
+    // יצירת האובייקט בפועל
+    Courier courier = new Courier
+    {
+        Id = id,
+        Name = name,
+        Phone = phone,
+        Email = email,
+        Password = password,
+        Address = address,
+        IsActive = isActive,
+        PersonalMaxDistance = personalMaxDistance,
+        PreferredShipmentType = preferredType,
+        EmploymentStartTime = employmentStart
+    };
+
+    Console.WriteLine($"\n✅ Courier created successfully: {courier.Name} (ID: {courier.Id})");
+
+    return courier;
 }
+
+static Order BuildOrderFromInput()
+{
+    Console.WriteLine("\n--- Enter Order Details ---");
+    Console.WriteLine("Select order type:");
+    Console.WriteLine("1. Regular");
+    Console.WriteLine("2. Express");
+    Console.WriteLine("3. SameDay"); // תתאים לערכים האמיתיים שלך
+    OrderType orderType;
+    while (true)
+    {
+        Console.Write("Your choice (1-3): ");
+        if (int.TryParse(Console.ReadLine(), out int t) &&
+            t >= 1 && t <= 3)
+        {
+            orderType = (OrderType)(t - 1);
+            break;
+        }
+        Console.WriteLine("❌ Invalid input. Please enter 1–3.");
+    }
+
+    Console.Write("Description (or empty): ");
+    string? description = Console.ReadLine();
+
+    Console.Write("Full address: ");
+    string fullAddress = Console.ReadLine() ?? "";
+
+    Console.Write("Latitude (or empty for default 32.0): ");
+    string? latInput = Console.ReadLine();
+    double latitude = 32.0;
+    if (double.TryParse(latInput, out double lat))
+        latitude = lat;
+
+    Console.Write("Longitude (or empty for default 35.0): ");
+    string? lonInput = Console.ReadLine();
+    double longitude = 35.0;
+    if (double.TryParse(lonInput, out double lon))
+        longitude = lon;
+
+    Console.Write("Customer name: ");
+    string customerName = Console.ReadLine() ?? "";
+
+    Console.Write("Customer phone: ");
+    string customerPhone = Console.ReadLine() ?? "";
+
+    Console.Write("Notes (or empty): ");
+    string? notes = Console.ReadLine();
+
+    DateTime creationTime = DateTime.Now;
+
+        Order order = new Order
+        {
+            Id = 0,
+            OrderType = orderType,
+            Description = description,
+            FullAddress = fullAddress,
+            Latitude = latitude,
+            Longitude = longitude,
+            CustomerName = customerName,
+            CustomerPhone = customerPhone,
+            Notes = notes,
+            OrderCreationTime = creationTime
+        };
+
+    Console.WriteLine($"\n✅ Order created: Id={order.Id}, Customer={order.CustomerName}");
+
+    return order;
+}
+
+
+}
+

@@ -7,10 +7,7 @@ public class DeliveryImplemention : IDelivery
 {
     public void Create(Delivery item)
     {
-        //check if delivery with same ID already exists
-        if (DataSource.deliveries.Exists(deliver => deliver.Id == item.Id))
-            throw new Exception($"Delivery with ID {item.Id} already exists.");
-
+        
         //create new delivery with new ID
         Delivery delivery = item with { Id = Config.NextDeliveryId };
 
