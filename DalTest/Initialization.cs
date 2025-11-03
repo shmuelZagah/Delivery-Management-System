@@ -205,14 +205,16 @@ public static class Initialization
             ("Kfar Malal, HaShaked 1", 32.0550, 34.9300),
             ("Rosh HaAyin, Hamoshava 5", 32.1060, 34.9510),
             ("Hadera, Bilu 3", 32.4290, 34.9120),
-            ("Sderot, Hagefen 8", 31.5195, 34.5996)
+            ("Sderot, Hagefen 8", 31.5195, 34.5996),
+             ("Rosh HaAyin, Hamoshava 5", 32.1060, 34.9510),
+             ("Hod Hasharon, Sokolov 7", 32.1510, 34.9020)
         };
 
         DO.OrderType[] orderTypes = Enum.GetValues<DO.OrderType>();
 
         foreach (var customer in customers)
         {
-
+            if (addressPool.Count == 0) break;
             int addrIndex = s_rand.Next(addressPool.Count);
             var chosenAddress = addressPool[addrIndex];
             addressPool.RemoveAt(addrIndex); 

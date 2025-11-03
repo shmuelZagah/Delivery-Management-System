@@ -8,15 +8,6 @@ public class OrderImplementation : IOrder
     public void Create(Order item)
     {
 
-       //creating a copy and adding the item
-        }
-
-        //creating a copy and adding the item
-        }
-
-        //creating a copy and adding the item
-        }
-
         //creating a copy and adding the item
         Order newOrder = item with { Id = Config.NextOrderId };
 
