@@ -468,6 +468,7 @@ static Courier BuildCourierFromInput()
         while (true)
         {
             if (int.TryParse(Console.ReadLine(), out id)) break;
+            Console.WriteLine("❌ Invalid input. Please enter a valid integer for Id.");
 
         }
 
