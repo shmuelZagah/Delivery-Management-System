@@ -56,8 +56,8 @@ enum ConfigMenuOption
 internal class Program
 {
     // DAL objects
-    private static ICourier courierDal = new CourierImplemention();
-    private static IDelivery deliveryDal = new DeliveryImplemention();
+    private static ICourier courierDal = new CourierImplementation();
+    private static IDelivery deliveryDal = new DeliveryImplementation();
     private static IOrder orderDal = new OrderImplementation();
     private static IConfig configDal = new ConfigImplementation();
 

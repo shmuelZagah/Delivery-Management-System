@@ -1,6 +1,7 @@
 ﻿namespace DalTest;
 using DalApi;
 using DO;
+using System.Diagnostics.Metrics;
 
 public static class Initialization
 {
@@ -250,7 +251,7 @@ public static class Initialization
         List<DO.Order> orders = s_dalOrder!.ReadAll();
 
 
-        for (int i = 0; i < couriers.Count(); i++)
+        foreach (var cour in couriers)
         {
             // --- Assign related order and courier ---
             var randomOrder = orders[s_rand.Next(orders.Count)];

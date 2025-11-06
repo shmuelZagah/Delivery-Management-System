@@ -2,7 +2,7 @@
 using DalApi;
 using DO;
 
-public class CourierImplemention : ICourier
+internal class CourierImplementation : ICourier
 {
     public void Create(Courier item)
     {
