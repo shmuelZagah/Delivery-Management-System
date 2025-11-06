@@ -1,9 +1,8 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using System.Collections.Generic;
 
-public class DeliveryImplemention : IDelivery
+internal class DeliveryImplementation : IDelivery
 {
     public void Create(Delivery item)
     {
