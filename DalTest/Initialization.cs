@@ -6,10 +6,12 @@ using System.Diagnostics.Metrics;
 public static class Initialization
 {
 
-    private static IConfig? s_dalConfig;
-    private static ICourier? s_dalCourier;
-    private static IDelivery? s_dalDelivery;
-    private static IOrder? s_dalOrder;
+    //private static IConfig? s_dalConfig; //stage1
+    //private static ICourier? s_dalCourier; //stage1
+    //private static IDelivery? s_dalDelivery; //stage1
+    //private static IOrder? s_dalOrder; //stage1
+
+    private static IDal? s_dal;
 
 
     const int MINID = 200000000;
@@ -18,24 +20,27 @@ public static class Initialization
     private static readonly Random s_rand = new();
 
     public static void Do(
-    ICourier? dalCourier,
-    IDelivery? dalDelivery,
-    IOrder? dalOrder,
-    IConfig? dalConfig)
+    //ICourier? dalCourier, //stage1
+    //IDelivery? dalDelivery, 
+    //IOrder? dalOrder,
+    //IConfig? dalConfig
+
+        IDal? dal
+        
+        )
     {
         // store refs
-        s_dalCourier = dalCourier ?? throw new NullReferenceException("DAL courier cannot be null!");
-        s_dalDelivery = dalDelivery ?? throw new NullReferenceException("DAL delivery cannot be null!");
-        s_dalOrder = dalOrder ?? throw new NullReferenceException("DAL order cannot be null!");
-        s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL config cannot be null!");
+        //s_dalCourier = dalCourier ?? throw new NullReferenceException("DAL courier cannot be null!"); //stage1
+        //s_dalDelivery = dalDelivery ?? throw new NullReferenceException("DAL delivery cannot be null!");
+        //s_dalOrder = dalOrder ?? throw new NullReferenceException("DAL order cannot be null!");
+        //s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL config cannot be null!");
+
+        s_dal = dal ?? throw new NullReferenceException("DAL courier cannot be null!");
 
         Console.WriteLine("Reset configuration and lists...");
 
         // stage 1 reset
-        s_dalConfig.Reset();
-        s_dalCourier.DeleteAll();
-        s_dalDelivery.DeleteAll();
-        s_dalOrder.DeleteAll();
+        s_dal.ResetDB();
 
         Console.WriteLine("Create initial data...");
 
@@ -50,30 +55,30 @@ public static class Initialization
     private static void createConfig()
     {
 
-        s_dalConfig!.Clock = new DateTime(2000, 1, 1);
+        s_dal!.Config.Clock = new DateTime(2000, 1, 1);
 
         // company address roughly in central Israel
-        s_dalConfig.CompanyAddress = "Company HQ, Tel Aviv";
+        s_dal!.Config.CompanyAddress = "Company HQ, Tel Aviv";
 
         // realistic coords for company (Tel Aviv)
-        s_dalConfig.Latitude = 32.0853;
-        s_dalConfig.Longitude = 34.7818;
+        s_dal!.Config.Latitude = 32.0853;
+        s_dal!.Config.Longitude = 34.7818;
 
 
         // ranges and speeds
-        s_dalConfig.MaxAirRange = 40; // km - company committed max delivery radius
-        s_dalConfig.AvgCarSpeed = 60;           // km/h
-        s_dalConfig.AvgMotocyclerSpeed = 45;    // km/h
-        s_dalConfig.AvgWalkingSpeed = 5;        // km/h
-        s_dalConfig.AvgBicycleSpeed = 15;       // km/h
+        s_dal!.Config.MaxAirRange = 40; // km - company committed max delivery radius
+        s_dal!.Config.AvgCarSpeed = 60;           // km/h
+        s_dal!.Config.AvgMotocyclerSpeed = 45;    // km/h
+        s_dal!.Config.AvgWalkingSpeed = 5;        // km/h
+        s_dal!.Config.AvgBicycleSpeed = 15;       // km/h
 
 
-        s_dalConfig.maxSupplayTime = TimeSpan.FromMinutes(180);
-        s_dalConfig.RiskRange = TimeSpan.FromMinutes(15);
-        s_dalConfig.UnactivityRange = TimeSpan.FromHours(2);
+        s_dal!.Config.maxSupplayTime = TimeSpan.FromMinutes(180);
+        s_dal!.Config.RiskRange = TimeSpan.FromMinutes(15);
+        s_dal!.Config.UnactivityRange = TimeSpan.FromHours(2);
 
-        s_dalConfig.ManagerId = s_rand.Next(1000, 9999);
-        s_dalConfig.ManagerPass = "admin" + s_rand.Next(100, 999);
+        s_dal!.Config.ManagerId = s_rand.Next(1000, 9999);
+        s_dal!.Config.ManagerPass = "admin" + s_rand.Next(100, 999);
 
     }
 
@@ -98,7 +103,7 @@ public static class Initialization
             do
             {
                 id = s_rand.Next(MINID, MAXID);
-            } while (s_dalCourier!.Read(id) != null);
+            } while (s_dal!.Courier!.Read(id) != null);
 
             string phone = "05" + s_rand.Next(0, 9) + "-" + s_rand.Next(1000000, 9999999);
 
@@ -116,11 +121,11 @@ public static class Initialization
             DO.ShipmentType[] types = Enum.GetValues<DO.ShipmentType>();
             DO.ShipmentType preferredType = types[s_rand.Next(types.Length)];
 
-            DateTime startBase = new DateTime(s_dalConfig!.Clock.Year - 2, 1, 1);
-            int range = (s_dalConfig.Clock - startBase).Days;
+            DateTime startBase = new DateTime(s_dal!.Config!.Clock.Year - 2, 1, 1);
+            int range = (s_dal!.Config.Clock - startBase).Days;
             DateTime employmentStartTime = startBase.AddDays(s_rand.Next(range));
 
-            s_dalCourier!.Create(new DO.Courier
+            s_dal!.Courier!.Create(new DO.Courier
             {
                 Id = id,
                 Name = name,
@@ -220,12 +225,12 @@ public static class Initialization
             var chosenAddress = addressPool[addrIndex];
             addressPool.RemoveAt(addrIndex); 
 
-            DateTime orderCreationTime = s_dalConfig!.Clock.AddDays(-s_rand.Next(1, 60)).AddMinutes(-s_rand.Next(0, 1440));
+            DateTime orderCreationTime = s_dal!.Config!.Clock.AddDays(-s_rand.Next(1, 60)).AddMinutes(-s_rand.Next(0, 1440));
             string customerPhone = "05" + s_rand.Next(0, 9) + "-" + s_rand.Next(1000000, 9999999);
             string? notes = s_rand.Next(0, 100) < 20 ? "Leave at the door" : null;
             DO.OrderType type = orderTypes[s_rand.Next(orderTypes.Length)];
 
-            s_dalOrder!.Create(new DO.Order
+            s_dal!.Order!.Create(new DO.Order
             {
                 Id = 0,
                 OrderType = type,
@@ -247,8 +252,8 @@ public static class Initialization
         DO.ShipmentType[] deliveryTypes = Enum.GetValues<DO.ShipmentType>();
         DO.DeliveryEndType[] endTypes = Enum.GetValues<DO.DeliveryEndType>();
 
-        List<DO.Courier> couriers = s_dalCourier!.ReadAll();
-        List<DO.Order> orders = s_dalOrder!.ReadAll();
+        List<DO.Courier> couriers = s_dal!.Courier!.ReadAll();
+        List<DO.Order> orders = s_dal!.Order!.ReadAll();
 
 
         foreach (var cour in couriers)
@@ -257,7 +262,7 @@ public static class Initialization
             var randomOrder = orders[s_rand.Next(orders.Count)];
 
             double? distanceKm = HaversineDistanceKm(randomOrder.Latitude, randomOrder.Longitude,
-                     s_dalConfig!.Latitude!.Value, s_dalConfig.Longitude!.Value);
+                     s_dal!.Config!.Latitude!.Value, s_dal!.Config.Longitude!.Value);
 
             //Create a list of all the couriers that are close enough to take the order
             var closeCouriers = couriers.Where(c => distanceKm <= c.PersonalMaxDistance).ToList();
@@ -276,22 +281,22 @@ public static class Initialization
             {
                 case ShipmentType.Foot:
                 case ShipmentType.Bicycle:
-                    distanceKm /= s_dalConfig.AvgWalkingSpeed;
+                    distanceKm /= s_dal!.Config.AvgWalkingSpeed;
                     break;
 
                 case ShipmentType.Car:
                 case ShipmentType.Motorcycle:
-                    distanceKm /= s_dalConfig.AvgCarSpeed;
+                    distanceKm /= s_dal!.Config.AvgCarSpeed;
                     break;
 
-                 default: distanceKm /= s_dalConfig.AvgWalkingSpeed;
+                 default: distanceKm /= s_dal!.Config.AvgWalkingSpeed;
                     break;
 
             }
 
             // --- Random start time based on system clock ---
-            DateTime startBase = new DateTime(s_dalConfig!.Clock.Year - 1, 1, 1);
-            int range = (s_dalConfig.Clock - startBase).Days;
+            DateTime startBase = new DateTime(s_dal!.Config!.Clock.Year - 1, 1, 1);
+            int range = (s_dal!.Config.Clock - startBase).Days;
             DateTime startTime = startBase.AddDays(s_rand.Next(range));
 
             // --- Randomly decide if delivery has ended ---
@@ -305,7 +310,7 @@ public static class Initialization
                 : null;
 
             // --- Create and add the new delivery ---
-            s_dalDelivery!.Create(new DO.Delivery
+            s_dal!.Delivery!.Create(new DO.Delivery
             {
                 Id = 0,                             //Id is runing number, no need to send value
                 OrderId = randomOrder.Id,
