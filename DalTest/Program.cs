@@ -395,7 +395,7 @@ internal class Program
         }
         if (entityName == "Order")
         {
-            s_dal.Order.Create(BuildOrderFromInput());
+            s_dal.Order.Update(BuildOrderFromInput());
         }
     }
 
