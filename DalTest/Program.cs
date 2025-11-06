@@ -56,10 +56,11 @@ enum ConfigMenuOption
 internal class Program
 {
     // DAL objects
-    private static ICourier courierDal = new CourierImplementation();
-    private static IDelivery deliveryDal = new DeliveryImplementation();
-    private static IOrder orderDal = new OrderImplementation();
-    private static IConfig configDal = new ConfigImplementation();
+    //private static ICourier courierDal = new CourierImplementation();              //stage 1
+    //private static IDelivery deliveryDal = new DeliveryImplementation();           //stage 1
+    //private static IOrder orderDal = new OrderImplementation();                    //stage 1
+    //private static IConfig configDal = new ConfigImplementation();                 //stage 1
+    static readonly IDal s_dal = new DalList();                                      //stage 2
 
     static void Main(string[] args)
     {
@@ -98,7 +99,8 @@ internal class Program
             case MainMenuOption.INIT_DB:
               
                 Console.WriteLine("Initializing database (random data)...");
-                Initialization.Do(courierDal, deliveryDal, orderDal, configDal);
+                //Initialization.Do(courierDal, deliveryDal, orderDal, configDal); //stage 1
+                Initialization.Do(s_dal); //stage 2
                 Console.WriteLine("Initialization done.");
                 break;
 
@@ -116,10 +118,7 @@ internal class Program
 
             case MainMenuOption.RESET_ALL:
                 Console.WriteLine("Resetting all data and config...");
-                configDal.Reset();
-                courierDal.DeleteAll();
-                deliveryDal.DeleteAll();
-                orderDal.DeleteAll();
+                s_dal.ResetDB();
                 Console.WriteLine("All data cleared.");
                 break;
         }
@@ -260,42 +259,43 @@ internal class Program
             {
                 case ConfigMenuOption.ADVANCE_MINUTES:
                     int m = ReadIntInRange(0, 10000, "Minutes to advance: ");
-                    configDal.Clock = configDal.Clock.AddMinutes(m);
-                    Console.WriteLine($"Clock: {configDal.Clock}");
+                    s_dal.Config.Clock = s_dal.Config.Clock.AddMinutes(m);
+                    Console.WriteLine($"Clock: {s_dal.Config.Clock}");
                     break;
 
                 case ConfigMenuOption.ADVANCE_HOURS:
                     int h = ReadIntInRange(0, 10000, "Hours to advance: ");
-                    configDal.Clock = configDal.Clock.AddHours(h);
-                    Console.WriteLine($"Clock: {configDal.Clock}");
+                    s_dal.Config.Clock = s_dal.Config.Clock.AddHours(h);
+                    Console.WriteLine($"Clock: {s_dal.Config.Clock}");
                     break;
 
                 case ConfigMenuOption.ADVANCE_DAYS:
                     int d = ReadIntInRange(0, 10000, "Days to advance: ");
-                    configDal.Clock = configDal.Clock.AddDays(d);
-                    Console.WriteLine($"Clock: {configDal.Clock}");
+                    s_dal.Config.Clock = s_dal.Config.Clock.AddDays(d);
+                    Console.WriteLine($"Clock: {s_dal.Config.Clock}");
                     break;
 
                 case ConfigMenuOption.SHOW_CLOCK:
-                    Console.WriteLine($"Current clock: {configDal.Clock}");
+                    Console.WriteLine($"Current clock: {s_dal.Config.Clock}");
                     break;
 
                 case ConfigMenuOption.SET_NEW_CONFIG:
                     Console.Write("Enter new company address: ");
-                    configDal.CompanyAddress = Console.ReadLine();
+                    s_dal.Config.CompanyAddress = Console.ReadLine();
                     Console.WriteLine("Updated.");
                     break;
 
                 case ConfigMenuOption.SHOW_CONFIG_VALUES:
-                    Console.WriteLine($"Clock: {configDal.Clock}");
-                    Console.WriteLine($"Company: {configDal.CompanyAddress}");
-                    Console.WriteLine($"Lat/Lon: {configDal.Latitude},{configDal.Longitude}");
-                    Console.WriteLine($"Speeds: car={configDal.AvgCarSpeed}, moto={configDal.AvgMotocyclerSpeed}, walk={configDal.AvgWalkingSpeed}");
+                    Console.WriteLine($"Clock: {s_dal.Config.Clock}");
+                    Console.WriteLine($"Company: {s_dal.Config.CompanyAddress}");
+                    Console.WriteLine($"Lat/Lon: {s_dal.Config.Latitude},{s_dal.Config.Longitude}");
+                    Console.WriteLine($"Speeds: car={s_dal.Config.AvgCarSpeed}, moto={s_dal.Config.AvgMotocyclerSpeed}, walk={s_dal.Config.AvgWalkingSpeed}");
                     break;
 
                 case ConfigMenuOption.RESET_CONFIG:
-                    configDal.Reset();
+                    s_dal.Config.Reset();
                     Console.WriteLine("Config reset.");
+
                     break;
             }
         }
@@ -324,7 +324,7 @@ internal class Program
 
         if(entityName == "Courier")
         {
-            courierDal.Create(BuildCourierFromInput());
+            s_dal.Courier.Create(BuildCourierFromInput());
 
         }
         if (entityName == "Delivery")
@@ -333,7 +333,7 @@ internal class Program
         }
         if(entityName == "Order")
         {
-            orderDal.Create(BuildOrderFromInput());
+            s_dal.Order.Create(BuildOrderFromInput());
         }
 
 
@@ -345,17 +345,17 @@ internal class Program
 
         if (entityName == "Courier")
         {
-            foreach (var c in courierDal.ReadAll())
+            foreach (var c in s_dal.Courier.ReadAll())
                 Console.WriteLine($"{c.Id} | {c.Name} | {c.Phone}");
         }
         else if (entityName == "Delivery")
         {
-            foreach (var d in deliveryDal.ReadAll())
+            foreach (var d in s_dal.Delivery.ReadAll())
                 Console.WriteLine($"{d.Id} | order={d.OrderId} | courier={d.CourierId}");
         }
         else if (entityName == "Order")
         {
-            foreach (var o in orderDal.ReadAll())
+            foreach (var o in s_dal.Order.ReadAll())
                 Console.WriteLine($"{o.Id} | {o.CustomerName} | {o.FullAddress}");
         }
     }
@@ -366,17 +366,17 @@ internal class Program
 
         if (entityName == "Courier")
         {
-            var c = courierDal.Read(id);
+            var c = s_dal.Courier.Read(id);
             Console.WriteLine( $"{c!.Id} | {c.Name} | {c.Phone}");
         }
         else if (entityName == "Delivery")
         {
-            var d = deliveryDal.Read(id);
+            var d = s_dal.Delivery.Read(id);
             Console.WriteLine($"{d!.Id} | {d.OrderId} | {d.CourierId}");
         }
         else if (entityName == "Order")
         {
-            var o = orderDal.Read(id);
+            var o = s_dal.Order.Read(id);
             Console.WriteLine($"{o!.Id} | {o.CustomerName} | {o.FullAddress}");
         }
     }
@@ -386,7 +386,7 @@ internal class Program
         Console.WriteLine($"[stub] Update {entityName}...");
         if (entityName == "Courier")
         {
-            courierDal.Update(BuildCourierFromInput());
+            s_dal.Courier.Update(BuildCourierFromInput());
 
         }
         if (entityName == "Delivery")
@@ -395,7 +395,7 @@ internal class Program
         }
         if (entityName == "Order")
         {
-            orderDal.Create(BuildOrderFromInput());
+            s_dal.Order.Create(BuildOrderFromInput());
         }
     }
 
@@ -404,11 +404,11 @@ internal class Program
         int id = ReadIntInRange(1, int.MaxValue, $"Enter {entityName} ID to delete: ");
 
         if (entityName == "Courier")
-            courierDal.Delete(id);
+            s_dal.Courier.Delete(id);
         else if (entityName == "Delivery")
-            deliveryDal.Delete(id);
+            s_dal.Delivery.Delete(id);
         else if (entityName == "Order")
-            orderDal.Delete(id);
+            s_dal.Order.Delete(id);
 
         Console.WriteLine("Deleted.");
     }
@@ -416,11 +416,11 @@ internal class Program
     static void DeleteAllEntities(string entityName)
     {
         if (entityName == "Courier")
-            courierDal.DeleteAll();
+            s_dal.Courier.DeleteAll();
         else if (entityName == "Delivery")
-            deliveryDal.DeleteAll();
+            s_dal.Delivery.DeleteAll();
         else if (entityName == "Order")
-            orderDal.DeleteAll();
+            s_dal.Order.DeleteAll();
 
         Console.WriteLine("All records deleted.");
     }
@@ -430,15 +430,15 @@ internal class Program
     static void ShowAllData()
     {
         Console.WriteLine("\n--- Couriers ---");
-        foreach (var c in courierDal.ReadAll())
+        foreach (var c in s_dal.Courier.ReadAll())
             Console.WriteLine($"{c.Id} | {c.Name}");
 
         Console.WriteLine("\n--- Deliveries ---");
-        foreach (var d in deliveryDal.ReadAll())
+        foreach (var d in s_dal.Delivery.ReadAll())
             Console.WriteLine($"{d.Id} | order={d.OrderId} | courier={d.CourierId}");
 
         Console.WriteLine("\n--- Orders ---");
-        foreach (var o in orderDal.ReadAll())
+        foreach (var o in s_dal.Order.ReadAll())
             Console.WriteLine($"{o.Id} | {o.CustomerName} | {o.FullAddress}");
     }
 
