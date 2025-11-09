@@ -252,8 +252,8 @@ public static class Initialization
         DO.ShipmentType[] deliveryTypes = Enum.GetValues<DO.ShipmentType>();
         DO.DeliveryEndType[] endTypes = Enum.GetValues<DO.DeliveryEndType>();
 
-        List<DO.Courier> couriers = s_dal!.Courier!.ReadAll();
-        List<DO.Order> orders = s_dal!.Order!.ReadAll();
+        List<DO.Courier> couriers = (List<Courier>)s_dal!.Courier!.ReadAll();
+        List<DO.Order> orders = (List<Order>)s_dal!.Order!.ReadAll();
 
 
         foreach (var cour in couriers)
