@@ -16,7 +16,8 @@ internal class OrderImplementation : IOrder
     }
     public Order? Read(int id)
     {
-        return DataSource.orders.Find(x => x.Id == id);
+        //return DataSource.orders.Find(x => x.Id == id); stage1
+        return DataSource.orders.FirstOrDefault(order => order.Id == id); //stage2
 
     }
     public List<Order> ReadAll()

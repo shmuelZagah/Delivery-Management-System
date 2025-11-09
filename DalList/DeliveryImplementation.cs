@@ -33,7 +33,8 @@ internal class DeliveryImplementation : IDelivery
 
     public Delivery? Read(int id)
     {
-        return DataSource.deliveries.Find(deliver => deliver.Id == id);
+        //return DataSource.deliveries.Find(deliver => deliver.Id == id); stage1
+        return DataSource.deliveries.FirstOrDefault(deliver => deliver.Id == id);
     }
 
     public List<Delivery> ReadAll()

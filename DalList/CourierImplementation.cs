@@ -31,7 +31,8 @@ internal class CourierImplementation : ICourier
 
     public Courier? Read(int id) 
     {
-        return DataSource.couriers.Find(courier => courier.Id == id);
+        // return DataSource.couriers.Find(courier => courier.Id == id);  stage1
+        return DataSource.couriers.FirstOrDefault(courier => courier.Id == id); //stage2
     }
     public List<Courier> ReadAll()
     {
