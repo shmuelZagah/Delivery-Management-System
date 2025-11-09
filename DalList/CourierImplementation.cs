@@ -34,10 +34,20 @@ internal class CourierImplementation : ICourier
         // return DataSource.couriers.Find(courier => courier.Id == id);  stage1
         return DataSource.couriers.FirstOrDefault(courier => courier.Id == id); //stage2
     }
-    public List<Courier> ReadAll()
-    {
-        return new List<Courier> (DataSource.couriers);
-    }
+    //public List<Courier> ReadAll() //stage1
+    //{
+    //    return new List<Courier> (DataSource.couriers);
+    //}
+
+    public IEnumerable<Courier> ReadAll(Func<Courier, bool>? filter = null) //stage 2 
+         => filter != null
+             ? from item in DataSource.couriers
+               where filter(item)
+               select item
+              : from item in DataSource.couriers
+              select item; 
+    
+
     public void Update(Courier item)
     {
         // Search for the courier with the specified Id

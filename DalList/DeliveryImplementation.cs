@@ -26,7 +26,7 @@ internal class DeliveryImplementation : IDelivery
         }
     }
 
-    public void DeleteAll()
+    public void DeleteAll() //stage1
     {
         DataSource.deliveries.Clear();
     }
@@ -37,10 +37,18 @@ internal class DeliveryImplementation : IDelivery
         return DataSource.deliveries.FirstOrDefault(deliver => deliver.Id == id);
     }
 
-    public List<Delivery> ReadAll()
-    {
-        return new List<Delivery>(DataSource.deliveries);
-    }
+    //public List<Delivery> ReadAll()
+    //{
+    //    return new List<Delivery>(DataSource.deliveries);
+    //}
+
+    public IEnumerable<Delivery> ReadAll(Func<Delivery, bool>? filter = null) //stage 2 
+     => filter != null
+         ? from item in DataSource.deliveries
+           where filter(item)
+           select item
+          : from item in DataSource.deliveries
+            select item;
 
     public void Update(Delivery item)
     {

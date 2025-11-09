@@ -20,10 +20,24 @@ internal class OrderImplementation : IOrder
         return DataSource.orders.FirstOrDefault(order => order.Id == id); //stage2
 
     }
-    public List<Order> ReadAll()
+
+    /* stage1
+      public List<Order> ReadAll()
     {
         return new List<Order>(DataSource.orders);
     }
+     
+     */
+
+
+    public IEnumerable<Order> ReadAll(Func<Order, bool>? filter = null) //stage 2 
+  => filter != null
+      ? from item in DataSource.orders
+        where filter(item)
+        select item
+       : from item in DataSource.orders
+         select item;
+
     public void Update(Order item)
     {
         int index = DataSource.orders.FindIndex(deliver => deliver.Id == item.Id);
