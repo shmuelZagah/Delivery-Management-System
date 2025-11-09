@@ -8,7 +8,7 @@ internal class CourierImplementation : ICourier
     {
         // Check if courier with the same Id already exists
         if (DataSource.couriers.Exists(courier => courier.Id == item.Id))
-            throw new Exception($"courier with Id: {item.Id} already  exist");
+            throw new DalAlreadyExistsException($"courier with Id: {item.Id} already  exist");
 
         //If not, add the new courier to the data source
         DataSource.couriers.Add(item);
@@ -20,7 +20,7 @@ internal class CourierImplementation : ICourier
 
         // If courier with the specified Id is not found, throw an exception
         if (courier == null) 
-            throw new Exception($"courier with Id: {id} dos'nt exist");
+            throw new DalDoesNotExistException($"courier with Id: {id} dos'nt exist");
 
         else DataSource.couriers.Remove(courier);
     }
@@ -59,7 +59,7 @@ internal class CourierImplementation : ICourier
         //If courier not found , throw exception
         if (index == -1)
         {
-            throw new Exception($"courier with Id: {item.Id} dos'nt exist");
+            throw new DalDoesNotExistException($"courier with Id: {item.Id} dos'nt exist");
         }
 
         // If found, remove the old courier and add the updated one

@@ -19,7 +19,7 @@ internal class DeliveryImplementation : IDelivery
         Delivery? delivery = DataSource.deliveries.Find(deliver => deliver.Id == id);
         if (delivery == null)
         {
-            throw new Exception($"Delivery with ID {id} does not exist.");
+            throw new DalDoesNotExistException($"Delivery with ID {id} does not exist.");
         }
         else
         {
@@ -59,7 +59,7 @@ internal class DeliveryImplementation : IDelivery
         int index = DataSource.deliveries.FindIndex(deliver => deliver.Id == item.Id);
         if (index == -1)
         {
-            throw new Exception($"Delivery with ID {item.Id} does not exist.");
+            throw new DalDoesNotExistException($"Delivery with ID {item.Id} does not exist.");
         }
         else
         {

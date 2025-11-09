@@ -10,7 +10,6 @@ internal class OrderImplementation : IOrder
 
         //creating a copy and adding the item
         Order newOrder = item with { Id = Config.NextOrderId };
-
         DataSource.orders.Add(newOrder);
 
     }
@@ -26,8 +25,8 @@ internal class OrderImplementation : IOrder
     {
         return new List<Order>(DataSource.orders);
     }
-     
      */
+
     public Order? Read(Func<Order, bool> filter) // stage 2
   => DataSource.orders.FirstOrDefault(deliver => filter(deliver));
 
@@ -58,7 +57,7 @@ internal class OrderImplementation : IOrder
         Order? toDel = DataSource.orders.Find(x => x.Id == id);
         if (toDel == null)
         {
-            throw new Exception($"Order with ID {id} does not exist.");
+            throw new DalDoesNotExistException($"Order with ID {id} does not exist.");
         }
 
         else
