@@ -39,6 +39,9 @@ internal class CourierImplementation : ICourier
     //    return new List<Courier> (DataSource.couriers);
     //}
 
+    public Courier? Read(Func<Courier, bool> filter) // stage 2
+  => DataSource.couriers.FirstOrDefault(deliver => filter(deliver));
+
     public IEnumerable<Courier> ReadAll(Func<Courier, bool>? filter = null) //stage 2 
          => filter != null
              ? from item in DataSource.couriers

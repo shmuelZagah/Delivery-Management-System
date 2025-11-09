@@ -1,6 +1,7 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Reflection.Metadata.Ecma335;
 
 internal class DeliveryImplementation : IDelivery
 {
@@ -42,7 +43,10 @@ internal class DeliveryImplementation : IDelivery
     //    return new List<Delivery>(DataSource.deliveries);
     //}
 
-    public IEnumerable<Delivery> ReadAll(Func<Delivery, bool>? filter = null) //stage 2 
+    public Delivery? Read(Func<Delivery, bool> filter) // stage 2
+    => DataSource.deliveries.FirstOrDefault(deliver => filter(deliver));
+
+    public IEnumerable<Delivery> ReadAll(Func<Delivery, bool>? filter = null) //stage 2
      => filter != null
          ? from item in DataSource.deliveries
            where filter(item)

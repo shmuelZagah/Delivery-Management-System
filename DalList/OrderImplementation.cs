@@ -28,6 +28,8 @@ internal class OrderImplementation : IOrder
     }
      
      */
+    public Order? Read(Func<Order, bool> filter) // stage 2
+  => DataSource.orders.FirstOrDefault(deliver => filter(deliver));
 
 
     public IEnumerable<Order> ReadAll(Func<Order, bool>? filter = null) //stage 2 
