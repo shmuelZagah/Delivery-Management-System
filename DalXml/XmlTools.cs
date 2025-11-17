@@ -29,6 +29,7 @@ static class XMLTools
             throw new DalXMLFileLoadCreateException($"fail to create xml file: {s_xmlDir + xmlFilePath}, {ex.Message}");
         }
     }
+    
     public static List<T> LoadListFromXMLSerializer<T>(string xmlFileName) where T : class
     {
         string xmlFilePath = s_xmlDir + xmlFileName;
@@ -45,6 +46,7 @@ static class XMLTools
             throw new DalXMLFileLoadCreateException($"fail to load xml file: {xmlFilePath}, {ex.Message}");
         }
     }
+    
     #endregion
 
     #region SaveLoadWithXElement
