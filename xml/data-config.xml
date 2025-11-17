@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 
+	<NextOrderId>0</NextOrderId>
+	<NextDeliveryId>0</NextDeliveryId>
+
 	<!-- SYSTEM DATA -->
 	<Clock>2025-01-01T00:00:00</Clock>
 	<ManagerId>1</ManagerId>

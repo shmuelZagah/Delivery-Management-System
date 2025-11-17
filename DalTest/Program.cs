@@ -61,8 +61,8 @@ internal class Program
     //private static IDelivery deliveryDal = new DeliveryImplementation();           //stage 1
     //private static IOrder orderDal = new OrderImplementation();                    //stage 1
     //private static IConfig configDal = new ConfigImplementation();                 //stage 1
-    static readonly IDal s_dal = new DalList();                                      //stage 2
-
+    //static readonly IDal s_dal = new DalList();                                      //stage 2
+    static readonly IDal s_dal = new DalXml(); // stage 3
     static void Main(string[] args)
     {
         Console.WriteLine("=== DAL Test Start ===");
