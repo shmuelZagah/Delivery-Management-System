@@ -1,29 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
-
-	<NextOrderId>0</NextOrderId>
-	<NextDeliveryId>0</NextDeliveryId>
-
-	<!-- SYSTEM DATA -->
-	<Clock>2025-01-01T00:00:00</Clock>
-	<ManagerId>1</ManagerId>
-	<ManagerPass></ManagerPass>
-
-	<!-- COMPANY DETAILS -->
-	<CompanyAddress></CompanyAddress>
-	<Latitude></Latitude>
-	<Longitude></Longitude>
-	<MaxAirRange></MaxAirRange>
-
-	<!-- AVERAGE SPEEDS -->
-	<AvgCarSpeed>0</AvgCarSpeed>
-	<AvgMotocyclerSpeed>0</AvgMotocyclerSpeed>
-	<AvgBicycleSpeed>0</AvgBicycleSpeed>
-	<AvgWalkingSpeed>0</AvgWalkingSpeed>
-
-	<!-- TIME RANGES -->
-	<maxSupplayTime>00:00:00</maxSupplayTime>
-	<RiskRange>00:00:00</RiskRange>
-	<UnactivityRange>00:00:00</UnactivityRange>
-
+  <NextOrderId>49</NextOrderId>
+  <NextDeliveryId>20</NextDeliveryId>
+  <!-- SYSTEM DATA -->
+  <Clock>01/01/2000 00:00:00</Clock>
+  <ManagerId>7838</ManagerId>
+  <ManagerPass>admin616</ManagerPass>
+  <!-- COMPANY DETAILS -->
+  <CompanyAddress>Company HQ, Tel Aviv</CompanyAddress>
+  <Latitude>32.0853</Latitude>
+  <Longitude>34.7818</Longitude>
+  <MaxAirRange>40</MaxAirRange>
+  <!-- AVERAGE SPEEDS -->
+  <AvgCarSpeed>60</AvgCarSpeed>
+  <AvgMotocyclerSpeed>45</AvgMotocyclerSpeed>
+  <AvgBicycleSpeed>15</AvgBicycleSpeed>
+  <AvgWalkingSpeed>5</AvgWalkingSpeed>
+  <!-- TIME RANGES -->
+  <maxSupplayTime>03:00:00</maxSupplayTime>
+  <RiskRange>00:15:00</RiskRange>
+  <UnactivityRange>02:00:00</UnactivityRange>
 </config>

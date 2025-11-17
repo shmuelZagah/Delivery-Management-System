@@ -1,3 +1,556 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfOrder>
+<ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Order>
+    <Id>0</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Clothes</Description>
+    <FullAddress>Tel Aviv, Rothschild Blvd 33</FullAddress>
+    <Latitude>32.0646</Latitude>
+    <Longitude>34.7756</Longitude>
+    <CustomerName>Alice Cohen</CustomerName>
+    <CustomerPhone>053-2464022</CustomerPhone>
+    <OrderCreationTime>1999-12-13T07:23:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>1</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Clothes</Description>
+    <FullAddress>Hod Hasharon, Sokolov 7</FullAddress>
+    <Latitude>32.151</Latitude>
+    <Longitude>34.902</Longitude>
+    <CustomerName>David Levi</CustomerName>
+    <CustomerPhone>056-2603637</CustomerPhone>
+    <OrderCreationTime>1999-11-07T05:25:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>2</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Clothes</Description>
+    <FullAddress>Tel Aviv, Jaffa St 12</FullAddress>
+    <Latitude>32.054</Latitude>
+    <Longitude>34.751</Longitude>
+    <CustomerName>Sarah Mizrahi</CustomerName>
+    <CustomerPhone>055-2216114</CustomerPhone>
+    <OrderCreationTime>1999-12-12T00:47:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>3</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Ramat Gan, Avnei Chen 3</FullAddress>
+    <Latitude>32.073</Latitude>
+    <Longitude>34.819</Longitude>
+    <CustomerName>Yossi Green</CustomerName>
+    <CustomerPhone>052-7813645</CustomerPhone>
+    <OrderCreationTime>1999-12-14T19:39:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>4</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Petah Tikva, Haim Ozer St 6</FullAddress>
+    <Latitude>32.0858</Latitude>
+    <Longitude>34.8878</Longitude>
+    <CustomerName>Noa Azulay</CustomerName>
+    <CustomerPhone>055-9617614</CustomerPhone>
+    <OrderCreationTime>1999-11-12T17:01:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>5</Id>
+    <OrderType>Heavy</OrderType>
+    <Description>Clothes</Description>
+    <FullAddress>Lod, Yitzhak Rabin St 8</FullAddress>
+    <Latitude>31.9454</Latitude>
+    <Longitude>34.8868</Longitude>
+    <CustomerName>Mike Stone</CustomerName>
+    <CustomerPhone>057-6487426</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-11-15T16:21:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>6</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Groceries</Description>
+    <FullAddress>Rosh HaAyin, Hamoshava 5</FullAddress>
+    <Latitude>32.106</Latitude>
+    <Longitude>34.951</Longitude>
+    <CustomerName>Tom Harel</CustomerName>
+    <CustomerPhone>052-4270219</CustomerPhone>
+    <OrderCreationTime>1999-11-16T11:05:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>7</Id>
+    <OrderType>Heavy</OrderType>
+    <Description>Clothes</Description>
+    <FullAddress>Tel Aviv, Arlozorov St 16</FullAddress>
+    <Latitude>32.0675</Latitude>
+    <Longitude>34.789</Longitude>
+    <CustomerName>Rachel Bloom</CustomerName>
+    <CustomerPhone>050-8508494</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-12-29T17:50:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>8</Id>
+    <OrderType>Express</OrderType>
+    <Description>Electronics</Description>
+    <FullAddress>Givatayim, Jabotinsky St 5</FullAddress>
+    <Latitude>32.0618</Latitude>
+    <Longitude>34.8079</Longitude>
+    <CustomerName>Ori Shalom</CustomerName>
+    <CustomerPhone>058-2794461</CustomerPhone>
+    <OrderCreationTime>1999-11-12T19:16:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>9</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Electronics</Description>
+    <FullAddress>Hadera, Bilu 3</FullAddress>
+    <Latitude>32.429</Latitude>
+    <Longitude>34.912</Longitude>
+    <CustomerName>Liat Azulay</CustomerName>
+    <CustomerPhone>054-4898203</CustomerPhone>
+    <OrderCreationTime>1999-12-07T15:40:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>10</Id>
+    <OrderType>Heavy</OrderType>
+    <Description>Clothes</Description>
+    <FullAddress>Yavne, Hagalil 14</FullAddress>
+    <Latitude>31.834</Latitude>
+    <Longitude>34.743</Longitude>
+    <CustomerName>Eli Ben-David</CustomerName>
+    <CustomerPhone>053-3291973</CustomerPhone>
+    <OrderCreationTime>1999-11-16T21:26:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>11</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Hod Hasharon, Sokolov 7</FullAddress>
+    <Latitude>32.151</Latitude>
+    <Longitude>34.902</Longitude>
+    <CustomerName>Dana Peretz</CustomerName>
+    <CustomerPhone>052-6458363</CustomerPhone>
+    <OrderCreationTime>1999-12-21T16:50:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>12</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Electronics</Description>
+    <FullAddress>Tel Aviv, Allenby St 40</FullAddress>
+    <Latitude>32.0717</Latitude>
+    <Longitude>34.7717</Longitude>
+    <CustomerName>Shir Avraham</CustomerName>
+    <CustomerPhone>053-8065642</CustomerPhone>
+    <OrderCreationTime>1999-11-16T19:10:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>13</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Books</Description>
+    <FullAddress>Kefar Sava, Em Hamoshavot 9</FullAddress>
+    <Latitude>32.164</Latitude>
+    <Longitude>34.905</Longitude>
+    <CustomerName>Guy Malka</CustomerName>
+    <CustomerPhone>054-3237351</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-11-08T08:20:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>14</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Books</Description>
+    <FullAddress>Kfar Saba, Haim Weizman 6</FullAddress>
+    <Latitude>32.1696</Latitude>
+    <Longitude>34.9076</Longitude>
+    <CustomerName>Roni Cohen</CustomerName>
+    <CustomerPhone>056-5388766</CustomerPhone>
+    <OrderCreationTime>1999-12-29T15:22:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>15</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Groceries</Description>
+    <FullAddress>Ra'anana, Hama'apilim 11</FullAddress>
+    <Latitude>32.183</Latitude>
+    <Longitude>34.872</Longitude>
+    <CustomerName>Nadav Bar</CustomerName>
+    <CustomerPhone>057-7620850</CustomerPhone>
+    <OrderCreationTime>1999-11-19T03:55:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>16</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Electronics</Description>
+    <FullAddress>Kfar Saba, Yitzhak Rabin Blvd 3</FullAddress>
+    <Latitude>32.1689</Latitude>
+    <Longitude>34.9065</Longitude>
+    <CustomerName>Gal Sharon</CustomerName>
+    <CustomerPhone>056-8135866</CustomerPhone>
+    <OrderCreationTime>1999-11-28T08:24:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>17</Id>
+    <OrderType>Express</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Tel Aviv, HaYarkon St 30</FullAddress>
+    <Latitude>32.0809</Latitude>
+    <Longitude>34.7713</Longitude>
+    <CustomerName>Eden Refael</CustomerName>
+    <CustomerPhone>050-2000181</CustomerPhone>
+    <OrderCreationTime>1999-12-11T01:35:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>18</Id>
+    <OrderType>Express</OrderType>
+    <Description>Books</Description>
+    <FullAddress>Rishon LeZion, Hativat Hanegev 4</FullAddress>
+    <Latitude>31.9736</Latitude>
+    <Longitude>34.7898</Longitude>
+    <CustomerName>Maya Hadad</CustomerName>
+    <CustomerPhone>058-6832291</CustomerPhone>
+    <OrderCreationTime>1999-12-07T04:24:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>19</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Electronics</Description>
+    <FullAddress>Herzliya, Herzl St 2</FullAddress>
+    <Latitude>32.1668</Latitude>
+    <Longitude>34.84</Longitude>
+    <CustomerName>Nir Tal</CustomerName>
+    <CustomerPhone>051-7827381</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-11-25T02:00:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>20</Id>
+    <OrderType>Express</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Bnei Brak, Jabotinsky 12</FullAddress>
+    <Latitude>32.0826</Latitude>
+    <Longitude>34.8286</Longitude>
+    <CustomerName>Hila Dayan</CustomerName>
+    <CustomerPhone>054-6504676</CustomerPhone>
+    <OrderCreationTime>1999-11-03T11:09:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>21</Id>
+    <OrderType>Heavy</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Tel Aviv, King George St 20</FullAddress>
+    <Latitude>32.0643</Latitude>
+    <Longitude>34.778</Longitude>
+    <CustomerName>Yarden Azulay</CustomerName>
+    <CustomerPhone>056-5899674</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-11-16T07:56:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>22</Id>
+    <OrderType>Express</OrderType>
+    <Description>Clothes</Description>
+    <FullAddress>Petah Tikva, Weizmann St 22</FullAddress>
+    <Latitude>32.086</Latitude>
+    <Longitude>34.898</Longitude>
+    <CustomerName>Daniel Cohen</CustomerName>
+    <CustomerPhone>054-8780164</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-12-28T05:19:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>23</Id>
+    <OrderType>Express</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Sderot, Hagefen 8</FullAddress>
+    <Latitude>31.5195</Latitude>
+    <Longitude>34.5996</Longitude>
+    <CustomerName>Ruth Levi</CustomerName>
+    <CustomerPhone>052-2226593</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-12-13T00:02:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>24</Id>
+    <OrderType>Heavy</OrderType>
+    <Description>Groceries</Description>
+    <FullAddress>Tel Aviv, Ben Yehuda St 120</FullAddress>
+    <Latitude>32.0865</Latitude>
+    <Longitude>34.7886</Longitude>
+    <CustomerName>Amir Segal</CustomerName>
+    <CustomerPhone>056-4164494</CustomerPhone>
+    <OrderCreationTime>1999-11-07T03:37:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>25</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Ashdod, Yefet St 5</FullAddress>
+    <Latitude>31.8014</Latitude>
+    <Longitude>34.6436</Longitude>
+    <CustomerName>Dikla Moyal</CustomerName>
+    <CustomerPhone>056-8295210</CustomerPhone>
+    <OrderCreationTime>1999-11-27T23:44:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>26</Id>
+    <OrderType>Express</OrderType>
+    <Description>Furniture</Description>
+    <FullAddress>Modi'in, HaPalmach 4</FullAddress>
+    <Latitude>31.9</Latitude>
+    <Longitude>35.0078</Longitude>
+    <CustomerName>Ben Shani</CustomerName>
+    <CustomerPhone>057-5507114</CustomerPhone>
+    <OrderCreationTime>1999-11-12T17:06:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>27</Id>
+    <OrderType>Express</OrderType>
+    <Description>Furniture</Description>
+    <FullAddress>Herzliya Pituach, Hayam St 5</FullAddress>
+    <Latitude>32.173</Latitude>
+    <Longitude>34.832</Longitude>
+    <CustomerName>Mor Chen</CustomerName>
+    <CustomerPhone>051-2077302</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-11-04T06:42:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>28</Id>
+    <OrderType>Heavy</OrderType>
+    <Description>Groceries</Description>
+    <FullAddress>Netanya, Herzl St 9</FullAddress>
+    <Latitude>32.3329</Latitude>
+    <Longitude>34.8596</Longitude>
+    <CustomerName>Tal Azulay</CustomerName>
+    <CustomerPhone>052-7437100</CustomerPhone>
+    <OrderCreationTime>1999-12-04T22:02:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>29</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Or Yehuda, Yad Harutzim 7</FullAddress>
+    <Latitude>32.031</Latitude>
+    <Longitude>34.842</Longitude>
+    <CustomerName>Idan Kaplan</CustomerName>
+    <CustomerPhone>051-5353399</CustomerPhone>
+    <OrderCreationTime>1999-11-03T05:29:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>30</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Furniture</Description>
+    <FullAddress>Rosh HaAyin, Hamoshava 5</FullAddress>
+    <Latitude>32.106</Latitude>
+    <Longitude>34.951</Longitude>
+    <CustomerName>Omer Levy</CustomerName>
+    <CustomerPhone>056-5777920</CustomerPhone>
+    <OrderCreationTime>1999-11-21T15:25:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>31</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Groceries</Description>
+    <FullAddress>Ramat Gan, Ahuza St 1</FullAddress>
+    <Latitude>32.0712</Latitude>
+    <Longitude>34.8123</Longitude>
+    <CustomerName>Neta Blum</CustomerName>
+    <CustomerPhone>050-2119475</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-11-21T03:38:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>32</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Electronics</Description>
+    <FullAddress>Holon, Ben Gurion 33</FullAddress>
+    <Latitude>32.019</Latitude>
+    <Longitude>34.7794</Longitude>
+    <CustomerName>Lior Gold</CustomerName>
+    <CustomerPhone>055-5178184</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-11-30T19:05:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>33</Id>
+    <OrderType>Express</OrderType>
+    <Description>Furniture</Description>
+    <FullAddress>Tel Aviv, Dizengoff St 100</FullAddress>
+    <Latitude>32.0799</Latitude>
+    <Longitude>34.7865</Longitude>
+    <CustomerName>Shani Peleg</CustomerName>
+    <CustomerPhone>054-2865421</CustomerPhone>
+    <OrderCreationTime>1999-12-23T10:12:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>34</Id>
+    <OrderType>Heavy</OrderType>
+    <Description>Groceries</Description>
+    <FullAddress>Ramat HaSharon, Hahagana 2</FullAddress>
+    <Latitude>32.159</Latitude>
+    <Longitude>34.825</Longitude>
+    <CustomerName>Yair Azulay</CustomerName>
+    <CustomerPhone>055-7416482</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-12-20T17:14:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>35</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Groceries</Description>
+    <FullAddress>Jaffa, Yefet St 10</FullAddress>
+    <Latitude>32.052</Latitude>
+    <Longitude>34.7506</Longitude>
+    <CustomerName>Adi Ronen</CustomerName>
+    <CustomerPhone>056-7253819</CustomerPhone>
+    <OrderCreationTime>1999-11-23T05:57:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>36</Id>
+    <OrderType>Express</OrderType>
+    <Description>Books</Description>
+    <FullAddress>Holon, Derech Ayalon 10</FullAddress>
+    <Latitude>32.0123</Latitude>
+    <Longitude>34.787</Longitude>
+    <CustomerName>Dana Goren</CustomerName>
+    <CustomerPhone>055-8023391</CustomerPhone>
+    <OrderCreationTime>1999-12-30T20:38:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>37</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Electronics</Description>
+    <FullAddress>Tel Aviv, Sderot Sha'ul Hamelech 50</FullAddress>
+    <Latitude>32.0778</Latitude>
+    <Longitude>34.7796</Longitude>
+    <CustomerName>Noam Erez</CustomerName>
+    <CustomerPhone>057-9185856</CustomerPhone>
+    <OrderCreationTime>1999-11-16T04:34:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>38</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Clothes</Description>
+    <FullAddress>Bat Yam, Balfour 2</FullAddress>
+    <Latitude>32.0285</Latitude>
+    <Longitude>34.7483</Longitude>
+    <CustomerName>Moran Shalem</CustomerName>
+    <CustomerPhone>056-9666945</CustomerPhone>
+    <OrderCreationTime>1999-12-12T00:58:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>39</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Books</Description>
+    <FullAddress>Tel Aviv, Ibn Gabirol St 10</FullAddress>
+    <Latitude>32.0734</Latitude>
+    <Longitude>34.789</Longitude>
+    <CustomerName>Itay Rosen</CustomerName>
+    <CustomerPhone>052-5344535</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-11-15T00:39:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>40</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Furniture</Description>
+    <FullAddress>Rehovot, Katznelson 10</FullAddress>
+    <Latitude>31.8939</Latitude>
+    <Longitude>34.811</Longitude>
+    <CustomerName>Tamar Koren</CustomerName>
+    <CustomerPhone>050-7921493</CustomerPhone>
+    <OrderCreationTime>1999-12-08T22:40:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>41</Id>
+    <OrderType>Heavy</OrderType>
+    <Description>Groceries</Description>
+    <FullAddress>Ness Ziona, Harel St 3</FullAddress>
+    <Latitude>31.9281</Latitude>
+    <Longitude>34.8</Longitude>
+    <CustomerName>Galit Hadar</CustomerName>
+    <CustomerPhone>051-5216710</CustomerPhone>
+    <OrderCreationTime>1999-11-15T21:25:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>42</Id>
+    <OrderType>Express</OrderType>
+    <Description>Clothes</Description>
+    <FullAddress>Kfar Malal, HaShaked 1</FullAddress>
+    <Latitude>32.055</Latitude>
+    <Longitude>34.93</Longitude>
+    <CustomerName>Rafi Dahan</CustomerName>
+    <CustomerPhone>051-9823182</CustomerPhone>
+    <OrderCreationTime>1999-11-08T10:23:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>43</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Ramla, Herzl St 21</FullAddress>
+    <Latitude>31.9343</Latitude>
+    <Longitude>34.8632</Longitude>
+    <CustomerName>Einav Mor</CustomerName>
+    <CustomerPhone>053-3297283</CustomerPhone>
+    <OrderCreationTime>1999-12-02T17:32:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>44</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Books</Description>
+    <FullAddress>Givatayim, Aluf Sade 8</FullAddress>
+    <Latitude>32.0635</Latitude>
+    <Longitude>34.8065</Longitude>
+    <CustomerName>Sivan Regev</CustomerName>
+    <CustomerPhone>058-5426788</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-12-27T02:50:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>45</Id>
+    <OrderType>Express</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Kiryat Ono, Hahoresh 9</FullAddress>
+    <Latitude>32.046</Latitude>
+    <Longitude>34.835</Longitude>
+    <CustomerName>Erez Azulay</CustomerName>
+    <CustomerPhone>054-8134827</CustomerPhone>
+    <Notes>Leave at the door</Notes>
+    <OrderCreationTime>1999-11-07T03:04:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>46</Id>
+    <OrderType>Express</OrderType>
+    <Description>Electronics</Description>
+    <FullAddress>Shoham, Emek Dotan 2</FullAddress>
+    <Latitude>31.992</Latitude>
+    <Longitude>34.987</Longitude>
+    <CustomerName>Lina Weiss</CustomerName>
+    <CustomerPhone>055-6662562</CustomerPhone>
+    <OrderCreationTime>1999-12-27T21:44:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>47</Id>
+    <OrderType>Fragile</OrderType>
+    <Description>Documents</Description>
+    <FullAddress>Or Akiva, HaSharon St 15</FullAddress>
+    <Latitude>32.392</Latitude>
+    <Longitude>34.918</Longitude>
+    <CustomerName>Bar Oren</CustomerName>
+    <CustomerPhone>050-6558475</CustomerPhone>
+    <OrderCreationTime>1999-12-13T10:40:00</OrderCreationTime>
+  </Order>
+  <Order>
+    <Id>48</Id>
+    <OrderType>Standard</OrderType>
+    <Description>Furniture</Description>
+    <FullAddress>Tnufa, Derech Hachashmonaim 2</FullAddress>
+    <Latitude>32.011</Latitude>
+    <Longitude>34.84</Longitude>
+    <CustomerName>Roy Ashkenazi</CustomerName>
+    <CustomerPhone>055-3798928</CustomerPhone>
+    <OrderCreationTime>1999-11-27T09:45:00</OrderCreationTime>
+  </Order>
 </ArrayOfOrder>
