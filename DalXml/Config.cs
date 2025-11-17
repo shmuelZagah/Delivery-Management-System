@@ -9,7 +9,9 @@ namespace Dal
     internal static class Config
     {
         internal const string s_data_config_xml = "data-config.xml";
-        internal const string s_students_xml = "students.xml";
+        internal const string s_couriers_xml = "couriers.xml";
+        internal const string s_deliverys_xml = "deliverys.xml";
+        internal const string s_orders_xml = "orders.xml";
         //...  
 
         internal static int NextCourseId
@@ -25,15 +27,7 @@ namespace Dal
             get => XMLTools.GetConfigDateVal(s_data_config_xml, "Clock");
             set => XMLTools.SetConfigDateVal(s_data_config_xml, "Clock", value);
         }
+    }
 
-        internal static void Reset()
-        {
-            NextCourseId = 1000
-             //... 
-  Clock = DateTime.Now;
-            דומע 7 ךותמ 16
-       
-  //... 
 
-}
-}
+    }
