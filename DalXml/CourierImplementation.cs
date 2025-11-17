@@ -45,27 +45,46 @@ internal class CourierImplementation : ICourier
         //Load data from the data source
         List<Courier> couriers = XMLTools.LoadListFromXMLSerializer<Courier>(Config.s_couriers_xml);
 
-        // return couriers.Find(courier => courier.Id == id);  stage1
-        return couriers.FirstOrDefault(courier => courier.Id == id); //stage2
+        return couriers.FirstOrDefault(courier => courier.Id == id); 
     }
     
 
-    public Courier? Read(Func<Courier, bool> filter) // stage 2
-  => DataSource.couriers.FirstOrDefault(deliver => filter(deliver));
+    public Courier? Read(Func<Courier, bool> filter)
+    {
+        //Load data from the data source
+        List<Courier> couriers = XMLTools.LoadListFromXMLSerializer<Courier>(Config.s_couriers_xml);
 
-    public IEnumerable<Courier> ReadAll(Func<Courier, bool>? filter = null) //stage 2 
-         => filter != null
-             ? from item in DataSource.couriers
+        return couriers.FirstOrDefault(deliver => filter(deliver));
+    }
+  
+
+    public IEnumerable<Courier> ReadAll(Func<Courier, bool>? filter = null)
+    {
+        //Load data from the data source
+        List<Courier> couriers = XMLTools.LoadListFromXMLSerializer<Courier>(Config.s_couriers_xml);
+
+        return
+            //if there is a function filter , return couriers that match the filter
+            filter != null
+             ? from item in couriers
                where filter(item)
                select item
-              : from item in DataSource.couriers
+
+              //if there is no function filter , return all couriers
+              : from item in couriers
                 select item;
+
+    }
+    
 
 
     public void Update(Courier item)
     {
+        //Load data from the data source
+        List<Courier> couriers = XMLTools.LoadListFromXMLSerializer<Courier>(Config.s_couriers_xml);
+
         // Search for the courier with the specified Id
-        int index = DataSource.couriers.FindIndex(courier => courier.Id == item.Id);
+        int index = couriers.FindIndex(courier => courier.Id == item.Id);
 
         //If courier not found , throw exception
         if (index == -1)
@@ -76,7 +95,9 @@ internal class CourierImplementation : ICourier
         // If found, remove the old courier and add the updated one
         else
         {
-            DataSource.couriers[index] = item;
+            couriers[index] = item;
+            // Save the updated list back to the XML file
+            XMLTools.SaveListToXMLSerializer<Courier>(couriers, Config.s_couriers_xml);
         }
     }
 }

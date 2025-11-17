@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDelivery>
+
+	<Delivery>
+		<Id></Id>
+		<OrderId></OrderId>
+		<CourierId></CourierId>
+		<DeliveryType></DeliveryType>
+		<StartTime></StartTime>
+		<DistanceKm></DistanceKm>
+		<DeliveryEndType></DeliveryEndType>
+		<EndTime></EndTime>
+	</Delivery>
 </ArrayOfDelivery>
