@@ -1,3 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+
+	<!-- SYSTEM DATA -->
+	<Clock>2025-01-01T00:00:00</Clock>
+	<ManagerId>1</ManagerId>
+	<ManagerPass></ManagerPass>
+
+	<!-- COMPANY DETAILS -->
+	<CompanyAddress></CompanyAddress>
+	<Latitude></Latitude>
+	<Longitude></Longitude>
+	<MaxAirRange></MaxAirRange>
+
+	<!-- AVERAGE SPEEDS -->
+	<AvgCarSpeed>0</AvgCarSpeed>
+	<AvgMotocyclerSpeed>0</AvgMotocyclerSpeed>
+	<AvgBicycleSpeed>0</AvgBicycleSpeed>
+	<AvgWalkingSpeed>0</AvgWalkingSpeed>
+
+	<!-- TIME RANGES -->
+	<maxSupplayTime>00:00:00</maxSupplayTime>
+	<RiskRange>00:00:00</RiskRange>
+	<UnactivityRange>00:00:00</UnactivityRange>
+
 </config>

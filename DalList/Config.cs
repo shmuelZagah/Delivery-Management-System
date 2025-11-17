@@ -5,11 +5,12 @@ namespace Dal;
 internal static class Config
 {
     // --- ID GENERATORS ---
+    internal const int startDeliveryId = 0;
+
     internal const int startOrderId = 0;
     private static int s_nextOrderId = startOrderId;
     internal static int NextOrderId => s_nextOrderId++;
 
-    internal const int startDeliveryId = 0;
     private static int s_nextDeliveryId = startDeliveryId;
     internal static int NextDeliveryId => s_nextDeliveryId++;
 

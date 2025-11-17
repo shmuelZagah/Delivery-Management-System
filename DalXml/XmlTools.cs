@@ -46,7 +46,11 @@ static class XMLTools
             throw new DalXMLFileLoadCreateException($"fail to load xml file: {xmlFilePath}, {ex.Message}");
         }
     }
-    
+
+
+
+
+
     #endregion
 
     #region SaveLoadWithXElement
@@ -113,6 +117,55 @@ static class XMLTools
     {
         XElement root = XMLTools.LoadListFromXMLElement(xmlFileName);
         root.Element(elemName)?.SetValue((elemVal).ToString());
+        XMLTools.SaveListToXMLElement(root, xmlFileName);
+    }
+    public static string? GetConfigStringVal(string xmlFileName, string elemName)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(xmlFileName);
+        return (string?)root.Element(elemName);
+    }
+
+    public static void SetConfigStringVal(string xmlFileName, string elemName, string? elemVal)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(xmlFileName);
+        root.Element(elemName)?.SetValue(elemVal ?? "");
+        XMLTools.SaveListToXMLElement(root, xmlFileName);
+    }
+
+    public static double GetConfigDoubleVal(string xmlFileName, string elemName)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(xmlFileName);
+        return root.ToDoubleNullable(elemName)
+               ?? throw new FormatException($"can't convert: {xmlFileName}, {elemName}");
+    }
+
+    public static double? GetConfigDoubleNullable(string xmlFileName, string elemName)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(xmlFileName);
+        return root.ToDoubleNullable(elemName);
+    }
+
+    public static void SetConfigDoubleVal(string xmlFileName, string elemName, double? elemVal)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(xmlFileName);
+        root.Element(elemName)?.SetValue(elemVal?.ToString() ?? "");
+        XMLTools.SaveListToXMLElement(root, xmlFileName);
+    }
+
+    public static TimeSpan GetConfigTimeSpanVal(string xmlFileName, string elemName)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(xmlFileName);
+        string? txt = (string?)root.Element(elemName);
+        if (TimeSpan.TryParse(txt, out var ts))
+            return ts;
+
+        throw new FormatException($"can't convert TimeSpan: {xmlFileName}, {elemName}");
+    }
+
+    public static void SetConfigTimeSpanVal(string xmlFileName, string elemName, TimeSpan elemVal)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(xmlFileName);
+        root.Element(elemName)?.SetValue(elemVal.ToString());
         XMLTools.SaveListToXMLElement(root, xmlFileName);
     }
     #endregion
