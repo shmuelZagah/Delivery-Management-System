@@ -33,7 +33,7 @@ internal class OrderImplementation : IOrder
     }
     public void DeleteAll()
     {
-        XMLTools.SaveListToXMLSerializer<Order>(new List<Order>(), Config.s_couriers_xml);
+        XMLTools.SaveListToXMLSerializer<Order>(new List<Order>(), Config.s_orders_xml);
     }
 
     public Order? Read(int id)
