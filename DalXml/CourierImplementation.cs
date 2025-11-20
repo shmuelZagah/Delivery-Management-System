@@ -33,7 +33,11 @@ internal class CourierImplementation : ICourier
         if (courier == null)
             throw new DalDoesNotExistException($"courier with Id: {id} dos'nt exist");
 
-        else couriers.Remove(courier);
+        else
+        {
+            couriers.Remove(courier);
+            XMLTools.SaveListToXMLSerializer(couriers, Config.s_couriers_xml);
+        }
     }
     public void DeleteAll()
     {

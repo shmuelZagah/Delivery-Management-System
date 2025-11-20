@@ -49,7 +49,7 @@ internal class OrderImplementation : IOrder
         //Load data from the data source
         List<Order> orders = XMLTools.LoadListFromXMLSerializer<Order>(Config.s_orders_xml);
 
-        return orders.FirstOrDefault(deliver => filter(deliver));
+        return orders.FirstOrDefault(filter);
     }
 
 
