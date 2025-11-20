@@ -2,202 +2,202 @@
 <Deliveries>
   <Delivery>
     <Id>0</Id>
-    <OrderId>40</OrderId>
-    <CourierId>383670419</CourierId>
-    <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>1999-02-22T00:00:00</StartTime>
-    <DistanceKm>0.17651256585817257</DistanceKm>
-    <DeliveryEndType>Cancelled</DeliveryEndType>
-    <EndTime>1999-02-22T02:11:00</EndTime>
+    <OrderId>43</OrderId>
+    <CourierId>0</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-04-05T00:00:00</StartTime>
+    <DistanceKm>0.6071658216684965</DistanceKm>
+    <DeliveryEndType>ClientNotFound</DeliveryEndType>
+    <EndTime>1999-04-05T03:47:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>1</Id>
-    <OrderId>44</OrderId>
-    <CourierId>333859044</CourierId>
+    <OrderId>47</OrderId>
+    <CourierId>317475599</CourierId>
+    <DeliveryType>Bicycle</DeliveryType>
+    <StartTime>1999-05-08T00:00:00</StartTime>
+    <DistanceKm>0.6720794385545206</DistanceKm>
+    <DeliveryEndType>ClientRefusedAccept</DeliveryEndType>
+    <EndTime>1999-05-08T02:57:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>2</Id>
+    <OrderId>47</OrderId>
+    <CourierId>268211687</CourierId>
     <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-11-11T00:00:00</StartTime>
+    <StartTime>1999-07-20T00:00:00</StartTime>
+    <DistanceKm>0.05600661987954338</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-07-20T03:39:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>3</Id>
+    <OrderId>12</OrderId>
+    <CourierId>217671043</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-06-26T00:00:00</StartTime>
     <DistanceKm>0.268400072986038</DistanceKm>
     <DeliveryEndType />
     <EndTime />
   </Delivery>
   <Delivery>
-    <Id>2</Id>
-    <OrderId>2</OrderId>
-    <CourierId>258915328</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-02-07T00:00:00</StartTime>
-    <DistanceKm>1.4121919710285158</DistanceKm>
-    <DeliveryEndType />
-    <EndTime />
-  </Delivery>
-  <Delivery>
-    <Id>3</Id>
-    <OrderId>30</OrderId>
-    <CourierId>256805695</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-06-23T00:00:00</StartTime>
-    <DistanceKm>0.945595024513373</DistanceKm>
-    <DeliveryEndType>Failed</DeliveryEndType>
-    <EndTime>1999-06-23T00:51:00</EndTime>
-  </Delivery>
-  <Delivery>
     <Id>4</Id>
-    <OrderId>34</OrderId>
-    <CourierId>256805695</CourierId>
-    <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>1999-02-28T00:00:00</StartTime>
-    <DistanceKm>0.18061860419502968</DistanceKm>
-    <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-02-28T02:37:00</EndTime>
+    <OrderId>13</OrderId>
+    <CourierId>248959825</CourierId>
+    <DeliveryType>Bicycle</DeliveryType>
+    <StartTime>1999-07-14T00:00:00</StartTime>
+    <DistanceKm>1.8298621398351258</DistanceKm>
+    <DeliveryEndType>Cancelled</DeliveryEndType>
+    <EndTime>1999-07-14T01:54:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>5</Id>
-    <OrderId>7</OrderId>
-    <CourierId>258915328</CourierId>
+    <OrderId>16</OrderId>
+    <CourierId>330417220</CourierId>
     <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-05-18T00:00:00</StartTime>
-    <DistanceKm>3.512776235512091</DistanceKm>
+    <StartTime>1999-09-25T00:00:00</StartTime>
+    <DistanceKm>1.9833863504261662</DistanceKm>
     <DeliveryEndType />
     <EndTime />
   </Delivery>
   <Delivery>
     <Id>6</Id>
     <OrderId>28</OrderId>
-    <CourierId>322676399</CourierId>
-    <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-02-05T00:00:00</StartTime>
-    <DistanceKm>2.694545008378159</DistanceKm>
-    <DeliveryEndType>Cancelled</DeliveryEndType>
-    <EndTime>1999-02-05T03:44:00</EndTime>
+    <CourierId>0</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-04-12T00:00:00</StartTime>
+    <DistanceKm>0.4940742405627882</DistanceKm>
+    <DeliveryEndType>ClientRefusedAccept</DeliveryEndType>
+    <EndTime>1999-04-12T03:14:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>7</Id>
-    <OrderId>5</OrderId>
-    <CourierId>333859044</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-06-14T00:00:00</StartTime>
-    <DistanceKm>1.4751385334035838</DistanceKm>
+    <OrderId>42</OrderId>
+    <CourierId>351965853</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>1999-11-03T00:00:00</StartTime>
+    <DistanceKm>0.11768266425237632</DistanceKm>
     <DeliveryEndType>ClientNotFound</DeliveryEndType>
-    <EndTime>1999-06-14T02:55:00</EndTime>
+    <EndTime>1999-11-03T04:09:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>8</Id>
-    <OrderId>42</OrderId>
-    <CourierId>286502688</CourierId>
+    <OrderId>38</OrderId>
+    <CourierId>294337148</CourierId>
     <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-01-25T00:00:00</StartTime>
-    <DistanceKm>0.15248851165292715</DistanceKm>
+    <StartTime>1999-09-06T00:00:00</StartTime>
+    <DistanceKm>0.07552758609800901</DistanceKm>
     <DeliveryEndType>Failed</DeliveryEndType>
-    <EndTime>1999-01-25T03:00:00</EndTime>
+    <EndTime>1999-09-06T04:02:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>9</Id>
-    <OrderId>13</OrderId>
-    <CourierId>286502688</CourierId>
-    <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-08-20T00:00:00</StartTime>
-    <DistanceKm>3.6922924570788105</DistanceKm>
+    <OrderId>3</OrderId>
+    <CourierId>392869978</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-06-10T00:00:00</StartTime>
+    <DistanceKm>0.22454541736484657</DistanceKm>
     <DeliveryEndType />
     <EndTime />
   </Delivery>
   <Delivery>
     <Id>10</Id>
-    <OrderId>9</OrderId>
-    <CourierId>286502688</CourierId>
-    <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-10-05T00:00:00</StartTime>
-    <DistanceKm>0.3576688723100952</DistanceKm>
-    <DeliveryEndType>ClientNotFound</DeliveryEndType>
-    <EndTime>1999-10-05T04:35:00</EndTime>
+    <OrderId>15</OrderId>
+    <CourierId>344925891</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>1999-08-09T00:00:00</StartTime>
+    <DistanceKm>0.4724766957189406</DistanceKm>
+    <DeliveryEndType />
+    <EndTime />
   </Delivery>
   <Delivery>
     <Id>11</Id>
-    <OrderId>42</OrderId>
-    <CourierId>322676399</CourierId>
-    <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-06-17T00:00:00</StartTime>
-    <DistanceKm>0.15248851165292715</DistanceKm>
-    <DeliveryEndType />
-    <EndTime />
+    <OrderId>19</OrderId>
+    <CourierId>230012823</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>1999-07-27T00:00:00</StartTime>
+    <DistanceKm>1.6569968349500144</DistanceKm>
+    <DeliveryEndType>ClientNotFound</DeliveryEndType>
+    <EndTime>1999-07-27T00:47:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>12</Id>
-    <OrderId>1</OrderId>
-    <CourierId>382982095</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-02-17T00:00:00</StartTime>
-    <DistanceKm>0.17186673215252063</DistanceKm>
-    <DeliveryEndType>Failed</DeliveryEndType>
-    <EndTime>1999-02-17T02:23:00</EndTime>
+    <OrderId>41</OrderId>
+    <CourierId>230012823</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>1999-03-19T00:00:00</StartTime>
+    <DistanceKm>0.23941756873315045</DistanceKm>
+    <DeliveryEndType>Cancelled</DeliveryEndType>
+    <EndTime>1999-03-19T03:15:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>13</Id>
-    <OrderId>20</OrderId>
-    <CourierId>245957055</CourierId>
-    <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>1999-01-11T00:00:00</StartTime>
-    <DistanceKm>0.22454541736484657</DistanceKm>
-    <DeliveryEndType>Cancelled</DeliveryEndType>
-    <EndTime>1999-01-11T02:54:00</EndTime>
+    <OrderId>13</OrderId>
+    <CourierId>224872881</CourierId>
+    <DeliveryType>Bicycle</DeliveryType>
+    <StartTime>1999-01-30T00:00:00</StartTime>
+    <DistanceKm>1.8298621398351258</DistanceKm>
+    <DeliveryEndType />
+    <EndTime />
   </Delivery>
   <Delivery>
     <Id>14</Id>
-    <OrderId>42</OrderId>
-    <CourierId>258915328</CourierId>
-    <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-12-27T00:00:00</StartTime>
-    <DistanceKm>1.8298621398351258</DistanceKm>
-    <DeliveryEndType>ClientNotFound</DeliveryEndType>
-    <EndTime>1999-12-27T00:22:00</EndTime>
+    <OrderId>45</OrderId>
+    <CourierId>344925891</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>1999-10-29T00:00:00</StartTime>
+    <DistanceKm>1.3300774820987118</DistanceKm>
+    <DeliveryEndType>ClientRefusedAccept</DeliveryEndType>
+    <EndTime>1999-10-29T01:38:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>15</Id>
-    <OrderId>48</OrderId>
-    <CourierId>0</CourierId>
-    <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>1999-04-01T00:00:00</StartTime>
-    <DistanceKm>0.6688475738230102</DistanceKm>
+    <OrderId>14</OrderId>
+    <CourierId>231721408</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>1999-07-09T00:00:00</StartTime>
+    <DistanceKm>2.9064189212961797</DistanceKm>
     <DeliveryEndType>ClientNotFound</DeliveryEndType>
-    <EndTime>1999-04-01T02:15:00</EndTime>
+    <EndTime>1999-07-09T04:23:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>16</Id>
-    <OrderId>19</OrderId>
-    <CourierId>312733645</CourierId>
-    <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>1999-03-05T00:00:00</StartTime>
-    <DistanceKm>0.01243447985213344</DistanceKm>
-    <DeliveryEndType />
-    <EndTime />
+    <OrderId>6</OrderId>
+    <CourierId>392869978</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-07T00:00:00</StartTime>
+    <DistanceKm>0.029779027516496505</DistanceKm>
+    <DeliveryEndType>ClientNotFound</DeliveryEndType>
+    <EndTime>1999-12-07T00:37:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>17</Id>
-    <OrderId>28</OrderId>
-    <CourierId>245957055</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-10-19T00:00:00</StartTime>
-    <DistanceKm>2.694545008378159</DistanceKm>
+    <OrderId>24</OrderId>
+    <CourierId>231721408</CourierId>
+    <DeliveryType>Bicycle</DeliveryType>
+    <StartTime>1999-09-24T00:00:00</StartTime>
+    <DistanceKm>0.17186673215252063</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-10-19T03:12:00</EndTime>
+    <EndTime>1999-09-24T00:24:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>18</Id>
-    <OrderId>42</OrderId>
-    <CourierId>256805695</CourierId>
-    <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-06-14T00:00:00</StartTime>
-    <DistanceKm>0.15248851165292715</DistanceKm>
-    <DeliveryEndType />
-    <EndTime />
+    <OrderId>15</OrderId>
+    <CourierId>351965853</CourierId>
+    <DeliveryType>Bicycle</DeliveryType>
+    <StartTime>1999-08-17T00:00:00</StartTime>
+    <DistanceKm>0.4724766957189406</DistanceKm>
+    <DeliveryEndType>ClientNotFound</DeliveryEndType>
+    <EndTime>1999-08-17T03:10:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>19</Id>
-    <OrderId>48</OrderId>
-    <CourierId>0</CourierId>
+    <OrderId>4</OrderId>
+    <CourierId>351965853</CourierId>
     <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-07-10T00:00:00</StartTime>
-    <DistanceKm>0.6688475738230102</DistanceKm>
-    <DeliveryEndType>ClientRefusedAccept</DeliveryEndType>
-    <EndTime>1999-07-10T00:59:00</EndTime>
+    <StartTime>1999-03-03T00:00:00</StartTime>
+    <DistanceKm>0.06270470422654822</DistanceKm>
+    <DeliveryEndType>Cancelled</DeliveryEndType>
+    <EndTime>1999-03-03T01:57:00</EndTime>
   </Delivery>
 </Deliveries>
