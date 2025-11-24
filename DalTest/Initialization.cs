@@ -27,7 +27,7 @@ public static class Initialization
     //IOrder? dalOrder,
     //IConfig? dalConfig
 
-        IDal? dal
+        //IDal? dal stage2
         
         )
     {
@@ -37,7 +37,8 @@ public static class Initialization
         //s_dalOrder = dalOrder ?? throw new NullReferenceException("DAL order cannot be null!");
         //s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL config cannot be null!");
 
-        s_dal = dal ?? throw new NullReferenceException("DAL courier cannot be null!");
+        //s_dal = dal ?? throw new NullReferenceException("DAL courier cannot be null!"); stage2
+        s_dal = DalApi.Factory.Get;
 
         Console.WriteLine("Reset configuration and lists...");
 

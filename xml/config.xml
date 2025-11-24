@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <NextOrderId>49</NextOrderId>
+  <NextDeliveryId>20</NextDeliveryId>
+  <!-- SYSTEM DATA -->
+  <Clock>01/01/2000 00:00:00</Clock>
+  <ManagerId>9326</ManagerId>
+  <ManagerPass>admin544</ManagerPass>
+  <!-- COMPANY DETAILS -->
+  <CompanyAddress>Company HQ, Tel Aviv</CompanyAddress>
+  <Latitude>32.0853</Latitude>
+  <Longitude>34.7818</Longitude>
+  <MaxAirRange>40</MaxAirRange>
+  <!-- AVERAGE SPEEDS -->
+  <AvgCarSpeed>60</AvgCarSpeed>
+  <AvgMotocyclerSpeed>45</AvgMotocyclerSpeed>
+  <AvgBicycleSpeed>15</AvgBicycleSpeed>
+  <AvgWalkingSpeed>5</AvgWalkingSpeed>
+  <!-- TIME RANGES -->
+  <maxSupplayTime>03:00:00</maxSupplayTime>
+  <RiskRange>00:15:00</RiskRange>
+  <UnactivityRange>02:00:00</UnactivityRange>
+</config>

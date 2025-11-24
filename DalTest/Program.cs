@@ -56,13 +56,8 @@ enum ConfigMenuOption
 
 internal class Program
 {
-    // DAL objects
-    //private static ICourier courierDal = new CourierImplementation();              //stage 1
-    //private static IDelivery deliveryDal = new DeliveryImplementation();           //stage 1
-    //private static IOrder orderDal = new OrderImplementation();                    //stage 1
-    //private static IConfig configDal = new ConfigImplementation();                 //stage 1
-    //static readonly IDal s_dal = new DalList();                                      //stage 2
-    static readonly IDal s_dal = new DalXml(); // stage 3
+
+    static readonly IDal s_dal = DalApi.Factory.Get; // stage 4
     static void Main(string[] args)
     {
         Console.WriteLine("=== DAL Test Start ===");
@@ -100,8 +95,7 @@ internal class Program
             case MainMenuOption.INIT_DB:
               
                 Console.WriteLine("Initializing database (random data)...");
-                //Initialization.Do(courierDal, deliveryDal, orderDal, configDal); //stage 1
-                Initialization.Do(s_dal); //stage 2
+                Initialization.Do(); 
                 Console.WriteLine("Initialization done.");
                 break;
 
