@@ -11,6 +11,9 @@ namespace BIApi
     {
 
         //must use linq in here
+
+        IEnumerable<int> GetOrdersAmountSummary(int requesterId);
+
         IEnumerable<DO.Order> GetOrdersList(int requesterId, OrderField? filterBy, object? obj, OrderField? sortBy);
 
         BO.Order? GetOrderDetails(int requesterId, int orderId);
@@ -27,6 +30,9 @@ namespace BIApi
 
         void ChooseOrderForHandling(int requesterId, int courierId, int orderId);
 
+        IEnumerable<BO.ClosedDeliveryInList> GetClosedOrders(int requesterId, int courierId, OrderType? filterBy, ClosedDeliveryField? sortBy);
+
+        IEnumerable<BO.OpenOrderInList> getOpenOrders(int requesterId, int courierId, OrderType? filterBy, OpenDeliveryField? sortBy);
 
 
 
