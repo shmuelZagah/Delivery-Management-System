@@ -14,7 +14,6 @@ namespace BO
         public OrderType OrderType { get; }
         public double Weight { get; }
         public double Volume { get; }
-        public bool IsFragile { get; }
         public double AirDistance { get; }
         public double? ActualDistance { get; }
         public TimeSpan? ActualTravelTime { get; }

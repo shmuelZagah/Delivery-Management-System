@@ -8,14 +8,14 @@ namespace BO
 {
     public class CourierInList
     {
-        public int Id { get; set; }
-        public string FullName { get; set; }
-        public bool IsActive { get; set; }
-        public ShipmentType ShipmentType { get; set; }
-        public DateTime WorkStart { get; set; }
-        public int DeliveredOnTimeCount { get; set; }
-        public int DeliveredLateCount { get; set; }
-        public int? CurrentOrderId { get; set; }
+        public int Id { get; }
+        public string FullName { get; }
+        public bool IsActive { get; }
+        public ShipmentType ShipmentType { get; }
+        public DateTime WorkStart { get; }
+        public int DeliveredOnTimeCount { get;}
+        public int DeliveredLateCount { get;  }
+        public int? CurrentOrderId { get;  }
 
     }
 }
