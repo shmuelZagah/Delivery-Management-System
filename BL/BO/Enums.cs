@@ -50,3 +50,47 @@ public enum ScheduleStatus
     VeryLate,
     Unknown
 }
+
+
+public enum DeliveryField
+{
+    DeliveryId,
+    CourierId,
+    CourierName,
+    ShipmentType,
+    StartDeliveryTime,
+    FinishType,
+    FinishTime
+}
+public enum CourierField
+{
+    Id,
+    Name,
+    Phone,
+    Email,
+    Password,
+    IsActive,
+    MaxDistance,
+    ShipmentType,
+    StartTime,
+    OrdersDeliveredInTime,
+    OrdersDeliveredAfterTime,
+    InProgress
+}
+
+public enum OrderField
+{
+    OrderStatus,
+    ScheduleStatus,
+    OrderType,
+    IsFragile,
+    Volume,
+    Weight,
+    AirDistance,
+    OrderCreated,
+    ExpectedArrivalTime,
+    LastArrivalTime,
+    TimeLeftToDeadline,
+    CustomerName,
+    CustomerPhone
+}

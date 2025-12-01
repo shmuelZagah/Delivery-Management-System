@@ -9,7 +9,7 @@ namespace BO
     public class Order
     {
 
-        public int DeliveryId { get; }
+        public int Id { get; init; }
         public OrderType OrderType { get; set; }
         public string? Description { get; set; }
         public string Address { get; set; }
@@ -25,6 +25,8 @@ namespace BO
         public double Weight { get; set; }
         public bool IsFragile { get; set; }
         public DateTime OrderCreated { get; set; }
+
+        public string? Notes { get; init; }
 
         public DateTime ExpectedArrivalTime { get; set; }
         public DateTime LastArrivalTime { get; set; }

@@ -1,4 +1,6 @@
-﻿using DalApi;
+﻿using BO;
+using DalApi;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace Helpers
     {
         private static IDal s_dal = Factory.Get;
 
-        internal static DO.Delivery? GetDelivery(int id)
+        internal static BO.DeliveryPerOrderInList? GetDelivery(int id)
         {
             DO.Delivery doDelivery;
 
@@ -25,19 +27,15 @@ namespace Helpers
                 throw new BO.BlDoesNotExistException($"Delivery with ID={id} does not exist", ex);
             }
 
-            return new DO.Delivery()
+            return new BO.DeliveryPerOrderInList()
             {
-                Id = doDelivery.Id,
-                OrderId = doDelivery.OrderId,
+
+                DeliveryId = doDelivery.Id,
                 CourierId = doDelivery.CourierId,
+                CourierName = s_dal.Courier.Read(doDelivery.CourierId)?.Name ?? "",
 
-                DeliveryType = (DO.ShipmentType)doDelivery.DeliveryType,
 
-                StartTime = doDelivery.StartTime,
-                DistanceKm = doDelivery.DistanceKm,
 
-                DeliveryEndType = (DO.DeliveryEndType?)doDelivery.DeliveryEndType,
-                EndTime = doDelivery.EndTime
             };
         }
 
