@@ -40,6 +40,9 @@ namespace Helpers
             return string.Join("\n", lines);
         }
 
+        /// <summary>
+        /// Sorts a collection of items and groups them by a specified key.
+        /// </summary>
         public static IEnumerable<T> SortWithGroupBy<T, TKey>( IEnumerable<T> items, 
             Func<T, TKey> keySelector)
         {
