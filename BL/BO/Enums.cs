@@ -94,3 +94,6 @@ public enum OrderField
     CustomerName,
     CustomerPhone
 }
+
+
+public enum UserType { MANAGER, COURIER };

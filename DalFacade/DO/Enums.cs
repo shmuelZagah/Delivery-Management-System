@@ -22,8 +22,6 @@ public enum OrderType
     Heavy
 }
 
-public enum UserType { MANAGER, COURIER };
-
 
 /// <summary>
 /// Enum representing end type of delivery.

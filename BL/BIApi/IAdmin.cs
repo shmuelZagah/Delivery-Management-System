@@ -19,6 +19,4 @@ public interface IAdmin
 
     BO.Config? GetConfig();
 
-
-
 }

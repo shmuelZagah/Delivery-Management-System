@@ -9,7 +9,7 @@ namespace BO
     public class CourierInList
     {
         public int Id { get; }
-        public string FullName { get; }
+        public string FullName { get; } = string.Empty;
         public bool IsActive { get; }
         public ShipmentType ShipmentType { get; }
         public DateTime WorkStart { get; }

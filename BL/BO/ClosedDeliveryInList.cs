@@ -11,7 +11,7 @@ namespace BO
         public int DeliveryId { get; }
         public int OrderId { get; }
         public OrderType OrderType { get; }
-        public string Address { get; }
+        public string Address { get; } =string.Empty;
         public ShipmentType ShipmentType { get; }
         public double? ActualDistance { get; }
         public TimeSpan ProcessingDuration { get; }
