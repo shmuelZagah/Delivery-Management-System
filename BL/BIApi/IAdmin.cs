@@ -12,12 +12,16 @@ public interface IAdmin
 {
     void ResetDB();
     void InitializeDB();
-
     DateTime GetClock();
 
-    void ForwardClock(TimeSpan timeSpan);
+    void ForwardClock(TimeUnit time);
 
     BO.Config? GetConfig();
+
+    
+    object? GetConfigValue(ConfigField field);
+
+    void updateConfigValue (ConfigField field);
 
 
 

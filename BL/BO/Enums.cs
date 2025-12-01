@@ -94,3 +94,60 @@ public enum OrderField
     CustomerName,
     CustomerPhone
 }
+
+public enum ClosedDeliveryField
+{
+    DeliveryId,
+    OrderId,
+    OrderType,
+    Address,
+    ShipmentType,
+    ActualDistance,
+    ProcessingDuration,
+    FinishType
+}
+public enum OpenDeliveryField
+{
+
+    CourierId,
+    OrderId,
+    OrderType,
+    Weight,
+    Volume,
+    AirDistance,
+    ActualDistance,
+    ActualTravelTime,
+    ScheduleStatus,
+    TimeLeftToDeadline,
+    EstimatedArrivalTime
+
+}
+
+public enum TimeUnit
+{
+    Minute,
+    Hour,
+    Day,
+    Month,
+    Year
+}
+
+public enum ConfigField
+{
+    Clock,
+    ManagerId,
+    ManagerPass,
+    AvgWalkingSpeed,
+    AvgCarSpeed,
+    AvgBicycleSpeed,
+    AvgMotocycleSpeed,
+    MaxAirRange,
+    RiskRange,
+    MaxSupplyTime,
+    Latitude,
+    Longitude,
+    CompanyAddress
+}
+
+
+

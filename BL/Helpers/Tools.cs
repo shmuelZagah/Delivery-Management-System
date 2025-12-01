@@ -39,5 +39,17 @@ namespace Helpers
 
             return string.Join("\n", lines);
         }
+
+        public static IEnumerable<T> SortWithGroupBy<T, TKey>( IEnumerable<T> items, 
+            Func<T, TKey> keySelector)
+        {
+            return items
+                .GroupBy(keySelector)      // קיבוץ לפי הקריטריון
+                .OrderBy(g => g.Key)       // מיון הקבוצות לפי המפתח
+                .SelectMany(g => g);       // החזרת כל הפריטים כסדרה ממוינת
+        }
+
     }
+
+
 }
