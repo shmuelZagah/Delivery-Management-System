@@ -13,7 +13,7 @@ sealed internal class DalList : IDal
     {
         get
         {
-            if (instance == null)       // Lazy initialization
+            if (instance == null)       
             {
                 lock (lockObj)         // Thread safe
                 {
