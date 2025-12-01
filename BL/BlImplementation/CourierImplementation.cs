@@ -32,7 +32,7 @@ internal class CourierImplementation : BIApi.ICourier
         {
             // Apply additional filtering or selection based on the courierField
             couriers = Helpers.Tools.SortWithGroupBy(couriers, c =>
-         c.GetType().GetProperty(courierField.ToString())?.GetValue(c) ?? 0);
+         c.GetType().GetProperty(courierField.ToString()!)?.GetValue(c) ?? 0);
         }
 
         return couriers;
