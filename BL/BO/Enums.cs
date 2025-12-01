@@ -1,6 +1,15 @@
 ﻿namespace BO;
 
 /// <summary>
+/// Type of the user Manager/Courier
+/// </summary>
+public enum UserType
+{
+    Manager,
+    Courier
+}
+
+/// <summary>
 /// Type of transportation required for delivery
 /// </summary>
 public enum ShipmentType
