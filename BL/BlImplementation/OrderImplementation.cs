@@ -54,7 +54,9 @@ namespace BlImplementation
 
         public IEnumerable<int> GetOrdersAmountSummary(int requesterId)
         {
-            throw new NotImplementedException();
+            
+            
+
         }
 
         public IEnumerable<DO.Order> GetOrdersList(int requesterId, OrderField? filterBy, object? obj, OrderField? sortBy)
