@@ -14,6 +14,7 @@ public class DalAlreadyExistsException : Exception
     public DalAlreadyExistsException(string? msg) : base(msg) { }
 }
 
+[Serializable]
 public class DalXMLFileLoadCreateException : Exception
 {
     public DalXMLFileLoadCreateException(string? msg) : base(msg) { }

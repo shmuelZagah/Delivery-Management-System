@@ -13,7 +13,7 @@ sealed internal class DalXml : IDal
     {
         get
         {
-            if (instance == null)       // Lazy initialization
+            if (instance == null)       
             {
                 lock (lockObj)         // Thread safe
                 {
