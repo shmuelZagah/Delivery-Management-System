@@ -9,13 +9,13 @@ namespace BO
     public class DeliveryPerOrderInList
     {
 
-        public int DeliveryId { get; }
-        public int? CourierId { get; }
-        public string CourierName { get; }
-        public ShipmentType ShipmentType { get; }
-        public DateTime StartDeliveryTime { get; }
-        public DeliveryEndType? FinishType { get; }
-        public DateTime? FinishTime { get; }
+        public int DeliveryId { get; init; }
+        public int? CourierId { get; init; }
+        public string CourierName { get; init; }
+        public ShipmentType ShipmentType { get; init; }
+        public DateTime StartDeliveryTime { get; init; }
+        public DeliveryEndType? FinishType { get; init; }
+        public DateTime? FinishTime { get; init; }
 
     }
 }

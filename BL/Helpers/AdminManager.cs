@@ -54,13 +54,20 @@ internal static class AdminManager //stage 4
     /// Method for providing current configuration variables values for any BL class that may need it
     /// </summary>
     [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
-    internal static BO.Config GetConfig() //stage 4
+    internal static BO.Config GetConfig() // stage 4
     => new BO.Config()
     {
-        MaxAirRange = s_dal.Config.MaxAirRange
-        //TO_DO: //stage 4
-        //add an assignment for each configuration property
-        //...
+        // --- COMPANY DETAILS ---
+        CompanyAddress = s_dal.Config.CompanyAddress,
+        Latitude = s_dal.Config.Latitude,
+        Longitude = s_dal.Config.Longitude,
+        MaxAirRange = s_dal.Config.MaxAirRange,
+
+        // --- AVERAGE SPEEDS ---
+        AvgCarSpeed = s_dal.Config.AvgCarSpeed,
+        AvgMotocyclerSpeed = s_dal.Config.AvgMotocyclerSpeed,
+        AvgBicycleSpeed = s_dal.Config.AvgBicycleSpeed,
+        AvgWalkingSpeed = s_dal.Config.AvgWalkingSpeed
     };
 
     /// <summary>
@@ -71,19 +78,71 @@ internal static class AdminManager //stage 4
     {
         bool configChanged = false; // stage 5
 
-        if (s_dal.Config.MaxAirRange != configuration.MaxAirRange) //stage 4
+        // --- COMPANY DETAILS ---
+        if (s_dal.Config.CompanyAddress != configuration.CompanyAddress)
+        {
+            s_dal.Config.CompanyAddress = configuration.CompanyAddress;
+            configChanged = true;
+        }
+
+        if (s_dal.Config.Latitude != configuration.Latitude)
+        {
+            s_dal.Config.Latitude = configuration.Latitude;
+            configChanged = true;
+        }
+
+        if (s_dal.Config.Longitude != configuration.Longitude)
+        {
+            s_dal.Config.Longitude = configuration.Longitude;
+            configChanged = true;
+        }
+
+        if (s_dal.Config.MaxAirRange != configuration.MaxAirRange)
         {
             s_dal.Config.MaxAirRange = configuration.MaxAirRange;
             configChanged = true;
         }
-        //TO_DO: //stage 4
-        //add a condition+assignment for each configuration property
-        //...
 
-        //Calling all the observers of configuration update
-        if (configChanged) // stage 5
-            ConfigUpdatedObservers?.Invoke(); // stage 5
+        // --- AVERAGE SPEEDS ---
+        if (s_dal.Config.AvgCarSpeed != configuration.AvgCarSpeed)
+        {
+            s_dal.Config.AvgCarSpeed = configuration.AvgCarSpeed;
+            configChanged = true;
+        }
+
+        if (s_dal.Config.AvgMotocyclerSpeed != configuration.AvgMotocyclerSpeed)
+        {
+            s_dal.Config.AvgMotocyclerSpeed = configuration.AvgMotocyclerSpeed;
+            configChanged = true;
+        }
+
+        if (s_dal.Config.AvgBicycleSpeed != configuration.AvgBicycleSpeed)
+        {
+            s_dal.Config.AvgBicycleSpeed = configuration.AvgBicycleSpeed;
+            configChanged = true;
+        }
+
+        if (s_dal.Config.AvgWalkingSpeed != configuration.AvgWalkingSpeed)
+        {
+            s_dal.Config.AvgWalkingSpeed = configuration.AvgWalkingSpeed;
+            configChanged = true;
+        }
+
+        // --- SYSTEM DATA (אם יש, לא חובה בשלב זה) ---
+        // דוגמא אם תרצה להוסיף:
+        /*
+        if (s_dal.Config.ManagerId != configuration.ManagerId)
+        {
+            s_dal.Config.ManagerId = configuration.ManagerId;
+            configChanged = true;
+        }
+        */
+
+        //Stage 5: trigger observers
+        if (configChanged)
+            ConfigUpdatedObservers?.Invoke();
     }
+
 
     internal static void ResetDB() //stage 4-7
     {
