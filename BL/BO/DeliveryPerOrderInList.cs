@@ -11,7 +11,7 @@ namespace BO
 
         public int DeliveryId { get; init; }
         public int? CourierId { get; init; }
-        public string CourierName { get; init; }
+        public string CourierName { get; init; }= string.Empty;
         public ShipmentType ShipmentType { get; init; }
         public DateTime StartDeliveryTime { get; init; }
         public DeliveryEndType? FinishType { get; init; }

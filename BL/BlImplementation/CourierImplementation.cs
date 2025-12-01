@@ -1,6 +1,7 @@
 ﻿using BIApi;
 using BO;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace BlImplementation;
 
@@ -24,9 +25,17 @@ internal class CourierImplementation : BIApi.ICourier
     // Retrieve a list of couriers
     public IEnumerable<Courier> getCouriers(int requesterId, bool? isActive, CourierField? courierField)
     {
+        // Get all couriers (if isActive is null get all)
         IEnumerable<Courier> couriers = Helpers.CourierManager.GetAllCouriers(p=> p.IsActive == isActive);
 
-        
+        if (courierField != null)
+        {
+            // Apply additional filtering or selection based on the courierField
+            couriers = Helpers.Tools.SortWithGroupBy(couriers, c =>
+         c.GetType().GetProperty(courierField.ToString())?.GetValue(c) ?? 0);
+        }
+
+        return couriers;
     }
 
 

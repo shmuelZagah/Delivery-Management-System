@@ -32,7 +32,7 @@ internal static class CourierManager
 
     }
 
-    internal static IEnumerable<BO.Courier> GetAllCouriers(Func<BO.Courier, bool> predicate = null)
+    internal static IEnumerable<BO.Courier> GetAllCouriers(Func<BO.Courier, bool>? predicate = null)
     {
         var dalCouriers = s_dal.Courier.ReadAll();
         var boCouriers = from doCourier in dalCouriers
