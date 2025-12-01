@@ -23,7 +23,7 @@ namespace BO
 
         public double Volume { get; set; }
         public double Weight { get; set; }
-        public bool IsFragile { get; set; }
+        public OrderType orderType { get; set; }
         public DateTime OrderCreated { get; set; }
 
         public string? Notes { get; init; }
