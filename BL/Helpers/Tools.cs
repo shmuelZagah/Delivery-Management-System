@@ -43,6 +43,8 @@ namespace Helpers
         /// <summary>
         /// Sorts a collection of items and groups them by a specified key.
         /// </summary>
+        /// T = The type of items in the collection.
+        /// TKey = The type of the key used for grouping.
         public static IEnumerable<T> SortWithGroupBy<T, TKey>( IEnumerable<T> items, 
             Func<T, TKey> keySelector)
         {
