@@ -12,10 +12,13 @@ namespace BIApi
 
         //must use linq in here
 
-        IEnumerable<int> GetOrdersAmountSummary(int requesterId);
+        int[][] GetOrdersAmountSummary(int requesterId);
 
-        IEnumerable<DO.Order> GetOrdersList(int requesterId, OrderField? filterBy, object? obj, OrderField? sortBy);
-
+        public IEnumerable<BO.OrderInList> GetOrdersList(
+             int requesterId,
+             OrderStatus? statusFilter,      // Nullable filter for OrderStatus
+             object? selector,               // Optional filter by dynamic type (ID, phone, date, etc.)
+             ScheduleStatus? scheduleFilter);
         BO.Order? GetOrderDetails(int requesterId, int orderId);
 
         void UpdateOrder(int requesterId, BO.Order order);

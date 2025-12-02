@@ -8,15 +8,15 @@ namespace BO
 {
     public class OrderInList
     {
-        public int? DeliveryId { get; }
-        public int OrderId { get; }
-        public OrderType OrderType { get; }
-        public double AirDistance { get; }
-        public OrderStatus OrderStatus { get; }
-        public ScheduleStatus ScheduleStatus { get; }
-        public TimeSpan TimeLeftToDeadline { get; }
-        public TimeSpan TimeLeftToFinish { get; }
-        public int CouriersCount { get; }
+        public int? DeliveryId { get; init; }
+        public int OrderId { get; init; }
+        public OrderType OrderType { get; init; }
+        public double AirDistance { get; init; }
+        public OrderStatus OrderStatus { get; init; }
+        public ScheduleStatus ScheduleStatus { get; init; }
+        public TimeSpan TimeLeftToDeadline { get; init; }
+        public TimeSpan TimeLeftToFinish { get; init; }
+        public int CouriersCount { get; init; }
 
     }
 }
