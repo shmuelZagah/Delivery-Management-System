@@ -1,10 +1,13 @@
-﻿using DalApi;
+﻿using BO;
+using DalApi;
+using DO;
 
 namespace Helpers;
 
 internal class OrderManager
 {
     private static IDal s_dal = Factory.Get;
+
 
     internal static BO.Order? GetOrder(int id)
     {
@@ -33,7 +36,7 @@ internal class OrderManager
             Notes = doOrder.Notes,
             OrderCreated = doOrder.OrderCreationTime
         };
-    }
+    } 
 
     internal static IEnumerable<BO.Order> GetAllOrders(Func<BO.Order, bool>? predicate = null)
     {
@@ -59,20 +62,69 @@ internal class OrderManager
 
                 orderType = (BO.OrderType)doOrder.OrderType,           // אם יש DAL
 
-                ExpectedArrivalTime = CalculateExpected(doOrder), // אם יש לוגיקה
-                LastArrivalTime = GetLastArrival(doOrder.Id),      // אם יש DAL
+            //    ExpectedArrivalTime = CalculateExpected(doOrder), // אם יש לוגיקה
+            //    LastArrivalTime = GetLastArrival(doOrder.Id),      // אם יש DAL
 
-                OrderStatus = GetOrderStatus(doOrder.Id),          // קריאה מה-DAL
-                ScheduleStatus = GetScheduleStatus(doOrder.Id),
+            //    OrderStatus = GetOrderStatus(doOrder.Id),          // קריאה מה-DAL
+            //    ScheduleStatus = GetScheduleStatus(doOrder.Id),
 
-                TimeLeftToDeadline = CalculateTimeLeft(doOrder.Id),
+            //    TimeLeftToDeadline = CalculateTimeLeft(doOrder.Id),
 
-                CouriersForOrder = GetCouriersForOrder(doOrder.Id)
+            //    CouriersForOrder = GetCouriersForOrder(doOrder.Id)
             };
 
-        return predicate is null ? boOrders : boOrders.Where(predicate);
+            return predicate is null ? boOrders : boOrders.Where(predicate);
     }
 
+    internal static void UpdateOrder(BO.Order order)
+    {
+        DO.Order toUpdate = new DO.Order()
+        {
+            Id = order.Id,
+            OrderType = (DO.OrderType)order.orderType,
+            Description = order.Description,
+            FullAddress = order.Address,
+            Latitude = order.Latitude,
+            Longitude = order.Longitude,
+            CustomerName = order.CustomerName,
+            CustomerPhone = order.CustomerPhone,
+            OrderCreationTime = order.OrderCreated.Date
+        };
+
+        s_dal.Order.Update(toUpdate);
+    }
+
+    internal static void DeleteOrder(int orderId)
+    {
+        s_dal.Order.Delete(orderId);
+    }
+
+    /// <summary>
+    /// adding order to the data list
+    /// </summary>
+    internal static void AddOrder(BO.Order order)
+    {
+
+
+        // BO → DO
+        DO.Order doOrder = new DO.Order(
+            Id: order.Id,
+            OrderType: (DO.OrderType)order.OrderType,
+            Description: order.Description,
+            FullAddress: order.Address,
+            Latitude: order.Latitude,
+            Longitude: order.Longitude,
+            CustomerName: order.CustomerName,
+            CustomerPhone: order.CustomerPhone,
+            Notes: order.Notes,
+            OrderCreationTime: order.OrderCreated
+        );
+
+       
+            s_dal.Order.Create(doOrder);
+       
+    }
 }
-}
+
+
 
