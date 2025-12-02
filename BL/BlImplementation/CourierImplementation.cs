@@ -13,7 +13,7 @@ internal class CourierImplementation : BIApi.ICourier
     public UserType Login(string username, string password)
     {
         //Input validation
-        if(username.Length != 9) 
+        if(!Helpers.Tools.IdValidtion(int.Parse(username))) 
             throw new BlInvalidInputException("Username must be 9 characters long");
 
         var courier = Helpers.CourierManager.GetCourier(int.TryParse(username, out var idTemp) ? idTemp
@@ -97,10 +97,6 @@ internal class CourierImplementation : BIApi.ICourier
 
         // Update courier details
         Helpers.CourierManager.UpdateCourier(courier);
-
-
-
-
 
     }
 }

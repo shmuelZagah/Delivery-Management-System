@@ -284,7 +284,7 @@ internal class Program
                     Console.WriteLine($"Clock: {s_dal.Config.Clock}");
                     Console.WriteLine($"Company: {s_dal.Config.CompanyAddress}");
                     Console.WriteLine($"Lat/Lon: {s_dal.Config.Latitude},{s_dal.Config.Longitude}");
-                    Console.WriteLine($"Speeds: car={s_dal.Config.AvgCarSpeed}, moto={s_dal.Config.AvgMotocyclerSpeed}, walk={s_dal.Config.AvgWalkingSpeed}");
+                    Console.WriteLine($"Speeds: car={s_dal.Config.AvgCarSpeed}, moto={s_dal.Config.AvgMotorcycleSpeed}, walk={s_dal.Config.AvgWalkingSpeed}");
                     break;
 
                 case ConfigMenuOption.RESET_CONFIG:

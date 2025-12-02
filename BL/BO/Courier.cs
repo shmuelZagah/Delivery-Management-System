@@ -17,10 +17,10 @@ public class Courier
     public double? MaxDistance { get; set; }
     public ShipmentType ShipmentType { get; set; }
     public DateTime StartTime { get; init; }
-    public int OrdersDeliveredInTime { get; }
+    public int OrdersDeliveredInTime { get; init; }
 
-    public int OrdersDeliveredAfterTime { get; }
+    public int OrdersDeliveredAfterTime { get; init; }
 
-    public BO.OrderInProgress? InProgress { get; } 
+    public BO.OrderInProgress? InProgress { get; init; }
 
 }

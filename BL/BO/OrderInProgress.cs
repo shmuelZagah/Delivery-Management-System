@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BO
-{
+namespace BO;
     public class OrderInProgress
     {
         public int DeliveryId { get; set; }              // מספר מזהה של שיטת המשלוח
@@ -31,4 +30,4 @@ namespace BO
 
         public TimeSpan TimeGap { get; set; }               // פער זמן שנותר לסיום ההזמנה
     }
-}
+

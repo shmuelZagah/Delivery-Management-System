@@ -47,7 +47,7 @@ internal class ConfigImplementation : IConfig
         get => Config.AvgCarSpeed;
         set => Config.AvgCarSpeed = value;
     }
-    public double AvgMotocyclerSpeed
+    public double AvgMotorcycleSpeed
     {
         get => Config.AvgMotocyclerSpeed;
         set => Config.AvgMotocyclerSpeed = value;

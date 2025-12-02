@@ -1,14 +1,20 @@
-﻿using System;
+﻿using DalApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Helpers
 {
     internal static class Tools
     {
+
+        private static IDal? s_dal = Factory.Get;
+
         public static string ToStringProperty<T>(this T t)
         {
             if (t == null)
@@ -45,7 +51,7 @@ namespace Helpers
         /// </summary>
         /// T = The type of items in the collection.
         /// TKey = The type of the key used for grouping.
-        public static IEnumerable<T> SortWithGroupBy<T, TKey>( IEnumerable<T> items, 
+        public static IEnumerable<T> SortWithGroupBy<T, TKey>(IEnumerable<T> items,
             Func<T, TKey> keySelector)
         {
             return items
@@ -54,6 +60,97 @@ namespace Helpers
                 .SelectMany(g => g);       // החזרת כל הפריטים כסדרה ממוינת
         }
 
+        #region Calculation
+
+        // Radius of the Earth in kilometers
+        private const double EarthRadiusKm = 6371;
+
+        /// <summary>
+        /// Calculates the air distance between two geographic points using the Haversine formula.
+        /// </summary>
+        internal static double CalculateAirDistance(double lat2, double lon2, double? lat = null, double? lon = null)
+        {
+            double lat1;
+            double lon1;
+            if (s_dal.Config.Latitude != null && s_dal.Config.Longitude != null)
+            {
+                lat1 = (lat == null) ? s_dal.Config.Latitude.Value : lat.Value;
+                lon1 = (lon == null) ? s_dal.Config.Longitude.Value : lon.Value;
+            }
+            else
+            {
+                lat1 = (lat == null) ? 0 : lat.Value;
+                lon1 = (lon == null) ? 0 : lon.Value;
+            }
+
+            double dLat = ToRadians(lat2 - lat1);
+            double dLon = ToRadians(lon2 - lon1);
+
+            lat1 = ToRadians(lat1);
+            lat2 = ToRadians(lat2);
+
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                       Math.Sin(dLon / 2) * Math.Sin(dLon / 2) * Math.Cos(lat1) * Math.Cos(lat2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+            return EarthRadiusKm * c;
+        }
+
+        private static double ToRadians(double angle)
+        {
+            return (Math.PI / 180) * angle;
+        }
+
+        internal static double GetTravelDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            // OSRM API endpoint for route distance calculation
+            // Note: OSRM expects coordinates in the order of Longitude, then Latitude.
+            string url = $"http://router.project-osrm.org/route/v1/driving/{lon1},{lat1};{lon2},{lat2}?overview=false";
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    // Synchronous request (blocking call)
+                    var response = client.GetStringAsync(url).Result;
+
+                    // JSON parsing
+                    using (JsonDocument doc = JsonDocument.Parse(response))
+                    {
+                        // JSON structure: routes -> [0] -> distance
+                        var routes = doc.RootElement.GetProperty("routes");
+
+                        if (routes.GetArrayLength() > 0)
+                        {
+                            double distanceInMeters = routes[0].GetProperty("distance").GetDouble();
+
+                            // Convert meters to kilometers
+                            return distanceInMeters / 1000.0;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Fallback to air distance if API fails or internet is unavailable
+                return CalculateAirDistance(lat1, lon1, lat2, lon2);
+            }
+
+            return 0;
+        }
+
+        internal static double SpeedKmByType(DO.ShipmentType shipmentType)
+        {
+            return shipmentType switch
+            {
+                DO.ShipmentType.Foot => s_dal.Config.AvgWalkingSpeed,
+                DO.ShipmentType.Bicycle => s_dal.Config.AvgBicycleSpeed,
+                DO.ShipmentType.Motorcycle => s_dal.Config.AvgMotorcycleSpeed,
+                DO.ShipmentType.Car => s_dal.Config.AvgCarSpeed,
+            };
+        }
+        #endregion
 
         #region Validtions
 
