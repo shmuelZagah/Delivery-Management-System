@@ -525,7 +525,6 @@ static Courier BuildCourierFromInput()
         Phone = phone,
         Email = email,
         Password = password,
-        Address = address,
         IsActive = isActive,
         PersonalMaxDistance = personalMaxDistance,
         PreferredShipmentType = preferredType,

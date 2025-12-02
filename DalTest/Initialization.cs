@@ -135,7 +135,6 @@ public static class Initialization
                 Phone = phone,
                 Email = email,
                 Password = password,
-                Address = address,
                 IsActive = isActive,
                 PersonalMaxDistance = personalMaxWeight,
                 PreferredShipmentType = preferredType,

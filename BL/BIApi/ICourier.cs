@@ -8,17 +8,17 @@ public interface ICourier
     UserType Login(string username, string password);
 
     //Get a list of couriers with optional filters
-    IEnumerable<BO.Courier> getCouriers(int requesterId, bool? isActive, CourierField? courierField);
+    IEnumerable<BO.Courier> GetCouriers(int requesterId, bool? isActive, CourierField? courierField);
 
     //Get details of a specific courier by ID
     Courier GetCourierDetails(int requesterId, int courierId);
 
     //Update courier information
-    void updateCourier(int requesterId, Courier courier);
+    void UpdateCourier(int requesterId, Courier courier);
 
     //Delete a courier by ID
-    void deleteCourier(int requesterId, int courierId);
+    void DeleteCourier(int requesterId, int courierId);
 
     //Add a new courier to the system
-    void addCourier(int requesterId, Courier courier);
+    void AddCourier(int requesterId, Courier courier);
 }

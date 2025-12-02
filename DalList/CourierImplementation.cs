@@ -32,17 +32,14 @@ internal class CourierImplementation : ICourier
     public Courier? Read(int id) 
     {
         // return DataSource.couriers.Find(courier => courier.Id == id);  stage1
-        return DataSource.couriers.FirstOrDefault(courier => courier.Id == id); //stage2
+        return DataSource.couriers.FirstOrDefault(courier => courier.Id == id); 
     }
-    //public List<Courier> ReadAll() //stage1
-    //{
-    //    return new List<Courier> (DataSource.couriers);
-    //}
+    
 
-    public Courier? Read(Func<Courier, bool> filter) // stage 2
+    public Courier? Read(Func<Courier, bool> filter) 
   => DataSource.couriers.FirstOrDefault(deliver => filter(deliver));
 
-    public IEnumerable<Courier> ReadAll(Func<Courier, bool>? filter = null) //stage 2 
+    public IEnumerable<Courier> ReadAll(Func<Courier, bool>? filter = null) 
          => filter != null
              ? from item in DataSource.couriers
                where filter(item)

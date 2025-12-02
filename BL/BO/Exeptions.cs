@@ -14,7 +14,21 @@ public class BlDoesNotExistException : Exception
     {
     }
 
-    public BlDoesNotExistException(string message, Exception innerException)
+    public BlDoesNotExistException(string? message , Exception innerException)
+       : base(message, innerException)
+    {
+    }
+}
+
+[Serializable]
+public class BlAlreadyExistsException : Exception
+{
+    public BlAlreadyExistsException(string? message)
+        : base(message)
+    {
+    }
+
+    public BlAlreadyExistsException(string? message, Exception innerException)
         : base(message, innerException)
     {
     }
@@ -29,7 +43,42 @@ public class BlInvalidInputException : Exception
     {
     }
 
-    public BlInvalidInputException(string message, Exception innerException)
+    public BlInvalidInputException(string? message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
+}
+
+
+/// <summary>
+/// Exception for unauthorized access to BL operations.
+/// </summary> 
+[Serializable]
+public class BLUnauthorizedAccessException : Exception
+{
+    public BLUnauthorizedAccessException(string? message)
+        : base(message)
+    {
+    }
+
+    public BLUnauthorizedAccessException(string? message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
+}
+
+/// <summary>
+/// Thrown when an operation cannot be completed because the entity is currently in a state that does not allow it.
+/// </summary> 
+[Serializable]
+public class BlInvalidOperationStateException : Exception
+{
+    public BlInvalidOperationStateException(string? message)
+        : base(message)
+    {
+    }
+
+    public BlInvalidOperationStateException(string? message, Exception innerException)
         : base(message, innerException)
     {
     }

@@ -1,21 +1,25 @@
 ﻿using BIApi;
 using BO;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace BlImplementation;
 
+//--------------------------
+// CourierImplementation
+//--------------------------
 internal class CourierImplementation : BIApi.ICourier
 {
 
     // Login method for courier authentication
     public UserType Login(string username, string password)
     {
-        var courier = Helpers.CourierManager.GetCourier(int.TryParse(username, out var idTemp) ? idTemp
-            : throw new BlDoesNotExistException("Invalid input, need ID")) 
-            ?? throw new BlInvalidInputException("Courier not found");
+        //Input validation
+        if(username.Length != 9) 
+            throw new BlInvalidInputException("Username must be 9 characters long");
 
-        if (courier.Password != password)
+        var courier = Helpers.CourierManager.GetCourier(int.TryParse(username, out var idTemp) ? idTemp
+            : throw new BlInvalidInputException("Invalid input, Username input is invalid"));
+
+        if (courier!.Password != password)
             throw new BlInvalidInputException("Incorrect password");
 
         return Helpers.CourierManager.GetUserType(username);
@@ -23,8 +27,12 @@ internal class CourierImplementation : BIApi.ICourier
 
 
     // Retrieve a list of couriers
-    public IEnumerable<Courier> getCouriers(int requesterId, bool? isActive, CourierField? courierField)
+    public IEnumerable<Courier> GetCouriers(int requesterId, bool? isActive, CourierField? courierField)
     {
+
+        // Authorization check: only managers can access this method
+        Helpers.CourierManager.EnsureIsManager(requesterId.ToString());
+
         // Get all couriers (if isActive is null get all)
         IEnumerable<Courier> couriers = Helpers.CourierManager.GetAllCouriers(p=> p.IsActive == isActive);
 
@@ -39,23 +47,60 @@ internal class CourierImplementation : BIApi.ICourier
     }
 
 
-    public void addCourier(int requesterId, Courier courier)
+    public void AddCourier(int requesterId, Courier courier)
     {
-        throw new NotImplementedException();
+        // Authorization check: only managers can access this method
+        Helpers.CourierManager.EnsureIsManager(requesterId.ToString());
+
+        // Validate courier details
+        Helpers.CourierManager.ValidationOfCarrier(courier);
+
+        //If all validations passed, add the courier to the system
+        Helpers.CourierManager.AddCourier(courier);
     }
 
-    public void deleteCourier(int requesterId, int courierId)
+    public void DeleteCourier(int requesterId, int courierId)
     {
-        throw new NotImplementedException();
+        // Authorization check: only managers can access this method
+        Helpers.CourierManager.EnsureIsManager(requesterId.ToString());
+
+        // Delete the courier from the system
+        Helpers.CourierManager.DeleteCourier(courierId);
+
     }
 
     public Courier GetCourierDetails(int requesterId, int courierId)
     {
-        throw new NotImplementedException();
+        var courier = Helpers.CourierManager.GetCourier(courierId);
+
+        if(requesterId == courier!.Id || Helpers.CourierManager.EnsureIsManager(requesterId.ToString()))
+        {
+            return courier;
+        }
+        else throw new BLUnauthorizedAccessException("Unauthorized access attempt detected");
     }
 
-    public void updateCourier(int requesterId, Courier courier)
+    public void UpdateCourier(int requesterId, Courier courier)
     {
-        throw new NotImplementedException();
+
+        var courierToUpdate = Helpers.CourierManager.GetCourier(courier.Id);
+
+        // Authorization check: only managers can change isActive status
+        if ( courierToUpdate!.IsActive != courier.IsActive)
+            try { 
+            Helpers.CourierManager.EnsureIsManager(requesterId.ToString());
+            }
+            catch (BLUnauthorizedAccessException ex)
+            {
+                throw new BLUnauthorizedAccessException("Cannot change the activeness status",ex);
+            }
+
+        // Update courier details
+        Helpers.CourierManager.UpdateCourier(courier);
+
+
+
+
+
     }
 }
