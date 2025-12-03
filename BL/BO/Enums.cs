@@ -56,7 +56,7 @@ public enum ScheduleStatus
 {
     OnTime,
     Late,
-    VeryLate,
+    InRisk,
     Unknown
 }
 

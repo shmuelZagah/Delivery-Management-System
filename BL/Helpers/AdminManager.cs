@@ -65,7 +65,7 @@ internal static class AdminManager //stage 4
 
         // --- AVERAGE SPEEDS ---
         AvgCarSpeed = s_dal.Config.AvgCarSpeed,
-        AvgMotocyclerSpeed = s_dal.Config.AvgMotocyclerSpeed,
+        AvgMotocyclerSpeed = s_dal.Config.AvgMotorcycleSpeed,
         AvgBicycleSpeed = s_dal.Config.AvgBicycleSpeed,
         AvgWalkingSpeed = s_dal.Config.AvgWalkingSpeed
     };
@@ -110,9 +110,9 @@ internal static class AdminManager //stage 4
             configChanged = true;
         }
 
-        if (s_dal.Config.AvgMotocyclerSpeed != configuration.AvgMotocyclerSpeed)
+        if (s_dal.Config.AvgMotorcycleSpeed != configuration.AvgMotocyclerSpeed)
         {
-            s_dal.Config.AvgMotocyclerSpeed = configuration.AvgMotocyclerSpeed;
+            s_dal.Config.AvgMotorcycleSpeed = configuration.AvgMotocyclerSpeed;
             configChanged = true;
         }
 

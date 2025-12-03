@@ -13,7 +13,7 @@ internal class CourierImplementation : BIApi.ICourier
     public UserType Login(string username, string password)
     {
         //Input validation
-        if(username.Length != 9) 
+        if(!Helpers.Tools.IdValidtion(int.Parse(username))) 
             throw new BlInvalidInputException("Username must be 9 characters long");
 
         var courier = Helpers.CourierManager.GetCourier(int.TryParse(username, out var idTemp) ? idTemp
@@ -27,14 +27,14 @@ internal class CourierImplementation : BIApi.ICourier
 
 
     // Retrieve a list of couriers
-    public IEnumerable<Courier> GetCouriers(int requesterId, bool? isActive, CourierField? courierField)
+    public IEnumerable<CourierInList> GetCouriers(int requesterId, bool? isActive, CourierField? courierField)
     {
 
         // Authorization check: only managers can access this method
         Helpers.CourierManager.EnsureIsManager(requesterId.ToString());
 
         // Get all couriers (if isActive is null get all)
-        IEnumerable<Courier> couriers = Helpers.CourierManager.GetAllCouriers(p=> p.IsActive == isActive);
+        IEnumerable<CourierInList> couriers = Helpers.CourierManager.GetAllCouriers(p=> p.IsActive == isActive);
 
         if (courierField != null)
         {
@@ -97,10 +97,6 @@ internal class CourierImplementation : BIApi.ICourier
 
         // Update courier details
         Helpers.CourierManager.UpdateCourier(courier);
-
-
-
-
 
     }
 }

@@ -71,7 +71,7 @@ public static class Initialization
         // ranges and speeds
         s_dal!.Config.MaxAirRange = 40; // km - company committed max delivery radius
         s_dal!.Config.AvgCarSpeed = 60;           // km/h
-        s_dal!.Config.AvgMotocyclerSpeed = 45;    // km/h
+        s_dal!.Config.AvgMotorcycleSpeed = 45;    // km/h
         s_dal!.Config.AvgWalkingSpeed = 5;        // km/h
         s_dal!.Config.AvgBicycleSpeed = 15;       // km/h
 

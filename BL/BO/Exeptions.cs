@@ -67,10 +67,11 @@ public class BLUnauthorizedAccessException : Exception
     }
 }
 
+
+[Serializable]
 /// <summary>
 /// Thrown when an operation cannot be completed because the entity is currently in a state that does not allow it.
 /// </summary> 
-[Serializable]
 public class BlInvalidOperationStateException : Exception
 {
     public BlInvalidOperationStateException(string? message)

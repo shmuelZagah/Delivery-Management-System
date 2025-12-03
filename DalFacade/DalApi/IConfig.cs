@@ -15,7 +15,7 @@ public interface IConfig
 
     // --- AVERAGE SPEEDS ---
     double AvgCarSpeed { get; set; }
-    double AvgMotocyclerSpeed { get; set; }
+    double AvgMotorcycleSpeed { get; set; }
     double AvgBicycleSpeed {  get; set; }
     double AvgWalkingSpeed { get; set; }
 
