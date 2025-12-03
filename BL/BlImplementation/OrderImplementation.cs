@@ -96,17 +96,82 @@ namespace BlImplementation
 
         public void ChooseOrderForHandling(int requesterId, int courierId, int orderId)
         {
+            // Verify requester is a manager
             if (!CourierManager.EnsureIsManager(requesterId.ToString()))
                 throw new AccessViolationException();
-        }
 
+            // Retrieve the order to handle
+            var orderToHandle = OrderManager.GetOrder(orderId);
+            if (orderToHandle == null)
+                throw new BO.BlDoesNotExistException($"Order with ID {orderId} not found.");
+
+            // Validate the order is not already completed or cancelled
+            if (orderToHandle.OrderStatus == OrderStatus.Completed || orderToHandle.OrderStatus == OrderStatus.Cancelled)
+                throw new BO.BlInvalidOperationStateException($"Order {orderId} cannot be handled as it is already completed or cancelled.");
+
+            // Create a new delivery object
+            DO.Delivery newDelivery = new DO.Delivery(
+                Id: 0, // Assuming ID will be auto-generated
+                OrderId: orderId,
+                CourierId: courierId,
+                DeliveryType: DO.ShipmentType.Foot, // Default delivery type, can be updated later
+                StartTime: AdminManager.Now, // Current system time
+                DistanceKm: null, // Distance not calculated yet
+                DeliveryEndType: null, // Delivery not finished yet
+                EndTime: null // End time not set yet
+            );
+
+            try
+            {
+                // Save the new delivery object
+                DeliveryManager.createDelivery(newDelivery);
+
+                // Update the order status to "InProgress"
+                orderToHandle.OrderStatus = OrderStatus.InProgress;
+                OrderManager.UpdateOrder(orderToHandle);
+            }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException("Failed to create delivery or update order.", ex);
+            }
+        }
         public void CompleteOrderHandling(int requesterId, int courierId, int deliveryId)
         {
+            // Verify requester is a manager
             if (!CourierManager.EnsureIsManager(requesterId.ToString()))
                 throw new AccessViolationException();
 
-            var deliveryToUpdate = DeliveryManager.GetDelivery(deliveryId) ;
-            
+            // Retrieve the delivery to update
+            var deliveryToUpdate = DeliveryManager.GetAllDelivery(d => d.CourierId == courierId && d.DeliveryId == deliveryId).FirstOrDefault();
+
+            if (deliveryToUpdate == null)
+                throw new BO.BlDoesNotExistException($"Delivery with ID {deliveryId} not found for courier {courierId}.");
+
+            // Create a new DeliveryPerOrderInList object with updated details
+            DO.Delivery updatedDelivery = new DO.Delivery
+         (
+             Id: deliveryToUpdate.DeliveryId,
+
+             OrderId: OrderManager.GetAllOrders()
+              .FirstOrDefault(order => order.CouriersForOrder?.Any(delivery => delivery.DeliveryId == deliveryId) == true)?.Id ?? 0,
+             CourierId: deliveryToUpdate.CourierId ?? 0, // Assuming CourierId is nullable
+             DeliveryType:(DO.ShipmentType) deliveryToUpdate.ShipmentType,
+             StartTime: deliveryToUpdate.StartDeliveryTime,
+             DistanceKm: null, // Assuming distance is not provided
+             DeliveryEndType: DO.DeliveryEndType.Provided, // Updated finish type
+             EndTime: AdminManager.Now // Updated finish time
+         );
+
+
+            try
+            {
+                // Save the new delivery object
+                DeliveryManager.UpdateDelivery(updatedDelivery);
+            }
+            catch (BO.BlDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException("Failed to update delivery.", ex);
+            }
         }
 
         /// <summary>
@@ -128,10 +193,67 @@ namespace BlImplementation
             }
         }
 
-
         public IEnumerable<ClosedDeliveryInList> GetClosedOrders(int requesterId, int courierId, BO.OrderType? filterBy, ClosedDeliveryField? sortBy)
         {
-            throw new NotImplementedException();
+            // Verify requester is a manager
+            if (!CourierManager.EnsureIsManager(requesterId.ToString()))
+                throw new AccessViolationException();
+
+            // Retrieve all deliveries for the specified courier
+            var deliveries = DeliveryManager.GetAllDelivery(d => d.CourierId == courierId && d.FinishType.HasValue);
+
+            // Filter deliveries by OrderType if provided
+            if (filterBy.HasValue)
+            {
+                deliveries = deliveries.Where(d =>
+                {
+                    var order = OrderManager.GetOrder(d.DeliveryId);
+                    return order != null && order.OrderType == filterBy.Value;
+                });
+            }
+
+            // Map deliveries to ClosedDeliveryInList objects
+            var closedDeliveries = deliveries.Select(d =>
+            {
+                var order = OrderManager.GetOrder(d.DeliveryId);
+                if (order == null)
+                    throw new BO.BlDoesNotExistException($"Order with ID {d.DeliveryId} not found.");
+
+                return new ClosedDeliveryInList
+                {
+                    DeliveryId = d.DeliveryId,
+                    OrderId = order.Id,
+                    OrderType = order.OrderType,
+                    Address = order.Address,
+                    ShipmentType = d.ShipmentType,
+                    ActualDistance = d.FinishTime.HasValue && d.StartDeliveryTime != null
+                        ? (double?)(d.FinishTime.Value - d.StartDeliveryTime).TotalKilometers // Assuming distance calculation logic
+                        : null,
+                    ProcessingDuration = d.FinishTime.HasValue
+                        ? d.FinishTime.Value - d.StartDeliveryTime
+                        : TimeSpan.Zero,
+                    FinishType = d.FinishType
+                };
+            });
+
+            // Sort the results if a sortBy parameter is provided
+            if (sortBy.HasValue)
+            {
+                closedDeliveries = sortBy.Value switch
+                {
+                    ClosedDeliveryField.DeliveryId => closedDeliveries.OrderBy(d => d.DeliveryId),
+                    ClosedDeliveryField.OrderId => closedDeliveries.OrderBy(d => d.OrderId),
+                    ClosedDeliveryField.OrderType => closedDeliveries.OrderBy(d => d.OrderType),
+                    ClosedDeliveryField.Address => closedDeliveries.OrderBy(d => d.Address),
+                    ClosedDeliveryField.ShipmentType => closedDeliveries.OrderBy(d => d.ShipmentType),
+                    ClosedDeliveryField.ActualDistance => closedDeliveries.OrderBy(d => d.ActualDistance),
+                    ClosedDeliveryField.ProcessingDuration => closedDeliveries.OrderBy(d => d.ProcessingDuration),
+                    ClosedDeliveryField.FinishType => closedDeliveries.OrderBy(d => d.FinishType),
+                    _ => closedDeliveries.OrderBy(d => d.DeliveryId) // Default sorting by DeliveryId
+                };
+            }
+
+            return closedDeliveries;
         }
 
         public IEnumerable<OpenOrderInList> getOpenOrders(int requesterId, int courierId, BO.OrderType? filterBy, OpenDeliveryField? sortBy)

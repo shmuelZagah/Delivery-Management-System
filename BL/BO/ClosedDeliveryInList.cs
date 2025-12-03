@@ -8,14 +8,14 @@ namespace BO
 {
     public class ClosedDeliveryInList
     {
-        public int DeliveryId { get; }
-        public int OrderId { get; }
-        public OrderType OrderType { get; }
-        public string Address { get; } =string.Empty;
-        public ShipmentType ShipmentType { get; }
-        public double? ActualDistance { get; }
-        public TimeSpan ProcessingDuration { get; }
-        public DeliveryEndType FinishType { get; }
+        public int DeliveryId { get; init; }
+        public int OrderId { get; init; }
+        public OrderType OrderType { get; init; }
+        public string Address { get; init; } =string.Empty;
+        public ShipmentType ShipmentType { get; init;    }
+        public double? ActualDistance { get; init; }
+        public TimeSpan ProcessingDuration { get; init; }
+        public DeliveryEndType FinishType { get; init; }
 
     }
 }

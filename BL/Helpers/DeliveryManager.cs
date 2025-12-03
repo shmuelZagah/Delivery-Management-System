@@ -40,6 +40,50 @@ internal class DeliveryManager
     }
 
 
+    internal static IEnumerable<BO.DeliveryPerOrderInList> GetAllDelivery(Func<BO.DeliveryPerOrderInList, bool>? predicate = null)
+    {
+        var dalDeliverys = s_dal.Delivery.ReadAll();
+
+        var boDeliverys =
+            from doDelivery in dalDeliverys
+            select new BO.DeliveryPerOrderInList()
+            {
+
+
+                DeliveryId = doDelivery.Id,
+                CourierId = doDelivery.CourierId,
+                CourierName = CourierManager.GetAllCouriers(courier => courier.Id == doDelivery.CourierId).FirstOrDefault()?.Name ?? "",
+                ShipmentType =(BO.ShipmentType) doDelivery.DeliveryType,
+                StartDeliveryTime = doDelivery.StartTime,
+                //FinishType = doDelivery. toDo
+                FinishTime = doDelivery.EndTime
+            };
+
+        return predicate is null ? boDeliverys : boDeliverys.Where(predicate);
+    }
+
+    public static int? GetOrderIdByDeliveryId(List<BO.Order> orders, int deliveryId)
+    {
+        // Iterate through all orders
+        foreach (var order in orders)
+        {
+            // Check if the order has deliveries
+            if (order.CouriersForOrder != null)
+            {
+                // Search for the delivery in the CouriersForOrder list
+                var delivery = order.CouriersForOrder.FirstOrDefault(d => d.DeliveryId == deliveryId);
+                if (delivery != null)
+                {
+                    // Return the OrderId if found
+                    return order.Id;
+                }
+            }
+        }
+
+        // Return null if no matching delivery is found
+        return null;
+    }
+
     /// <summary>
     /// Returns the delivery associated with a given OrderId.
     /// Throws if no delivery exists.
