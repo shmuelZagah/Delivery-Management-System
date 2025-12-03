@@ -237,7 +237,8 @@ internal static class CourierManager
             lat,
             longit,
             orderDo.Latitude,
-            orderDo.Longitude
+            orderDo.Longitude,
+            courier!.PreferredShipmentType
         );
         var scheduleStatus = timeGap.TotalHours switch
         {

@@ -21,7 +21,7 @@ namespace BlImplementation
         public void addOrder(int requesterId, BO.Order order)
         {
             if (!CourierManager.EnsureIsManager(requesterId.ToString()))
-                throw new AccessViolationException();
+                throw new BLUnauthorizedAccessException("Access denied only manager can use this opertion");
 
             OrderManager.AddOrder(order);
         }
@@ -29,7 +29,7 @@ namespace BlImplementation
         public void CancelOrder(int requesterId, int orderId)
         {
             if (!CourierManager.EnsureIsManager(requesterId.ToString()))
-                throw new AccessViolationException();
+                throw new BlInvalidOperationStateException("Cant...");
 
            var order = OrderManager.GetOrder(orderId);
 

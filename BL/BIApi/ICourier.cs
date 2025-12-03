@@ -8,7 +8,7 @@ public interface ICourier
     UserType Login(string username, string password);
 
     //Get a list of couriers with optional filters
-    IEnumerable<BO.Courier> GetCouriers(int requesterId, bool? isActive, CourierField? courierField);
+    IEnumerable<BO.CourierInList> GetCouriers(int requesterId, bool? isActive, CourierField? courierField);
 
     //Get details of a specific courier by ID
     Courier GetCourierDetails(int requesterId, int courierId);

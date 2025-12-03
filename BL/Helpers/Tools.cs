@@ -147,8 +147,7 @@ namespace Helpers
             {
                 DO.ShipmentType.Foot => "walking",
                 DO.ShipmentType.Bicycle => "biking",
-                DO.ShipmentType.Motorcycle => "motorcycle_driving",
-                _ => "car_driving" 
+                _ => "driving" 
             };
 
             // Note: OSRM URL format expects {Longitude},{Latitude} (opposite of Google Maps)
