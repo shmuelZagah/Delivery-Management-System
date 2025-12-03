@@ -53,7 +53,7 @@ namespace BlImplementation
                    StartTime: AdminManager.Now,
                    DistanceKm: 0,
                    DeliveryType: DO.ShipmentType.Bicycle,
-                   DeliveryEndType: DO.DeliveryEndType.Cancelled,
+                   DeliveryEndType: DO.DeliveryEndType.Canceled,
                    EndTime: AdminManager.Now
                    );
 
@@ -77,7 +77,7 @@ namespace BlImplementation
              StartTime: doDelivery.StartTime,
              DistanceKm: doDelivery.DistanceKm,
              DeliveryType: DO.ShipmentType.Bicycle,
-             DeliveryEndType: DO.DeliveryEndType.Cancelled,
+             DeliveryEndType: DO.DeliveryEndType.Canceled,
              EndTime: AdminManager.Now
              );
 
@@ -226,13 +226,11 @@ namespace BlImplementation
                     OrderType = order.OrderType,
                     Address = order.Address,
                     ShipmentType = d.ShipmentType,
-                    ActualDistance = d.FinishTime.HasValue && d.StartDeliveryTime != null
-                        ? (double?)(d.FinishTime.Value - d.StartDeliveryTime).TotalKilometers // Assuming distance calculation logic
-                        : null,
+                    ActualDistance = null, // Distance should be calculated or stored elsewhere
                     ProcessingDuration = d.FinishTime.HasValue
                         ? d.FinishTime.Value - d.StartDeliveryTime
                         : TimeSpan.Zero,
-                    FinishType = d.FinishType
+                    FinishType = d.FinishType ?? DeliveryEndType.Failed
                 };
             });
 

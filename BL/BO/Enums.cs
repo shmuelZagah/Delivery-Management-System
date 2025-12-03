@@ -45,11 +45,12 @@ public enum DeliveryEndType
 
 public enum OrderStatus
 {
+    Created,
     Open,
     ClientRefusedAccept,
     InProgress,
     Completed,
-    Canceled
+    Cancelled
 }
 
 public enum ScheduleStatus

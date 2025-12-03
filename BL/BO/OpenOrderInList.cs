@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helpers;
 
 namespace BO
 {
@@ -21,7 +22,7 @@ namespace BO
         public TimeSpan TimeLeftToDeadline { get; }
         public DateTime EstimatedArrivalTime { get; }
 
-
+        public override string ToString() => this.ToStringProperty();
     }
 
    

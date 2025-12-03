@@ -159,7 +159,7 @@ internal class OrderManager
         {
             DO.DeliveryEndType.Provided => BO.OrderStatus.Completed,
             DO.DeliveryEndType.ClientRefusedAccept => BO.OrderStatus.ClientRefusedAccept,
-            DO.DeliveryEndType.Canceled => BO.OrderStatus.Canceled,
+            DO.DeliveryEndType.Canceled => BO.OrderStatus.Cancelled,
             DO.DeliveryEndType.ClientNotFound => BO.OrderStatus.Open,
 
             // Default case

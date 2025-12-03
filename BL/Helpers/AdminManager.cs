@@ -38,7 +38,8 @@ internal static class AdminManager //stage 4
         // - (students become not active after 5 years etc.)
 
         //TO_DO: //stage 4
-        StudentManager.PeriodicStudentsUpdates(oldClock, newClock); //stage 4. to be removed in stage 7 and replaced as below
+        // Periodic updates for couriers/orders can be added here
+        // CourierManager.PeriodicUpdates(oldClock, newClock); //stage 4. to be removed in stage 7 and replaced as below
         //...
 
         //TO_DO: //stage 7
@@ -228,8 +229,8 @@ internal static class AdminManager //stage 4
             //TO_DO: //stage 7
             //Add calls here to any logic simulation that was required in stage 7
             //for example: course registration simulation
-            if (_simulateTask is null || _simulateTask.IsCompleted)//stage 7
-                _simulateTask = Task.Run(() => StudentManager.SimulateCourseRegistrationAndGrade());
+            //if (_simulateTask is null || _simulateTask.IsCompleted)//stage 7
+            //    _simulateTask = Task.Run(() => CourierManager.SimulateDeliveryProcess());
 
             //etc...
 

@@ -1,4 +1,6 @@
-﻿namespace BO
+﻿using Helpers;
+
+namespace BO
 {
     public class Order
     {
@@ -6,14 +8,14 @@
         public int Id { get; init; }
         public OrderType OrderType { get; set; }
         public string? Description { get; set; }
-        public string Address { get; set; }
+        public string Address { get; set; } = string.Empty;
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public double AirDistance { get; set; }
 
-        public string CustomerName { get; set; }
-        public string CustomerPhone { get; set; }
+        public string CustomerName { get; set; } = string.Empty;
+        public string CustomerPhone { get; set; } = string.Empty;
 
         public double Volume { get; set; }
         public double Weight { get; set; }
@@ -32,5 +34,6 @@
 
         public List<DeliveryPerOrderInList>? CouriersForOrder { get; set; }
 
+        public override string ToString() => this.ToStringProperty();
     }
 }

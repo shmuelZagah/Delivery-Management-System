@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helpers;
 
 namespace BO
 {
@@ -18,5 +19,6 @@ namespace BO
         public TimeSpan TimeLeftToFinish { get; init; }
         public int CouriersCount { get; init; }
 
+        public override string ToString() => this.ToStringProperty();
     }
 }

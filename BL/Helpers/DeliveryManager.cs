@@ -52,7 +52,7 @@ internal class DeliveryManager
 
                 DeliveryId = doDelivery.Id,
                 CourierId = doDelivery.CourierId,
-                CourierName = CourierManager.GetAllCouriers(courier => courier.Id == doDelivery.CourierId).FirstOrDefault()?.Name ?? "",
+                CourierName = CourierManager.GetAllCouriers(courier => courier.Id == doDelivery.CourierId).FirstOrDefault()?.FullName ?? "",
                 ShipmentType =(BO.ShipmentType) doDelivery.DeliveryType,
                 StartDeliveryTime = doDelivery.StartTime,
                 //FinishType = doDelivery. toDo

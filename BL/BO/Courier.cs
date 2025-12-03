@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helpers;
 
 namespace BO;
 public class Courier
@@ -23,4 +24,5 @@ public class Courier
 
     public BO.OrderInProgress? InProgress { get; init; }
 
+    public override string ToString() => this.ToStringProperty();
 }

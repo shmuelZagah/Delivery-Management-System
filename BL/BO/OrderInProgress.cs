@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Helpers;
 
 namespace BO;
     public class OrderInProgress
@@ -11,13 +12,13 @@ namespace BO;
         public int OrderId { get; set; }                 // מספר מזהה של שיטת הזמנה
         public OrderType OrderType { get; set; }         // ENUM - סוג הזמנה
         public string? CustomerDescription { get; set; }  // תיאור מילולי
-        public string CustomerAddress { get; set; }      // כתובת מלאה של ההזמנה
+        public string CustomerAddress { get; set; } = string.Empty;      // כתובת מלאה של ההזמנה
 
         public double AirDistance { get; set; }          // מרחק אווירי בק"מ
         public double? RealDistance { get; set; }         // מרחק בפועל בק"מ
 
-        public string CustomerName { get; set; }         // שם מלא של המזמין
-        public string CustomerPhone { get; set; }        // טלפון של המזמין
+        public string CustomerName { get; set; } = string.Empty;         // שם מלא של המזמין
+        public string CustomerPhone { get; set; } = string.Empty;        // טלפון של המזמין
 
         public DateTime OrderCreated { get; set; }       // זמן פתיחת הזמנה
         public DateTime DeliveryStart { get; set; }      // זמן תחילת משלוח
@@ -29,5 +30,7 @@ namespace BO;
         public ScheduleStatus ScheduleStatus { get; set; }  // סטטוס עמידה בזמנים
 
         public TimeSpan TimeGap { get; set; }               // פער זמן שנותר לסיום ההזמנה
+
+        public override string ToString() => this.ToStringProperty();
     }
 

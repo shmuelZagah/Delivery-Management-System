@@ -84,3 +84,20 @@ public class BlInvalidOperationStateException : Exception
     {
     }
 }
+
+[Serializable]
+/// <summary>
+/// Thrown when an operation cannot be performed because the simulator is currently running.
+/// </summary> 
+public class BLTemporaryNotAvailableException : Exception
+{
+    public BLTemporaryNotAvailableException(string? message)
+        : base(message)
+    {
+    }
+
+    public BLTemporaryNotAvailableException(string? message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
+}
