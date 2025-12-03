@@ -188,10 +188,18 @@ class Program
             catch (BO.BlDoesNotExistException ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
+                if (ex.InnerException != null)
+                    Console.WriteLine($"Inner: {ex.InnerException.Message}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner: {ex.InnerException.Message}");
+                    if (ex.InnerException.InnerException != null)
+                        Console.WriteLine($"Root: {ex.InnerException.InnerException.Message}");
+                }
             }
 
         } while (choice != 0);
