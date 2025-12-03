@@ -30,7 +30,7 @@ public enum DeliveryEndType
 {
     Provided = 0,
     ClientRefusedAccept,
-    Cancelled,
+    Canceled,
     ClientNotFound,
     Failed
 }

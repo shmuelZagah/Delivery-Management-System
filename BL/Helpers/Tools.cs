@@ -59,8 +59,20 @@ namespace Helpers
                 .OrderBy(g => g.Key)       // מיון הקבוצות לפי המפתח
                 .SelectMany(g => g);       // החזרת כל הפריטים כסדרה ממוינת
         }
+        internal static double SpeedKmByType(DO.ShipmentType shipmentType)
+        {
+            return shipmentType switch
+            {
+                DO.ShipmentType.Foot => s_dal.Config.AvgWalkingSpeed,
+                DO.ShipmentType.Bicycle => s_dal.Config.AvgBicycleSpeed,
+                DO.ShipmentType.Motorcycle => s_dal.Config.AvgMotorcycleSpeed,
+                DO.ShipmentType.Car => s_dal.Config.AvgCarSpeed,
+            };
+        }
 
-        #region Calculation
+        #region Calculations
+
+        #region Distances
 
         // Radius of the Earth in kilometers
         private const double EarthRadiusKm = 6371;
@@ -185,19 +197,9 @@ namespace Helpers
             return 0;
         }
 
-
-
-        internal static double SpeedKmByType(DO.ShipmentType shipmentType)
-        {
-            return shipmentType switch
-            {
-                DO.ShipmentType.Foot => s_dal.Config.AvgWalkingSpeed,
-                DO.ShipmentType.Bicycle => s_dal.Config.AvgBicycleSpeed,
-                DO.ShipmentType.Motorcycle => s_dal.Config.AvgMotorcycleSpeed,
-                DO.ShipmentType.Car => s_dal.Config.AvgCarSpeed,
-            };
-        }
         #endregion
+
+        #endregion Calculations
 
         #region Validtions
 
