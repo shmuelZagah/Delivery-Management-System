@@ -27,14 +27,14 @@ internal class CourierImplementation : BIApi.ICourier
 
 
     // Retrieve a list of couriers
-    public IEnumerable<Courier> GetCouriers(int requesterId, bool? isActive, CourierField? courierField)
+    public IEnumerable<CourierInList> GetCouriers(int requesterId, bool? isActive, CourierField? courierField)
     {
 
         // Authorization check: only managers can access this method
         Helpers.CourierManager.EnsureIsManager(requesterId.ToString());
 
         // Get all couriers (if isActive is null get all)
-        IEnumerable<Courier> couriers = Helpers.CourierManager.GetAllCouriers(p=> p.IsActive == isActive);
+        IEnumerable<CourierInList> couriers = Helpers.CourierManager.GetAllCouriers(p=> p.IsActive == isActive);
 
         if (courierField != null)
         {

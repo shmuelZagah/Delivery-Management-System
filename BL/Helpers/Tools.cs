@@ -102,27 +102,72 @@ namespace Helpers
             return (Math.PI / 180) * angle;
         }
 
-        internal static double GetTravelDistance(double lat1, double lon1, double lat2, double lon2)
+        /// <summary>
+        /// Get coordinates from an address (Geocoding)
+        /// Accesses the internet (OSM Nominatim) synchronously and returns latitude and longitude.
+        /// </summary>
+        /// <param name="address">Full address (for example: "HaNesi'im 7, Petah Tikva")</param>
+        /// <returns>Tuple of (Latitude, Longitude) or null if failed</returns>
+        internal static (double Lat, double Lon)? GetLocationFromAddress(string address)
         {
-            // OSRM API endpoint for route distance calculation
-            // Note: OSRM expects coordinates in the order of Longitude, then Latitude.
-            string url = $"http://router.project-osrm.org/route/v1/driving/{lon1},{lat1};{lon2},{lat2}?overview=false";
+            string url = $"https://nominatim.openstreetmap.org/search?q={address}&format=json&limit=1";
+
+            try
+            {
+                using var client = new HttpClient();
+                // Nominatim requires a User-Agent header
+                client.DefaultRequestHeaders.Add("User-Agent", "PizzaDeliveryProject");
+
+                var response = client.GetStringAsync(url).Result;
+
+                using JsonDocument doc = JsonDocument.Parse(response);
+                var root = doc.RootElement;
+
+                if (root.GetArrayLength() > 0)
+                {
+                    var element = root[0];
+                    string latStr = element.GetProperty("lat").GetString()!;
+                    string lonStr = element.GetProperty("lon").GetString()!;
+
+                    return (double.Parse(latStr), double.Parse(lonStr));
+                }
+            }
+            catch { }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Calculates the actual travel distance (driving/walking) between two points using OSRM API.
+        /// </summary>
+        internal static double GetTravelDistance(double lat1, double lon1, double lat2, double lon2, DO.ShipmentType type)
+        {
+            // We select the correct profile according to the shipment type
+            string profile = type switch
+            {
+                DO.ShipmentType.Foot => "walking",
+                DO.ShipmentType.Bicycle => "biking",
+                DO.ShipmentType.Motorcycle => "motorcycle_driving",
+                _ => "car_driving" 
+            };
+
+            // Note: OSRM URL format expects {Longitude},{Latitude} (opposite of Google Maps)
+            string url = $"http://router.project-osrm.org/route/v1/{profile}/{lon1},{lat1};{lon2},{lat2}?overview=false";
 
             try
             {
                 using (var client = new HttpClient())
                 {
-                    // Synchronous request (blocking call)
+                    // Sending a synchronous (blocking) request as required in stage 4
                     var response = client.GetStringAsync(url).Result;
 
-                    // JSON parsing
                     using (JsonDocument doc = JsonDocument.Parse(response))
                     {
-                        // JSON structure: routes -> [0] -> distance
                         var routes = doc.RootElement.GetProperty("routes");
 
                         if (routes.GetArrayLength() > 0)
                         {
+                            // The distance is returned in meters
                             double distanceInMeters = routes[0].GetProperty("distance").GetDouble();
 
                             // Convert meters to kilometers
@@ -133,12 +178,15 @@ namespace Helpers
             }
             catch
             {
-                // Fallback to air distance if API fails or internet is unavailable
-                return CalculateAirDistance(lat1, lon1, lat2, lon2);
+                // In case of a network or server failure, return the air (straight-line) distance
+                // This is a common fallback to prevent crashes when the internet is unavailable
+                return CalculateAirDistance(lat2, lon2, lat1, lon1);
             }
 
             return 0;
         }
+
+
 
         internal static double SpeedKmByType(DO.ShipmentType shipmentType)
         {

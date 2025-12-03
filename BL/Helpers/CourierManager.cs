@@ -1,6 +1,7 @@
 ﻿using BO;
 using DalApi;
 using DO;
+using System.Linq;
 using System.Numerics;
 
 namespace Helpers;
@@ -38,15 +39,43 @@ internal static class CourierManager
 
     }
 
-    internal static IEnumerable<BO.Courier> GetAllCouriers(Func<BO.Courier, bool>? predicate = null)
+    internal static IEnumerable<BO.CourierInList> GetAllCouriers(Func<BO.CourierInList, bool>? predicate = null)
     {
-        var dalCouriers = s_dal.Courier.ReadAll();
-        var boCouriers = from doCourier in dalCouriers
-                         let item = GetCourier(doCourier.Id)
-                         select item;
+        IEnumerable<DO.Courier> dalCouriers = s_dal.Courier.ReadAll();
 
-        return predicate == null ? boCouriers : boCouriers.Where(predicate);
+        var query = from doCourier in dalCouriers 
+
+                    let courierDeliveries = s_dal.Delivery.ReadAll(d => d.CourierId == doCourier.Id)
+
+                    let successCount = courierDeliveries.Count(d => d.EndTime != null)
+                    let lateCount = courierDeliveries.Count(d => d.EndTime != null)
+
+
+                    let activeDelivery = courierDeliveries.FirstOrDefault(d => d.EndTime == null)
+
+                    select new BO.CourierInList
+                    {
+                        Id = doCourier.Id,
+                        FullName = doCourier.Name,
+
+                        IsActive = doCourier.IsActive,
+                        ShipmentType = (BO.ShipmentType)doCourier.PreferredShipmentType,
+                        StartTime = doCourier.EmploymentStartTime,
+
+
+                        DeliveredOnTimeCount = successCount,
+                        DeliveredLateCount = lateCount,
+                        CurrentOrderId = activeDelivery?.Id
+                    };
+
+        if (predicate != null)
+        {
+            return query.Where(predicate);
+        }
+
+        return query;
     }
+
 
     internal static BO.UserType GetUserType(string id)
     {
@@ -231,7 +260,7 @@ internal static class CourierManager
                 orderDo.Longitude
             ),
 
-            RealDistance = realDistance,
+            RealDistance = activeDoDelivery.DistanceKm,
 
             CustomerName = orderDo.CustomerName,
             CustomerPhone = orderDo.CustomerPhone,
