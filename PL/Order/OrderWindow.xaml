@@ -1,0 +1,227 @@
+﻿<Window x:Class="PL.Order.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Order Management" Height="750" Width="950" 
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource CyberWindowTheme}"
+        
+        Loaded="Window_Loaded"
+        Closed="Window_Closed"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        xmlns:behavior="clr-namespace:PL.Helpers.Behavior"
+        >
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{Binding IsUpdateMode, 
+                        Converter={StaticResource BoolToSizeConverter}, 
+                        ConverterParameter=200}" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="350*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <GroupBox Header="Delivery per order" Grid.Row="0" Margin="0,0,0,10"
+                   Visibility="{Binding IsUpdateMode, Converter={StaticResource BoolToVisible}}">
+            <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                      ItemsSource="{Binding DeliveryPerOrder}"
+                     >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Order id" Binding="{Binding DeliveryId}" Width="70" />
+                    <DataGridTextColumn Header="Courier Name" Binding="{Binding CourierName}" Width="1.5*" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding FinishType}" Width="*" />
+                    <DataGridTextColumn Header="Shipment Type" Binding="{Binding ShipmentType}" Width="*" />
+                    <DataGridTextColumn Header="Start Time" 
+                                        Binding="{Binding StartDeliveryTime, StringFormat=\{0:dd/MM/yyyy HH:mm\}}" 
+                                        Width="1.5*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <GridSplitter Grid.Row="1" Height="4" HorizontalAlignment="Stretch"   Visibility="{Binding IsUpdateMode, Converter={StaticResource BoolToVisible}}"/>
+
+        <GroupBox Header="Order Details - View and Edit" Grid.Row="2" Margin="0,10,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="{Binding IsUpdateMode, Converter={StaticResource BoolToVisible}}">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+
+                    <Label Content="Order ID:" Grid.Row="0" Grid.Column="0" />
+                    <TextBlock Grid.Row="0" Grid.Column="1"
+                             Text="{Binding CurrentOrder.Id, Mode=OneWay}" />
+
+                    <Label Content="Order Type:" Grid.Row="0" Grid.Column="3"/>
+                    <ComboBox Grid.Row="0" Grid.Column="4" 
+                              SelectedItem="{Binding CurrentOrder.OrderType}"
+                              ItemsSource="{Binding Source={StaticResource OrderTypeKey}}"
+                              Margin="0,2" VerticalAlignment="Center"/>
+
+
+                    <Label Content="Customer Name:" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" 
+                             Text="{Binding CurrentOrder.CustomerName, Mode=TwoWay}"
+                             behavior:InputValidators.IsLettersOnly="True"/>
+
+                    <Label Content="Customer Phone:" Grid.Row="1" Grid.Column="3"/>
+                    <TextBox Grid.Row="1" Grid.Column="4" 
+                             Text="{Binding CurrentOrder.CustomerPhone, Mode=TwoWay}" 
+                             behavior:InputValidators.IsNumeric="True"/>
+
+                    <Label Content="Shipping Address:" Grid.Row="2" Grid.Column="0"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1"  Style="{StaticResource ReadOnlyTextStyle}"
+                             Text="{Binding CurrentOrder.Address, Mode=TwoWay}" 
+                             />
+
+                    <Label Content="Weight (kg):" Grid.Row="3" Grid.Column="0"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" 
+                             Text="{Binding CurrentOrder.Weight, Mode=TwoWay}" 
+                             behavior:InputValidators.IsNumeric="True"/>
+
+                    <Label Content="Volume:" Grid.Row="3" Grid.Column="3"/>
+                    <TextBox Grid.Row="3" Grid.Column="4" 
+                             Text="{Binding CurrentOrder.Volume, Mode=TwoWay}" 
+                             behavior:InputValidators.IsNumeric="True"/>
+
+                    <Label Content="Order Status:" Grid.Row="4" Grid.Column="0"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1"
+                            Text="{Binding CurrentOrder.OrderStatus, Converter={StaticResource GlobalEnumConverter}}"
+                            Margin="0,2" VerticalAlignment="Center"/>
+
+                    <Label Content="Schedule Status:" Grid.Row="4" Grid.Column="3"/>
+                    <TextBlock Grid.Row="4" Grid.Column="4"
+                              Text="{Binding CurrentOrder.ScheduleStatus, Converter={StaticResource GlobalEnumConverter}}"
+                               Foreground="{Binding CurrentOrder.ScheduleStatus, Converter={StaticResource StatusToColorConverter}}"/>
+
+                    <Label Content="Est. Arrival Time:" Grid.Row="5" Grid.Column="0"/>
+                    <TextBlock Grid.Row="5" Grid.Column="1" 
+                             Text="{Binding CurrentOrder.ExpectedArrivalTime, Mode=TwoWay, StringFormat=\{0:dd/MM/yyyy HH:mm\}}"
+                             />
+
+                    <Label Content="Deadline:" Grid.Row="5" Grid.Column="3"/>
+                    <TextBlock Grid.Row="5" Grid.Column="4" 
+                             Text="{Binding CurrentOrder.LastArrivalTime, Mode=TwoWay, StringFormat=\{0:dd/MM/yyyy HH:mm\}}" />
+
+                    <Label Content="Description:" Grid.Row="6" Grid.Column="0"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" 
+                             TextWrapping="Wrap" AcceptsReturn="True"
+                             Text="{Binding CurrentOrder.Description, Mode=TwoWay}" 
+                             />
+
+                    <Label Content="Created On:" Grid.Row="2" Grid.Column="3"/>
+                    <TextBlock Grid.Row="2" Grid.Column="4" 
+                             Text="{Binding CurrentOrder.OrderCreated, Mode=OneWay, StringFormat=\{0:dd/MM/yyyy HH:mm\}}" />
+
+                    <Label Content="Time to Remainder:" Grid.Row="6" Grid.Column="3"/>
+                    <TextBlock Grid.Row="6" Grid.Column="4" 
+                             Text="{Binding CurrentOrder.TimeLeftToDeadline, Mode=OneWay}" />
+                </Grid>
+            </ScrollViewer>
+        </GroupBox>
+
+        <GroupBox Header="Order Details - View and Edit" Grid.Row="2" Margin="0,10,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="{Binding IsUpdateMode, Converter={StaticResource BoolToCollapsed}}">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Order Type:" Grid.Row="0" Grid.Column="3"/>
+                    <ComboBox Grid.Row="0" Grid.Column="4" 
+                     SelectedItem="{Binding CurrentOrder.OrderType}"
+                     ItemsSource="{Binding Source={StaticResource OrderTypeKey}}"
+                     Margin="0,2" VerticalAlignment="Center"/>
+
+
+                    <Label Content="Customer Name:" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" 
+                    Text="{Binding CurrentOrder.CustomerName, Mode=TwoWay}"
+                    behavior:InputValidators.IsLettersOnly="True"/>
+
+                    <Label Content="Customer Phone:" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" 
+                    Text="{Binding CurrentOrder.CustomerPhone, Mode=TwoWay}" 
+                    behavior:InputValidators.IsNumeric="True"/>
+
+                    <Label Content="Address:" Grid.Row="3" Grid.Column="0"/>
+                    <Grid  Grid.Row="3" Grid.Column="1">
+                        <TextBox Name="txtAddress" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
+                        <Popup  IsOpen="{Binding IsOpen}" StaysOpen="False" Placement="Bottom">
+                            <ListBox ItemsSource="{Binding Suggestions}"
+                                 MaxHeight="150" 
+                                 SelectionChanged="Addresses_SelectionChanged"
+                                 SelectedItem="{Binding SuggestionsSelect}"
+                                 Width="{Binding ElementName=txtAddress, Path=ActualWidth}"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                />
+                        </Popup>
+                    </Grid>
+
+
+                    <Label Content="Weight (kg):" Grid.Row="1" Grid.Column="3"/>
+                    <TextBox Grid.Row="1" Grid.Column="4" 
+                    Text="{Binding CurrentOrder.Weight, Mode=TwoWay}" 
+                    behavior:InputValidators.IsNumeric="True"/>
+
+                    <Label Content="Volume:" Grid.Row="2" Grid.Column="3"/>
+                    <TextBox Grid.Row="2" Grid.Column="4" 
+                    Text="{Binding CurrentOrder.Volume, Mode=TwoWay}" 
+                    behavior:InputValidators.IsNumeric="True"/>
+
+                    <Label Content="Description:" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" 
+                    TextWrapping="Wrap" AcceptsReturn="True"
+                    Text="{Binding CurrentOrder.Description, Mode=TwoWay}" 
+                    />
+                </Grid>
+            </ScrollViewer>
+        </GroupBox>
+
+
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <StackPanel Orientation="Horizontal" Visibility="{Binding IsUpdateMode, Converter={StaticResource BoolToVisible}}">
+                <Button Content="Delete" Width="100" Height="35" Margin="5" Click="btnDelete_Click" Style="{StaticResource DeleteButton}"
+                     Visibility="{Binding CurrentOrder.OrderStatus, Converter={StaticResource StatusToVisibilityConverter}}"/>
+                <Button Content="Update" Width="100" Height="35" Margin="5" Click="btnUpdate_Click"
+                    Visibility="{Binding CurrentOrder.OrderStatus, Converter={StaticResource StatusToVisibilityConverter}}" />
+            </StackPanel>
+            <Button Content="Add Order" Width="100" Height="35" Margin="5" Click="btnAdd_Click"
+                     Visibility="{Binding IsUpdateMode, Converter={StaticResource BoolToCollapsed}}"/>
+            <Button Content="Cancel" Width="100" Height="35" Margin="5" Click="btnCancel_Click"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

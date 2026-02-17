@@ -1,0 +1,84 @@
+﻿<Window x:Class="PL.Courier.CourierListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Courier"
+        mc:Ignorable="d"
+        Title="CourierListWindow" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Style="{StaticResource CyberWindowTheme}"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        
+        Loaded="Window_Loaded"
+        Closed="Window_Closed">
+
+    <!---External Grid-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Internal, Upper Grid-->
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" 
+Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Filter:" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top"/>
+
+            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=ShipmentType, Mode=TwoWay}"
+                      ItemsSource="{Binding Source={StaticResource ShipmentTypeKey}}"
+                     SelectionChanged="ComboBox_SelectionChanged"/>
+        </Grid>
+
+        <DataGrid Grid.Row="1"
+            IsReadOnly ="True"
+            AutoGenerateColumns="false"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Center"      
+       	    EnableRowVirtualization="True" 
+            RowDetailsVisibilityMode="VisibleWhenSelected"
+            FontWeight="DemiBold"
+                  
+            MouseDoubleClick="dgCourierList_MouseDoubleClick"
+            ItemsSource="{Binding CourierList}"
+            SelectedItem="{Binding SelectedCourier}">
+            
+            <DataGrid.Columns>
+               <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
+                <DataGridTextColumn Binding="{Binding FullName}" Header="Name" Width="*"/>
+                <DataGridTextColumn Binding="{Binding ShipmentType}" Header="Shipment" Width="*"/>
+                <DataGridTextColumn Binding="{Binding StartTime, StringFormat=d}" Header="Start Time" Width="*"/>
+                <DataGridCheckBoxColumn Binding="{Binding IsActive}" Header="Is Active" Width="*"/>
+                <DataGridTextColumn Binding="{Binding CurrentOrderId}" Header="Current Order" Width="*"/>
+                <DataGridTextColumn Binding="{Binding DeliveredOnTimeCount}" Header="On Time Deliveries" Width="*"/>
+                <DataGridTextColumn Binding="{Binding DeliveredLateCount}" Header="Late Deliveries" Width="*"/>
+                
+                <!-- delete button -->
+                <DataGridTemplateColumn Header="delete" Width="70" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="delete 🗑" 
+                                    ToolTip="Delete Item"
+                                    Click="btnDelete_Click" 
+                                    Width="60" 
+                                    Background="Transparent" 
+                                    HorizontalAlignment="Center"
+                                 Visibility="{Binding Converter={StaticResource StatusToVisibilityConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAdd_Click"/>
+    </Grid>
+
+</Window>

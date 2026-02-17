@@ -1,0 +1,51 @@
+﻿<Application x:Class="PL.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PL"
+             StartupUri="LoginWindow.xaml"
+             xmlns:converters ="clr-namespace:PL.Helpers.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Helpers/Styles/Style1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--Enums Resources -->
+            <local:ShipmentType x:Key="ShipmentTypeKey"/>
+            <local:OrderStatus x:Key="OrderStatusKey"/>
+            <local:OrderType x:Key="OrderTypeKey"/>
+            <local:ScheduleStatus x:Key="ScheduleStatusKey"/>
+
+            <!--Converters Resources -->
+            <converters:EnumToStringConverter x:Key="GlobalEnumConverter"/>
+            <converters:StatusToVisibilityConverter x:Key="StatusToVisibilityConverter"/>
+            <converters:EnumFilterConverter x:Key="EnumFilterConverter"/>
+            <converters:NullToVisibleConverter x:Key="NullToVisibleConverter"/>
+            <converters:StatusToColorConverter x:Key="StatusToColorConverter"/>
+            <converters:BoolToSizeConverter x:Key="BoolToSizeConverter"/>
+            <converters:TrueToVisibleConverter x:Key="BoolToVisible" />
+            <converters:FalseToVisibleConverter x:Key="BoolToCollapsed" />
+            <converters:InputNumericToColorConverter x:Key="InputNumToColorConvert"/>
+
+
+        </ResourceDictionary>
+
+
+    </Application.Resources>
+</Application>
+
+
+<!-- Pages in App.xaml.cs StartupUri for testing:
+    
+    LoginWindow.xaml
+    Order/OrderListWindow.xaml  
+    
+    MainWindow.xaml
+    
+    couriers windows:
+    CourierLogin/CourierMainWindow.xaml
+    
+    Helpers/Styles/Test window
+       
+ -->
