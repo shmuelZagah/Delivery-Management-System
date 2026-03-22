@@ -26,14 +26,96 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+    public MainWindow()
+    {
+        InitializeComponent();
+    }
+
+    #region Summary Properties & Observer (Metrics)
+
+    private int _totalOpen;
+    public int TotalOpen { get => _totalOpen; set { _totalOpen = value; OnPropertyChanged(); } }
+
+    private int _totalInProgress;
+    public int TotalInProgress { get => _totalInProgress; set { _totalInProgress = value; OnPropertyChanged(); } }
+
+    private int _totalCompleted;
+    public int TotalCompleted { get => _totalCompleted; set { _totalCompleted = value; OnPropertyChanged(); } }
+
+    private int _totalCanceled;
+    public int TotalCanceled { get => _totalCanceled; set { _totalCanceled = value; OnPropertyChanged(); } }
+
+    private void UpdateSummary()
+    {
+        try
+        {
+            var summary = s_bl.Order.GetOrdersAmountSummary(Helpers.Tools.UserId);
+
+            // פונקציית עזר לשליפה בטוחה מהמטריצה כדי למנוע קריסה של אינדקס חסר
+            int SafeGetSum(BO.OrderStatus status)
+            {
+                int idx = (int)status;
+                if (summary != null && idx >= 0 && idx < summary.Length && summary[idx] != null)
+                    return summary[idx].Sum();
+                return 0;
+            }
+
+            TotalOpen = SafeGetSum(BO.OrderStatus.Open);
+            TotalInProgress = SafeGetSum(BO.OrderStatus.InProgress);
+            // איחוד של "נמסר" ו"נסגר" תחת הקטגוריה Completed
+            TotalCompleted = SafeGetSum(BO.OrderStatus.Completed) + SafeGetSum(BO.OrderStatus.Close);
+            TotalCanceled = SafeGetSum(BO.OrderStatus.Canceled);
+        }
+        catch
+        {
+            // במקרה שהמסד ריק או לא מאותחל, המערכת פשוט תשמור על 0 ולא תקרוס
+        }
+    }
+
+    private void OrderSummaryObserver()
+    {
+        if (_mutex.CheckAndSetLoadInProgressOrRestartRequired())
+            return;
+
+        _ = Dispatcher.BeginInvoke(async () =>
+        {
+            UpdateSummary();
+
+            // Check if a restart was requested while we were working
+            if (await _mutex.UnsetLoadInProgressAndCheckRestartRequested())
+                OrderSummaryObserver();
+        });
+    }
+
+    #endregion
+
     #region Button Handlers for Opening Other Windows
+
+    private void btnAddNewOrder_Click(object sender, RoutedEventArgs e)
+    {
+        Mouse.OverrideCursor = Cursors.Wait;
+        try
+        {
+            var orderWindow = new PL.Order.OrderWindow();
+            orderWindow.Show();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"ERROR: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        finally
+        {
+            Mouse.OverrideCursor = null;
+        }
+    }
+
     private void btnShowMainTable_Click(object sender, RoutedEventArgs e)
     {
         //eg: new MainTableWindow().Show();
     }
+
     private void btnInitializeData_Click(object sender, RoutedEventArgs e)
     {
-        // שלב 1 — הודעת אישור
         if (MessageBox.Show("Are you sure you want to initialize the database?",
                             "Initialize DB",
                             MessageBoxButton.YesNo,
@@ -43,16 +125,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         Mouse.OverrideCursor = Cursors.Wait;
         try
         {
-            // שלב 2 — קריאה ל-BL
             s_bl.Admin.InitializeDB();
-
-            // שלב 3 — רענון מסכים פתוחים אם יש צורך
             MessageBox.Show("Database initialized successfully.",
                             "Success",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
 
             Configuration = s_bl.Admin.GetConfig();
+            UpdateSummary(); // עדכון המדדים מיד לאחר יצירת הנתונים!
         }
         catch (Exception ex)
         {
@@ -66,9 +146,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             Mouse.OverrideCursor = null;
         }
     }
+
     private void btnResetDatabase_Click(object sender, RoutedEventArgs e)
     {
-        // שלב 1 — הודעת אישור
         if (MessageBox.Show("Are you sure you want to reset the database? All data will be removed.",
                             "Reset DB",
                             MessageBoxButton.YesNo,
@@ -78,14 +158,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         Mouse.OverrideCursor = Cursors.Wait;
         try
         {
-            // שלב 2 — קריאה ל-BL
             s_bl.Admin.ResetDB();
-
             Configuration = s_bl.Admin.GetConfig();
-
-
-            // שלב 3 — סגירת חלונות פתוחים אם צריך
             CloseAllChildWindows();
+
+            UpdateSummary(); // עדכון המדדים (איפוס ל-0) מיד לאחר המחיקה!
 
             MessageBox.Show("Database reset successfully.",
                             "Success",
@@ -176,7 +253,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             MessageBox.Show($"ERROR: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally { Mouse.OverrideCursor = null; }
-
     }
 
     #endregion
@@ -187,7 +263,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
 
     public static readonly DependencyProperty ConfigurationProperty =
-DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindow));
+        DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindow));
 
     public BO.Config Configuration
     {
@@ -200,7 +276,6 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         get { return (DateTime)GetValue(CurrentTimeProperty); }
         set { SetValue(CurrentTimeProperty, value); }
     }
-
 
     //--------------------
     #region Toggle
@@ -222,9 +297,7 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
     }
 
     public string ToggleText => IsRunning ? "Pause" : "Start";
-    public bool IsLocked => IsRunning ? false : true;
-
-
+    public bool IsLocked => !IsRunning;
 
     public static readonly DependencyProperty IntervalProperty =
       DependencyProperty.Register(
@@ -248,13 +321,10 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         Helpers.Tools.Interval = (int)e.NewValue;
     }
 
-
-
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private void OnPropertyChanged([CallerMemberName] string? name = null) =>
        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-
 
     private void btnSimultion_Click(object sender, RoutedEventArgs e)
     {
@@ -282,7 +352,6 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         try
         {
             s_bl.Admin.SetConfig(Configuration);
-            MessageBox.Show("Company Address updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
@@ -300,7 +369,6 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         try
         {
             s_bl.Admin.SetConfig(Configuration);
-            MessageBox.Show("Latitude updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
@@ -318,7 +386,6 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         try
         {
             s_bl.Admin.SetConfig(Configuration);
-            MessageBox.Show("Longitude updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
@@ -336,7 +403,6 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         try
         {
             s_bl.Admin.SetConfig(Configuration);
-            MessageBox.Show("Max Air Range updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
@@ -347,13 +413,13 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
             Mouse.OverrideCursor = null;
         }
     }
+
     private void btnApplyAvgCarSpeed_Click(object sender, RoutedEventArgs e)
     {
         Mouse.OverrideCursor = Cursors.Wait;
         try
         {
             s_bl.Admin.SetConfig(Configuration);
-            MessageBox.Show("Average Car Speed updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
@@ -371,7 +437,6 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         try
         {
             s_bl.Admin.SetConfig(Configuration);
-            MessageBox.Show("Average Motocycler Speed updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
@@ -389,7 +454,6 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         try
         {
             s_bl.Admin.SetConfig(Configuration);
-            MessageBox.Show("Average Bicycle Speed updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
@@ -407,7 +471,6 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         try
         {
             s_bl.Admin.SetConfig(Configuration);
-            MessageBox.Show("Average Walking Speed updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception ex)
         {
@@ -420,7 +483,7 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
     }
     #endregion
 
-    #region advance clock button handlers
+    #region Advance Clock Button Handlers
     private void btnAddOneMinute_Click(object sender, RoutedEventArgs e)
     {
         Mouse.OverrideCursor = Cursors.Wait;
@@ -455,11 +518,9 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         s_bl.Admin.ForwardClock(BO.TimeUnit.Year);
         Mouse.OverrideCursor = null;
     }
-
     #endregion
 
     #region Clock and Config Observers
-
 
     private readonly ObserverMutex _mutex = new(); //stage 7
 
@@ -491,10 +552,23 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
         });
     }
 
+    private bool _isTimeEditMode;
+    public bool IsTimeEditMode
+    {
+        get => _isTimeEditMode;
+        set { _isTimeEditMode = value; OnPropertyChanged(); }
+    }
+
+    // פונקציה לשימוש הכפתור החדש
+    private void btnToggleTimeEdit_Click(object sender, RoutedEventArgs e)
+    {
+        IsTimeEditMode = !IsTimeEditMode;
+    }
 
     #endregion
 
     #region Window Events
+
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         CurrentTime = s_bl.Admin.GetClock();
@@ -502,6 +576,10 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
 
         s_bl.Admin.AddClockObserver(ClockObserver);
         s_bl.Admin.AddConfigObserver(ConfigObserver);
+
+        // --- האזנה לשינויים בהזמנות כדי לרענן את ה-Summary בלייב ---
+        s_bl.Order.AddObserver(OrderSummaryObserver);
+        UpdateSummary(); // משיכת נתונים ראשונית בעת עליית המסך!
 
         IsRunning = Helpers.Tools.IsRunning;
         Interval = Helpers.Tools.Interval;
@@ -512,16 +590,8 @@ DependencyProperty.Register("Configuration", typeof(BO.Config), typeof(MainWindo
     {
         s_bl.Admin.RemoveClockObserver(ClockObserver);
         s_bl.Admin.RemoveConfigObserver(ConfigObserver);
+        s_bl.Order.RemoveObserver(OrderSummaryObserver); // הסרת האובזרוור למניעת זליגות זיכרון
     }
 
     #endregion
-
-
-    public MainWindow()
-    {
-        InitializeComponent();
-
-
-    }
-
 }

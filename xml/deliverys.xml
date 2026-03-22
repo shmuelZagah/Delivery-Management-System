@@ -2,352 +2,422 @@
 <Deliveries>
   <Delivery>
     <Id>0</Id>
-    <OrderId>0</OrderId>
-    <CourierId>234567890</CourierId>
+    <OrderId>10</OrderId>
+    <CourierId>329674548</CourierId>
     <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-12-31T21:38:00</StartTime>
-    <DistanceKm>10.947531171431002</DistanceKm>
-    <DeliveryEndType />
-    <EndTime />
+    <StartTime>1999-12-31T21:06:00</StartTime>
+    <DistanceKm>9.986473629007977</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T22:11:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>1</Id>
-    <OrderId>3</OrderId>
-    <CourierId>228795542</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-12-31T21:29:00</StartTime>
-    <DistanceKm>4.531655165880541</DistanceKm>
+    <OrderId>13</OrderId>
+    <CourierId>326276111</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-31T20:39:00</StartTime>
+    <DistanceKm>14.976812228688216</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T22:37:00</EndTime>
+    <EndTime>1999-12-31T21:05:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>2</Id>
-    <OrderId>13</OrderId>
-    <CourierId>244152100</CourierId>
-    <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>1999-12-31T21:36:00</StartTime>
-    <DistanceKm>4.4193409967255235</DistanceKm>
+    <OrderId>23</OrderId>
+    <CourierId>342685738</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-31T21:09:00</StartTime>
+    <DistanceKm>18.43904490462777</DistanceKm>
     <DeliveryEndType />
     <EndTime />
   </Delivery>
   <Delivery>
     <Id>3</Id>
-    <OrderId>20</OrderId>
-    <CourierId>263067528</CourierId>
-    <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-12-31T20:43:00</StartTime>
-    <DistanceKm>7.375692667017919</DistanceKm>
+    <OrderId>34</OrderId>
+    <CourierId>261510167</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>1999-12-31T20:54:00</StartTime>
+    <DistanceKm>3.7622822535928933</DistanceKm>
     <DeliveryEndType />
     <EndTime />
   </Delivery>
   <Delivery>
     <Id>4</Id>
-    <OrderId>21</OrderId>
-    <CourierId>325086557</CourierId>
-    <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-12-31T21:19:00</StartTime>
-    <DistanceKm>2.0922985620528523</DistanceKm>
-    <DeliveryEndType />
-    <EndTime />
+    <OrderId>38</OrderId>
+    <CourierId>359720789</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-31T21:06:00</StartTime>
+    <DistanceKm>21.46013233860571</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T21:53:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>5</Id>
-    <OrderId>23</OrderId>
-    <CourierId>282559014</CourierId>
+    <OrderId>39</OrderId>
+    <CourierId>342685738</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-31T20:30:00</StartTime>
+    <DistanceKm>0.6543780030298326</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T20:54:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>6</Id>
+    <OrderId>41</OrderId>
+    <CourierId>355457613</CourierId>
     <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>1999-12-31T20:23:00</StartTime>
+    <StartTime>1999-12-31T21:46:00</StartTime>
     <DistanceKm>4.727975122566865</DistanceKm>
     <DeliveryEndType />
     <EndTime />
   </Delivery>
   <Delivery>
-    <Id>6</Id>
-    <OrderId>29</OrderId>
-    <CourierId>238363392</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-12-31T21:50:00</StartTime>
-    <DistanceKm>18.461462285394052</DistanceKm>
-    <DeliveryEndType />
-    <EndTime />
-  </Delivery>
-  <Delivery>
     <Id>7</Id>
-    <OrderId>33</OrderId>
-    <CourierId>336765754</CourierId>
+    <OrderId>48</OrderId>
+    <CourierId>359720789</CourierId>
     <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-12-31T20:30:00</StartTime>
-    <DistanceKm>3.5883068597453205</DistanceKm>
+    <StartTime>1999-12-31T20:23:00</StartTime>
+    <DistanceKm>13.472725041890794</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T20:46:00</EndTime>
+    <EndTime>1999-12-31T20:54:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>8</Id>
-    <OrderId>34</OrderId>
-    <CourierId>263067528</CourierId>
-    <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-12-31T21:05:00</StartTime>
-    <DistanceKm>13.472725041890794</DistanceKm>
+    <OrderId>1</OrderId>
+    <CourierId>355457613</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>1999-12-31T22:46:00</StartTime>
+    <DistanceKm>2.374708877239199</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T21:43:00</EndTime>
+    <EndTime>1999-12-31T23:16:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>9</Id>
-    <OrderId>35</OrderId>
-    <CourierId>234567890</CourierId>
-    <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-12-31T21:40:00</StartTime>
-    <DistanceKm>12.443347383622855</DistanceKm>
+    <OrderId>11</OrderId>
+    <CourierId>342685738</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-31T22:34:00</StartTime>
+    <DistanceKm>17.563881177560454</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T22:48:00</EndTime>
+    <EndTime>1999-12-31T23:02:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>10</Id>
-    <OrderId>36</OrderId>
-    <CourierId>306289993</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-12-31T20:47:00</StartTime>
+    <OrderId>20</OrderId>
+    <CourierId>326276111</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-31T22:18:00</StartTime>
+    <DistanceKm>8.284984174750072</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T22:40:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>11</Id>
+    <OrderId>22</OrderId>
+    <CourierId>359720789</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-31T22:41:00</StartTime>
     <DistanceKm>7.060959855142579</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T23:09:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>12</Id>
+    <OrderId>24</OrderId>
+    <CourierId>342685738</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-31T22:24:00</StartTime>
+    <DistanceKm>1.7867416509897902</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
     <EndTime>1999-12-31T22:39:00</EndTime>
   </Delivery>
   <Delivery>
-    <Id>11</Id>
-    <OrderId>37</OrderId>
-    <CourierId>234567890</CourierId>
+    <Id>13</Id>
+    <OrderId>32</OrderId>
+    <CourierId>329674548</CourierId>
     <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-12-31T21:07:00</StartTime>
-    <DistanceKm>10.590753951490354</DistanceKm>
+    <StartTime>1999-12-31T21:52:00</StartTime>
+    <DistanceKm>3.5883068597453205</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T22:14:00</EndTime>
+    <EndTime>1999-12-31T22:17:00</EndTime>
   </Delivery>
   <Delivery>
-    <Id>12</Id>
-    <OrderId>39</OrderId>
-    <CourierId>365818610</CourierId>
+    <Id>14</Id>
+    <OrderId>37</OrderId>
+    <CourierId>261510167</CourierId>
     <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>1999-12-31T21:17:00</StartTime>
-    <DistanceKm>14.365054123989028</DistanceKm>
+    <StartTime>1999-12-31T21:28:00</StartTime>
+    <DistanceKm>2.0922985620528523</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T21:40:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>15</Id>
+    <OrderId>0</OrderId>
+    <CourierId>278794195</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>1999-12-31T23:10:00</StartTime>
+    <DistanceKm>0.8593336607626031</DistanceKm>
     <DeliveryEndType />
     <EndTime />
   </Delivery>
   <Delivery>
-    <Id>13</Id>
-    <OrderId>8</OrderId>
-    <CourierId>238363392</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-12-31T22:57:00</StartTime>
-    <DistanceKm>16.10400437916228</DistanceKm>
-    <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T23:55:00</EndTime>
-  </Delivery>
-  <Delivery>
-    <Id>14</Id>
-    <OrderId>25</OrderId>
-    <CourierId>306289993</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-12-31T21:22:00</StartTime>
-    <DistanceKm>2.374708877239199</DistanceKm>
-    <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T22:02:00</EndTime>
-  </Delivery>
-  <Delivery>
-    <Id>15</Id>
-    <OrderId>41</OrderId>
-    <CourierId>228795542</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-12-31T22:23:00</StartTime>
-    <DistanceKm>0.7460687911280064</DistanceKm>
-    <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T22:55:00</EndTime>
-  </Delivery>
-  <Delivery>
     <Id>16</Id>
-    <OrderId>4</OrderId>
+    <OrderId>8</OrderId>
     <CourierId>234567890</CourierId>
-    <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-12-31T23:11:00</StartTime>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>1999-12-31T23:00:00</StartTime>
     <DistanceKm>3.360397192772603</DistanceKm>
-    <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T23:40:00</EndTime>
+    <DeliveryEndType>ClientNotFound</DeliveryEndType>
+    <EndTime>2000-01-01T00:00:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>17</Id>
-    <OrderId>11</OrderId>
-    <CourierId>278455428</CourierId>
-    <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-12-31T22:47:00</StartTime>
-    <DistanceKm>6.650387410493559</DistanceKm>
-    <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T23:24:00</EndTime>
+    <OrderId>15</OrderId>
+    <CourierId>217349334</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>1999-12-31T22:26:00</StartTime>
+    <DistanceKm>16.10400437916228</DistanceKm>
+    <DeliveryEndType />
+    <EndTime />
   </Delivery>
   <Delivery>
     <Id>18</Id>
-    <OrderId>14</OrderId>
-    <CourierId>281649913</CourierId>
+    <OrderId>16</OrderId>
+    <CourierId>261510167</CourierId>
     <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>1999-12-31T23:53:00</StartTime>
-    <DistanceKm>13.472725041890794</DistanceKm>
+    <StartTime>1999-12-31T23:43:00</StartTime>
+    <DistanceKm>14.365054123989028</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
     <EndTime>1999-12-31T23:55:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>19</Id>
-    <OrderId>19</OrderId>
-    <CourierId>278455428</CourierId>
+    <OrderId>21</OrderId>
+    <CourierId>349197416</CourierId>
     <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-12-31T23:28:00</StartTime>
-    <DistanceKm>21.9485671812432</DistanceKm>
+    <StartTime>1999-12-31T23:00:00</StartTime>
+    <DistanceKm>13.789725839280779</DistanceKm>
     <DeliveryEndType />
     <EndTime />
   </Delivery>
   <Delivery>
     <Id>20</Id>
     <OrderId>28</OrderId>
-    <CourierId>306289993</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>1999-12-31T22:44:00</StartTime>
-    <DistanceKm>9.14931069917563</DistanceKm>
+    <CourierId>234567890</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>1999-12-31T22:45:00</StartTime>
+    <DistanceKm>14.532094606480898</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T23:55:00</EndTime>
+    <EndTime>1999-12-31T23:32:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>21</Id>
     <OrderId>30</OrderId>
-    <CourierId>365818610</CourierId>
-    <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>1999-12-31T22:58:00</StartTime>
+    <CourierId>326276111</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-31T22:40:00</StartTime>
     <DistanceKm>8.132011253055355</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T23:36:00</EndTime>
+    <EndTime>1999-12-31T23:12:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>22</Id>
-    <OrderId>32</OrderId>
-    <CourierId>234567890</CourierId>
-    <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>1999-12-31T22:52:00</StartTime>
-    <DistanceKm>18.43904490462777</DistanceKm>
+    <OrderId>31</OrderId>
+    <CourierId>359720789</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>1999-12-31T23:53:00</StartTime>
+    <DistanceKm>0.7460687911280064</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
     <EndTime>1999-12-31T23:55:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>23</Id>
-    <OrderId>40</OrderId>
-    <CourierId>336681869</CourierId>
-    <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-12-31T23:04:00</StartTime>
-    <DistanceKm>17.563881177560454</DistanceKm>
-    <DeliveryEndType />
-    <EndTime />
+    <OrderId>35</OrderId>
+    <CourierId>349381368</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>1999-12-31T22:57:00</StartTime>
+    <DistanceKm>4.531655165880541</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T23:14:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>24</Id>
-    <OrderId>42</OrderId>
-    <CourierId>396079753</CourierId>
-    <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-12-31T23:42:00</StartTime>
-    <DistanceKm>15.106305242476042</DistanceKm>
-    <DeliveryEndType />
-    <EndTime />
+    <OrderId>43</OrderId>
+    <CourierId>261510167</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>1999-12-31T22:21:00</StartTime>
+    <DistanceKm>13.472725041890794</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T23:00:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>25</Id>
-    <OrderId>1</OrderId>
-    <CourierId>365818610</CourierId>
+    <OrderId>45</OrderId>
+    <CourierId>345155008</CourierId>
     <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>2000-01-01T00:46:00</StartTime>
-    <DistanceKm>0.6543780030298326</DistanceKm>
-    <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T23:55:00</EndTime>
+    <StartTime>1999-12-31T23:00:00</StartTime>
+    <DistanceKm>10.590753951490354</DistanceKm>
+    <DeliveryEndType />
+    <EndTime />
   </Delivery>
   <Delivery>
     <Id>26</Id>
-    <OrderId>2</OrderId>
-    <CourierId>244681927</CourierId>
-    <DeliveryType>Bicycle</DeliveryType>
-    <StartTime>2000-01-01T00:48:00</StartTime>
-    <DistanceKm>3.7622822535928933</DistanceKm>
-    <DeliveryEndType />
-    <EndTime />
+    <OrderId>3</OrderId>
+    <CourierId>217349334</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>1999-12-31T23:37:00</StartTime>
+    <DistanceKm>9.14931069917563</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T23:55:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>27</Id>
     <OrderId>5</OrderId>
-    <CourierId>244152100</CourierId>
-    <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>2000-01-01T00:37:00</StartTime>
-    <DistanceKm>1.486971834034853</DistanceKm>
-    <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T23:55:00</EndTime>
+    <CourierId>329674548</CourierId>
+    <DeliveryType>Bicycle</DeliveryType>
+    <StartTime>2000-01-01T00:43:00</StartTime>
+    <DistanceKm>6.650387410493559</DistanceKm>
+    <DeliveryEndType />
+    <EndTime />
   </Delivery>
   <Delivery>
     <Id>28</Id>
-    <OrderId>12</OrderId>
-    <CourierId>336681869</CourierId>
+    <OrderId>7</OrderId>
+    <CourierId>342685738</CourierId>
     <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-12-31T23:49:00</StartTime>
-    <DistanceKm>1.1036139203271584</DistanceKm>
+    <StartTime>2000-01-01T00:03:00</StartTime>
+    <DistanceKm>12.443347383622855</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
     <EndTime>1999-12-31T23:55:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>29</Id>
-    <OrderId>31</OrderId>
-    <CourierId>282559014</CourierId>
+    <OrderId>12</OrderId>
+    <CourierId>355457613</CourierId>
     <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>2000-01-01T00:34:00</StartTime>
-    <DistanceKm>9.91693175213083</DistanceKm>
+    <StartTime>2000-01-01T00:15:00</StartTime>
+    <DistanceKm>3.273533553541931</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
     <EndTime>1999-12-31T23:55:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>30</Id>
-    <OrderId>43</OrderId>
-    <CourierId>336681869</CourierId>
-    <DeliveryType>Car</DeliveryType>
-    <StartTime>2000-01-01T00:54:00</StartTime>
-    <DistanceKm>14.532094606480898</DistanceKm>
-    <DeliveryEndType>Provided</DeliveryEndType>
-    <EndTime>1999-12-31T23:55:00</EndTime>
+    <OrderId>14</OrderId>
+    <CourierId>361624650</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>2000-01-01T00:55:00</StartTime>
+    <DistanceKm>21.9485671812432</DistanceKm>
+    <DeliveryEndType />
+    <EndTime />
   </Delivery>
   <Delivery>
     <Id>31</Id>
-    <OrderId>47</OrderId>
-    <CourierId>365818610</CourierId>
-    <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>2000-01-01T00:54:00</StartTime>
-    <DistanceKm>14.976812228688216</DistanceKm>
+    <OrderId>33</OrderId>
+    <CourierId>217349334</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>1999-12-31T23:32:00</StartTime>
+    <DistanceKm>7.375692667017919</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
     <EndTime>1999-12-31T23:55:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>32</Id>
-    <OrderId>48</OrderId>
-    <CourierId>263067528</CourierId>
-    <DeliveryType>Car</DeliveryType>
-    <StartTime>1999-12-31T23:23:00</StartTime>
-    <DistanceKm>13.789725839280779</DistanceKm>
+    <OrderId>40</OrderId>
+    <CourierId>261510167</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>1999-12-31T23:53:00</StartTime>
+    <DistanceKm>15.106305242476042</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
     <EndTime>1999-12-31T23:55:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>33</Id>
-    <OrderId>9</OrderId>
-    <CourierId>282559014</CourierId>
-    <DeliveryType>Motorcycle</DeliveryType>
-    <StartTime>2000-01-01T00:28:00</StartTime>
-    <DistanceKm>2.362383478594703</DistanceKm>
+    <OrderId>46</OrderId>
+    <CourierId>349197416</CourierId>
+    <DeliveryType>Bicycle</DeliveryType>
+    <StartTime>2000-01-01T00:04:00</StartTime>
+    <DistanceKm>1.486971834034853</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
     <EndTime>1999-12-31T23:55:00</EndTime>
   </Delivery>
   <Delivery>
     <Id>34</Id>
-    <OrderId>10</OrderId>
-    <CourierId>228795542</CourierId>
-    <DeliveryType>Foot</DeliveryType>
-    <StartTime>2000-01-01T00:28:00</StartTime>
-    <DistanceKm>8.284984174750072</DistanceKm>
+    <OrderId>18</OrderId>
+    <CourierId>234567890</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>2000-01-01T01:38:00</StartTime>
+    <DistanceKm>16.10400437916228</DistanceKm>
     <DeliveryEndType>Provided</DeliveryEndType>
     <EndTime>1999-12-31T23:55:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>35</Id>
+    <OrderId>19</OrderId>
+    <CourierId>231202066</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>2000-01-01T01:11:00</StartTime>
+    <DistanceKm>10.837116251701781</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T23:55:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>36</Id>
+    <OrderId>25</OrderId>
+    <CourierId>329674548</CourierId>
+    <DeliveryType>Bicycle</DeliveryType>
+    <StartTime>2000-01-01T01:10:00</StartTime>
+    <DistanceKm>9.91693175213083</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T23:55:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>37</Id>
+    <OrderId>42</OrderId>
+    <CourierId>355457613</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>2000-01-01T01:57:00</StartTime>
+    <DistanceKm>1.1036139203271584</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>1999-12-31T23:55:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>38</Id>
+    <OrderId>47</OrderId>
+    <CourierId>231202066</CourierId>
+    <DeliveryType>Foot</DeliveryType>
+    <StartTime>2000-01-01T01:19:00</StartTime>
+    <DistanceKm>4.4193409967255235</DistanceKm>
+    <DeliveryEndType />
+    <EndTime />
+  </Delivery>
+  <Delivery>
+    <Id>39</Id>
+    <OrderId>26</OrderId>
+    <CourierId>234567890</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>2000-01-01T00:00:00</StartTime>
+    <DistanceKm>2.5132</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>2000-01-01T00:00:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>40</Id>
+    <OrderId>6</OrderId>
+    <CourierId>234567890</CourierId>
+    <DeliveryType>Motorcycle</DeliveryType>
+    <StartTime>2000-01-01T00:00:00</StartTime>
+    <DistanceKm>36.1</DistanceKm>
+    <DeliveryEndType>Provided</DeliveryEndType>
+    <EndTime>2000-01-01T00:00:00</EndTime>
+  </Delivery>
+  <Delivery>
+    <Id>41</Id>
+    <OrderId>9</OrderId>
+    <CourierId>234567890</CourierId>
+    <DeliveryType>Car</DeliveryType>
+    <StartTime>2000-01-01T00:00:00</StartTime>
+    <DistanceKm>45.648</DistanceKm>
+    <DeliveryEndType />
+    <EndTime />
   </Delivery>
 </Deliveries>

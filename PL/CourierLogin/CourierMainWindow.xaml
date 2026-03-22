@@ -4,498 +4,382 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.CourierLogin"
-        mc:Ignorable="d"
-        Height="1080" Width="1920"
-        Style="{StaticResource CyberWindowTheme}"
         xmlns:behavior="clr-namespace:PL.Helpers.Behavior"
         xmlns:Items="clr-namespace:PL.Helpers.Items"
-        
+        mc:Ignorable="d"
+        Title="Courier Workspace" Height="1080" Width="1920"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
         WindowState="Maximized"
+        Style="{StaticResource CyberWindowTheme}"
         Loaded="Window_Loaded"
         Closed="Window_Closed">
+
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource Color_Control}"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Color_Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="15" ShadowDepth="2" Opacity="0.03" Color="#000000"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CardHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource Color_TextMain}"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+
+        <Style x:Key="LogoutButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#EF4444"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" Padding="15,8" CornerRadius="8" x:Name="border">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="M12,2 L12,12 M7,5 A8,8 0 1,0 17,5" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" VerticalAlignment="Center" Margin="0,0,8,0" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                <TextBlock Text="LOGOUT" FontSize="12" VerticalAlignment="Center" FontWeight="Bold" Foreground="{TemplateBinding Foreground}"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#15EF4444"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
-    <Grid Margin="20">
+    <Grid Margin="30">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="380"/>
+            <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
+        <Border Grid.Column="0" Style="{StaticResource CardStyle}" VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,25">
+                    <StackPanel>
+                        <TextBlock Text="COURIER PROFILE" FontSize="12" FontWeight="Bold" Foreground="{StaticResource Color_TextSecondary}"/>
+                        <TextBlock Text="{Binding CurrentCourier.Name, StringFormat='Hello, {0}'}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource Color_Accent}" Margin="0,5,0,0"/>
+                        <TextBlock Text="{Binding CurrentCourier.Id, StringFormat='ID: {0}'}" FontSize="13" Foreground="{StaticResource Color_TextSecondary}"/>
+                    </StackPanel>
+                </Grid>
+
+                <Rectangle Grid.Row="1" Height="1" Fill="{StaticResource Color_Border}" Margin="0,0,0,20"/>
+
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="PERSONAL DETAILS" FontSize="12" FontWeight="Bold" Foreground="{StaticResource Color_TextSecondary}" Margin="0,0,0,15"/>
+
+                        <Label Content="Full Name" Style="{StaticResource LabelTitleStyle}"/>
+                        <TextBox Text="{Binding CurrentCourier.Name}" Style="{StaticResource BaseTextStyle}" Margin="0,0,0,15" Padding="10,8" Background="#F9FAFB" BorderBrush="{StaticResource Color_Border}" BorderThickness="1" behavior:InputValidators.IsLettersOnly="True"/>
+
+                        <Label Content="Phone Number" Style="{StaticResource LabelTitleStyle}"/>
+                        <TextBox Text="{Binding CurrentCourier.Phone}" Style="{StaticResource BaseTextStyle}" Margin="0,0,0,15" Padding="10,8" Background="#F9FAFB" BorderBrush="{StaticResource Color_Border}" BorderThickness="1" behavior:InputValidators.IsNumeric="True"/>
+
+                        <Label Content="Email Address" Style="{StaticResource LabelTitleStyle}"/>
+                        <TextBox Text="{Binding CurrentCourier.Email}" Style="{StaticResource BaseTextStyle}" Margin="0,0,0,25" Padding="10,8" Background="#F9FAFB" BorderBrush="{StaticResource Color_Border}" BorderThickness="1"/>
+
+                        <TextBlock Text="DELIVERY PREFERENCES" FontSize="12" FontWeight="Bold" Foreground="{StaticResource Color_TextSecondary}" Margin="0,0,0,15"/>
+
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <Label Content="Max Distance (km)" Style="{StaticResource LabelTitleStyle}"/>
+                                <TextBox Text="{Binding CurrentCourier.MaxDistance}" Style="{StaticResource BaseTextStyle}" Padding="10,8" Background="#F9FAFB" BorderBrush="{StaticResource Color_Border}" BorderThickness="1" behavior:InputValidators.IsNumeric="True"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <Label Content="Shipment Type" Style="{StaticResource LabelTitleStyle}"/>
+                                <ComboBox SelectedItem="{Binding CurrentCourier.ShipmentType}" ItemsSource="{Binding Source={StaticResource ShipmentTypeKey}, Converter={StaticResource EnumFilterConverter}}" Style="{StaticResource ThemeComboBox}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Border Background="#EFF6FF" CornerRadius="8" Padding="15" Margin="0,15,0,0" BorderBrush="#BFDBFE" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="1"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                                    <TextBlock Text="On Time" FontSize="11" Foreground="{StaticResource Color_TextSecondary}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding CurrentCourier.OrdersDeliveredInTime}" FontSize="24" FontWeight="Bold" Foreground="#10B981" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                                <Rectangle Grid.Column="1" Fill="#BFDBFE" Margin="0,5"/>
+                                <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                                    <TextBlock Text="Late" FontSize="11" Foreground="{StaticResource Color_TextSecondary}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding CurrentCourier.OrdersDeliveredAfterTime}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource Color_BorderForDelete}" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                            <Label Content="Active Status:" Style="{StaticResource LabelTitleStyle}"/>
+                            <CheckBox Style="{StaticResource ToggleSwitchStyle}" IsChecked="{Binding CurrentCourier.IsActive}" IsHitTestVisible="False" Margin="10,0,0,0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <TextBlock Text="Member since: " FontSize="11" Foreground="{StaticResource Color_TextSecondary}"/>
+                            <TextBlock Text="{Binding CurrentCourier.StartTime, StringFormat='{}{0:dd/MM/yyyy}'}" FontSize="11" Foreground="{StaticResource Color_TextSecondary}" FontWeight="SemiBold"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <Button Grid.Row="3" Content="Save Changes" Click="UpdateDetails_Click" Style="{StaticResource ThemeButton}" Margin="0,20,0,0" Padding="10,12"/>
+            </Grid>
+        </Border>
+
+
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!--==================-->
-            <!--#region User data -->
-            <!--==================-->
+            <Grid Grid.Row="0" Margin="0,0,0,20">
+                <TextBlock Text="WORKSPACE STATUS" FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource Color_TextMain}" VerticalAlignment="Center"/>
+                <Button Style="{StaticResource LogoutButton}" Click="Logout_Click" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
 
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                <Items:Icon Width="30" Height="30" HorizontalAlignment="Left"/>
-
-                <Button Content="Logout" 
-                HorizontalAlignment="Left" 
-                Width="80" Height="25" 
-                Click="Logout_Click"
-                Margin="20,0,0,0"
-                />
-            </StackPanel>
-
-
-            <!--Titel-->
-            <Label Grid.Row="1" Content="{Binding CurrentCourier.Name}" ContentStringFormat="Hello {0}" FontSize="24" FontWeight="Bold" 
-               Foreground="{StaticResource Color_Accent}"/>
-
-
-            <!--Higher Grid-->
-            <Border Grid.Row="2" BorderBrush="{StaticResource Color_Border}" 
-                BorderThickness="1" CornerRadius="5"
-                Padding="15" Margin="0,10">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-
-                    <Grid Grid.Column="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <!--Left side-->
-                        <Label Content="Id:" Grid.Row="0" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.Id}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"
-                               Style="{StaticResource ReadOnlyTextStyle}"/>
-
-                        <Label Content="Name:" Grid.Row="1" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBox Text="{Binding CurrentCourier.Name}" Grid.Row="1" Grid.Column="1" 
-                              VerticalAlignment="Center" Margin="5" Padding="5"
-                             behavior:InputValidators.IsLettersOnly="True"/>
-
-                        <Label Content="Phone:" Grid.Row="2" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBox Text="{Binding CurrentCourier.Phone}" Grid.Row="2" Grid.Column="1" 
-                              VerticalAlignment="Center" Margin="5" Padding="5"
-                             behavior:InputValidators.IsNumeric="True"/>
-
-                        <Label Content="Email:" Grid.Row="3" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBox Text="{Binding CurrentCourier.Email}" Grid.Row="3" Grid.Column="1" 
-                              VerticalAlignment="Center" Margin="5" Padding="5"/>
-
-                        <Label Content="deliverd on Time/Late:" Grid.Row="4" Style="{StaticResource LabelTitleStyle}"/>
-                        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"
-                        HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding CurrentCourier.OrdersDeliveredInTime}" Foreground="LightGreen" Margin="5"/>
-                            <TextBlock Text="/" Foreground="Gray" Margin="2"/>
-                            <TextBlock Text="{Binding CurrentCourier.OrdersDeliveredAfterTime}" Foreground="Red" Margin="5"/>
-                        </StackPanel>
-                    </Grid>
-
-                    <Rectangle Grid.Column="1" Width="1" Fill="{StaticResource Color_Border}" Margin="20,5"/>
-
-
-
-                    <Grid Grid.Column="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <!--Right side-->
-                        <Label Content="Max distance:" Grid.Row="0" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentCourier.MaxDistance}" 
-                             VerticalAlignment="Center" Margin="5" Padding="5"
-                             behavior:InputValidators.IsNumeric="True"/>
-
-                        <Label Content="Shipment Type:" Grid.Row="1" Style="{StaticResource LabelTitleStyle}"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1" 
-                              SelectedItem="{Binding CurrentCourier.ShipmentType}"
-                              ItemsSource="{Binding Source={StaticResource ShipmentTypeKey}, Converter={StaticResource EnumFilterConverter}}"
-                              Margin="5" VerticalAlignment="Center"/>
-
-
-                        <Label Content="Start Time:" Grid.Row="2" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Grid.Row="2" Grid.Column="4" Text="{Binding CurrentCourier.StartTime, StringFormat='dd/MM/yyyy'}" 
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Center"/>
-
-                        <Label Content="Active:" Grid.Row="3" Style="{StaticResource LabelTitleStyle}"/>
-                        <CheckBox Grid.Row="3" Grid.Column="4" Style="{StaticResource ToggleSwitchStyle}"
-                              HorizontalAlignment="Center"
-                             IsChecked="{Binding CurrentCourier.IsActive}"
-                           IsHitTestVisible="False"/>
-
-                        <Button Grid.Row="4"  Content="update"  HorizontalAlignment="Stretch"  VerticalAlignment="Bottom"  Height="25" Click="UpdateDetails_Click"
-                                TextBlock.TextAlignment="Center" Grid.ColumnSpan="2" FontSize="12"/>
-                    </Grid>
-
-                </Grid>
+            <Border Grid.Row="1" Grid.RowSpan="2" Background="#99FFFFFF" CornerRadius="12" Visibility="{Binding IsLoadInProgress, Converter={StaticResource BoolToVis}}" Panel.ZIndex="10">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Loading Data..." FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource Color_Accent}" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                    <ProgressBar IsIndeterminate="True" Height="6" Width="200" Foreground="{StaticResource Color_Accent}" Background="#E5E7EB" BorderThickness="0"/>
+                </StackPanel>
             </Border>
 
+            <Grid Grid.Row="1" Visibility="{Binding IsLoadInProgress, Converter={StaticResource BoolToCollapsed}}">
 
+                <Border Style="{StaticResource CardStyle}" Visibility="{Binding CurrentCourier.InProgress, Converter={StaticResource NullToVisibleConverter}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
+                        <TextBlock Grid.Row="0" Text="AVAILABLE ORDERS FOR YOU" Style="{StaticResource CardHeaderStyle}"/>
 
+                        <DataGrid Grid.Row="1" x:Name="dgOpenOrders" ItemsSource="{Binding OpenOrderList}" SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                                  SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="doubleClick_OrderList" Style="{StaticResource ThemeDataGrid}"
+                                  MinHeight="200" MaxHeight="300">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding OrderId}" Header="Order ID" Width="80"/>
+                                <DataGridTextColumn Binding="{Binding OrderType}" Header="Type" Width="100"/>
+                                <DataGridTextColumn Header="Status" Binding="{Binding ScheduleStatus}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="{Binding ScheduleStatus, Converter={StaticResource StatusToColorConverter}}"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding EstimatedArrivalTime, StringFormat=hh\\:mm}" Header="ETA" Width="80"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
 
-            <!--#endregion-->
-            <!--==================-->
+                        <Border Grid.Row="2" Margin="0,20,0,0" Background="#F8FAFC" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1" Padding="15,10" DataContext="{Binding ElementName=dgOpenOrders, Path=SelectedItem}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
+                                <WrapPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <StackPanel Margin="0,0,30,0">
+                                        <TextBlock Text="📦 Weight" FontSize="12" Foreground="{StaticResource Color_TextSecondary}"/>
+                                        <TextBlock Text="{Binding Weight, TargetNullValue='--'}" FontSize="18" FontWeight="Bold" Foreground="{StaticResource Color_TextMain}" Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Margin="0,0,30,0">
+                                        <TextBlock Text="📏 Volume" FontSize="12" Foreground="{StaticResource Color_TextSecondary}"/>
+                                        <TextBlock Text="{Binding Volume, TargetNullValue='--'}" FontSize="18" FontWeight="Bold" Foreground="{StaticResource Color_TextMain}" Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Margin="0,0,30,0">
+                                        <TextBlock Text="📍 Distance" FontSize="12" Foreground="{StaticResource Color_TextSecondary}"/>
+                                        <TextBlock Text="{Binding ActualDistance, StringFormat='{}{0:N2} km', TargetNullValue='--'}" FontSize="18" FontWeight="Bold" Foreground="{StaticResource Color_Accent}" Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <TextBlock Text="⏱️ Time Left" FontSize="12" Foreground="{StaticResource Color_TextSecondary}"/>
+                                        <TextBlock Text="{Binding TimeLeftToDeadline, StringFormat=hh\\:mm, TargetNullValue='--'}" FontSize="18" FontWeight="Bold" Foreground="#EF4444" Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                </WrapPanel>
 
-            <!--=========================-->
-            <!--#region Delivery History-->
-            <!--=========================-->
+                                <Button Grid.Column="1" Content="ACCEPT ORDER" Click="SelectOrder_Click" Style="{StaticResource ThemeButton}" Padding="30,12" FontSize="13" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
 
-            <GroupBox Header="Delivery History" Grid.Row="4">
-                <DataGrid IsReadOnly="True"
-                          HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                          ItemsSource="{Binding CloseOrderList}"
-                         >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding DeliveryId}" Header="Delivery Id" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding OrderId}" Header="Order Id" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding OrderType}" Header="Order Type" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding Address}" Header="Address" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding ShipmentType}" Header="Shipment" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding ActualDistance, StringFormat=N2}" Header="Distance" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding ProcessingDuration, StringFormat=hh\\:mm}" Header="Duration" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding FinishType}" Header="How ended" Width="*"/>
-                    </DataGrid.Columns>
+                <Border Style="{StaticResource CardStyle}" BorderBrush="{StaticResource Color_Accent}" BorderThickness="2" 
+                        Visibility="{Binding CurrentCourier.InProgress, Converter={StaticResource StatusToVisibilityConverter}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                </DataGrid>
-            </GroupBox>
+                        <Grid Grid.Row="0" Margin="0,0,0,20">
+                            <TextBlock Text="ACTIVE DELIVERY IN PROGRESS" Style="{StaticResource CardHeaderStyle}" Foreground="{StaticResource Color_Accent}"/>
+                            <Ellipse Width="10" Height="10" Fill="{StaticResource Color_Accent}" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Ellipse.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.2" Duration="0:0:1"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Ellipse.Triggers>
+                            </Ellipse>
+                        </Grid>
 
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-            <!--#endregion-->
-            <!--=========================-->
+                            <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                                <TextBlock Text="CUSTOMER &amp; DESTINATION" FontSize="12" FontWeight="Bold" Foreground="{StaticResource Color_TextSecondary}" Margin="0,0,0,10"/>
+                                <TextBlock Text="{Binding CurrentCourier.InProgress.CustomerName}" FontSize="18" FontWeight="Bold" Foreground="{StaticResource Color_TextMain}"/>
+                                <TextBlock Text="{Binding CurrentCourier.InProgress.CustomerPhone}" FontSize="14" Foreground="{StaticResource Color_TextSecondary}" Margin="0,2,0,10"/>
 
-        </Grid>
+                                <Border Background="#F9FAFB" CornerRadius="6" Padding="12" BorderThickness="1" BorderBrush="{StaticResource Color_Border}">
+                                    <StackPanel>
+                                        <TextBlock Text="Delivery Address:" FontSize="11" Foreground="{StaticResource Color_TextSecondary}" Margin="0,0,0,2"/>
+                                        <TextBlock Text="{Binding CurrentCourier.InProgress.CustomerAddress}" FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Border>
 
+                                <TextBlock Text="Special Notes:" FontSize="11" Foreground="{StaticResource Color_TextSecondary}" Margin="0,15,0,2"/>
+                                <TextBlock Text="{Binding CurrentCourier.InProgress.CustomerDescription, TargetNullValue='No special notes provided.'}" FontSize="13" FontStyle="Italic" Foreground="{StaticResource Color_TextSecondary}" TextWrapping="Wrap"/>
+                            </StackPanel>
 
-        <!-- Loading overlay for the right panel (only on first load) -->
-        <Border Grid.Column="2"
-                 Background="#66000000"
-                 CornerRadius="12"
-                 Visibility="{Binding IsLoadInProgress, Converter={StaticResource BoolToVis}}"
-                 Panel.ZIndex="9999">
+                            <Rectangle Grid.Column="1" Fill="{StaticResource Color_Border}" Margin="0,10"/>
 
-            <StackPanel HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 Width="280"
-                 Margin="20">
+                            <StackPanel Grid.Column="2" Margin="20,0,0,0">
+                                <TextBlock Text="DELIVERY METRICS" FontSize="12" FontWeight="Bold" Foreground="{StaticResource Color_TextSecondary}" Margin="0,0,0,10"/>
 
-                <TextBlock Text="טוען הזמנות"
-                FontSize="20"
-                FontWeight="SemiBold"
-                Foreground="White"
-                HorizontalAlignment="Center"
-                Margin="0,0,0,12"/>
+                                <Grid Margin="0,0,0,15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="Order ID" FontSize="11" Foreground="{StaticResource Color_TextSecondary}"/>
+                                        <TextBlock Text="{Binding CurrentCourier.InProgress.OrderId}" FontSize="15" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Delivery ID" FontSize="11" Foreground="{StaticResource Color_TextSecondary}"/>
+                                        <TextBlock Text="{Binding CurrentCourier.InProgress.DeliveryId}" FontSize="15" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                </Grid>
 
-                <ProgressBar IsIndeterminate="True" Height="12">
-                    <ProgressBar.Foreground>
-                        <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
-                            <GradientStop Color="#FFE6E6E6"/>
-                            <GradientStop Color="#FF1C87C6" Offset="0.625"/>
-                        </LinearGradientBrush>
-                    </ProgressBar.Foreground>
-                </ProgressBar>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="Started At" FontSize="11" Foreground="{StaticResource Color_TextSecondary}"/>
+                                        <TextBlock Text="{Binding CurrentCourier.InProgress.DeliveryStart, StringFormat='HH:mm'}" FontSize="16" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="ETA" FontSize="11" Foreground="{StaticResource Color_TextSecondary}"/>
+                                        <TextBlock Text="{Binding CurrentCourier.InProgress.ExpectedArrivalTime, StringFormat='HH:mm'}" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_Accent}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Deadline" FontSize="11" Foreground="{StaticResource Color_TextSecondary}"/>
+                                        <TextBlock Text="{Binding CurrentCourier.InProgress.LastArrivalTime, StringFormat='HH:mm'}" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_BorderForDelete}"/>
+                                    </StackPanel>
+                                </Grid>
 
-                <TextBlock Text="רק רגע 🙂"
-                Foreground="#DDDDDD"
-                HorizontalAlignment="Center"
-                Margin="0,10,0,0"/>
-            </StackPanel>
-        </Border>
+                                <Border Background="#EFF6FF" CornerRadius="6" Padding="12" Margin="0,15,0,0">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="Remaining Distance:" FontSize="13" Foreground="{StaticResource Color_Accent}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                        <TextBlock Text="{Binding CurrentCourier.InProgress.RealDistance, StringFormat='{}{0:N1} km', TargetNullValue='--'}" FontSize="18" FontWeight="Bold" Foreground="{StaticResource Color_Accent}"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
 
-        <Grid Grid.Column="2" Visibility="{Binding IsLoadInProgress, Converter={StaticResource BoolToCollapsed}}" >
-            <!--=========================-->
-            <!--#region Order Selection-->
-            <!--=========================-->
+                        <Grid Grid.Row="2" Margin="0,25,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
 
-            <GroupBox Header="Delivery Actions"  Margin="5" BorderBrush="#444444" 
-                      Visibility="{Binding CurrentCourier.InProgress, Converter={StaticResource NullToVisibleConverter}}">
+                            <Button Grid.Column="0" Content="Client Not Found" Click="CustomerUnavailable_Click" Style="{StaticResource DeleteButton}"/>
+                            <Button Grid.Column="2" Content="Refused" Click="DeliveryRefused_Click" Style="{StaticResource DeleteButton}"/>
+                            <Button Grid.Column="4" Content="FINISH DELIVERY" Click="FinishDelivery_Click" Style="{StaticResource ThemeButton}" FontSize="16"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="2" Style="{StaticResource CardStyle}" Margin="0">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid x:Name="dgOpenOrders"
-                  Grid.Row="0"
-                  ItemsSource="{Binding OpenOrderList}"
-                  SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
-                  SelectionMode="Single"
-                  IsReadOnly="True"
-                  HorizontalAlignment="Stretch"
-                   VerticalAlignment="Stretch"
-                  MouseDoubleClick="doubleClick_OrderList">
+                    <TextBlock Grid.Row="0" Text="YOUR DELIVERY HISTORY" Style="{StaticResource CardHeaderStyle}"/>
+
+                    <DataGrid Grid.Row="1" IsReadOnly="True" ItemsSource="{Binding CloseOrderList}" Style="{StaticResource ThemeDataGrid}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding OrderId}" Header="Order Id" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding OrderType}" Header="Order Type" Width="*"/>
-                            <DataGridTextColumn Header="Status" Binding="{Binding ScheduleStatus}" Width="*">
+                            <DataGridTextColumn Binding="{Binding DeliveryId}" Header="Delivery ID" Width="80"/>
+                            <DataGridTextColumn Binding="{Binding OrderId}" Header="Order ID" Width="80"/>
+                            <DataGridTextColumn Binding="{Binding Address}" Header="Destination" Width="2*"/>
+                            <DataGridTextColumn Binding="{Binding ActualDistance, StringFormat='{}{0:N2} km'}" Header="Distance" Width="100"/>
+                            <DataGridTextColumn Binding="{Binding ProcessingDuration, StringFormat=hh\\:mm}" Header="Duration" Width="80"/>
+                            <DataGridTextColumn Binding="{Binding FinishType}" Header="Result" Width="120">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="{Binding ScheduleStatus, Converter={StaticResource StatusToColorConverter}}"/>
-                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
-
-                            <DataGridTextColumn Binding="{Binding EstimatedArrivalTime, StringFormat=hh\\:mm}"  Header="ETA" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-
-                    <Separator Grid.Row="1" Background="#444444" Margin="10"/>
-
-                    <Grid Grid.Row="2" Margin="10" 
-              DataContext="{Binding ElementName=dgOpenOrders, Path=SelectedItem}">
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Row="0" Grid.Column="0" Content="Weight:" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Weight}" Style="{StaticResource ReadOnlyTextStyle}"/>
-
-                        <Label Grid.Row="0" Grid.Column="3" Content="Volume:" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Volume}" Style="{StaticResource ReadOnlyTextStyle}"/>
-
-                        <Label Grid.Row="1" Grid.Column="0" Content="Distance:" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ActualDistance, StringFormat=N2, TargetNullValue='--'}" Style="{StaticResource ReadOnlyTextStyle}"/>
-
-                        <Label Grid.Row="1" Grid.Column="3" Content="Time Left:" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding TimeLeftToDeadline, StringFormat=hh\\:mm}" Style="{StaticResource ReadOnlyTextStyle}"/>
-                    </Grid>
-
-                    <Border Grid.Row="3" 
-                Margin="20"
-                Height="200" Width="200"
-                CornerRadius="100" 
-                BorderThickness="2"
-                BorderBrush="{StaticResource Color_Accent}"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Center">
-
-                        <Border.Background>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#222" Offset="1"/>
-                                <GradientStop Color="#333" Offset="0"/>
-                            </RadialGradientBrush>
-                        </Border.Background>
-
-                        <TextBlock Text="Map Area" 
-                       Foreground="#666" 
-                       VerticalAlignment="Center" 
-                       HorizontalAlignment="Center"/>
-                    </Border>
-
-                    <Button Grid.Row="4" Content="Select Order" 
-                 Height="35" Margin="0,10,0,0"
-                 Click="SelectOrder_Click"/>
                 </Grid>
-            </GroupBox>
+            </Border>
 
-
-            <!--#endregion -->
-            <!--=========================-->
-
-            <!--=========================-->
-            <!--#region Order Handling-->
-            <!--=========================-->
-
-
-            <GroupBox Header="Order In Progress" Margin="5" BorderBrush="#444444" 
-          Visibility="{Binding CurrentCourier.InProgress, Converter={StaticResource StatusToVisibilityConverter}}">
-
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Label Grid.Row="0" Content="My Delivery" Style="{StaticResource LabelTitleStyle}" FontSize="28"/>
-                    <Separator Grid.Row="1" Margin="0,5" Background="#444444"/>
-
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Label Content="Customer Info" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource LabelTitleStyle}" FontSize="18"/>
-
-                        <Label Content="Customer Name:" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.CustomerName}" Grid.Row="1" Grid.Column="1" Style="{StaticResource ReadOnlyTextStyle}"/>
-
-                        <Label Content="Phone:" Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.CustomerPhone}" Grid.Row="2" Grid.Column="1" Style="{StaticResource ReadOnlyTextStyle}"/>
-
-                        <Label Content="Address:" Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelTitleStyle}" VerticalAlignment="Top"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.CustomerAddress}" Grid.Row="3" Grid.Column="1" 
-                       Style="{StaticResource ReadOnlyTextStyle}" TextWrapping="Wrap" MaxHeight="35" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
-                    </Grid>
-
-                    <Separator Grid.Row="3" Margin="0,5" Background="#444444"/>
-
-                    <Grid Grid.Row="4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Label Content="Order Info" Grid.Row="0" Grid.ColumnSpan="5" Style="{StaticResource LabelTitleStyle}" FontSize="18"/>
-
-                        <Label Content="Order ID:" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.OrderId}" Grid.Row="1" Grid.Column="1" Style="{StaticResource ReadOnlyTextStyle}"/>
-
-                        <Label Content="Order Created:" Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.OrderCreated, StringFormat='dd/MM HH:mm'}" Grid.Row="2" Grid.Column="1"/>
-
-                        <Label Content="Type:" Grid.Row="1" Grid.Column="3" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.OrderType}" Grid.Row="1" Grid.Column="4" Style="{StaticResource ReadOnlyTextStyle}"/>
-
-                        <Label Content="Schedule:" Grid.Row="2" Grid.Column="3" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.ScheduleStatus, Converter={StaticResource GlobalEnumConverter}}" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="4"  
-                    Foreground="{Binding CurrentCourier.InProgress.ScheduleStatus, Converter={StaticResource StatusToColorConverter}}"/>
-
-                    </Grid>
-
-                    <Separator Grid.Row="5" Margin="0,5" Background="#444444"/>
-
-                    <Grid Grid.Row="6">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Label Content="Delivery Info" Grid.Row="0" Grid.ColumnSpan="5" Style="{StaticResource LabelTitleStyle}" FontSize="18"/>
-
-                        <Label Content="Delivery Id" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.DeliveryId}" Grid.Row="1" Grid.Column="1"/>
-
-                        <Label Content="Delivery Startd at:" Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.DeliveryStart, StringFormat='HH:mm'}" Grid.Row="2" Grid.Column="1"/>
-
-                        <Label Content="ETA:" Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.ExpectedArrivalTime, StringFormat='HH:mm'}" Grid.Row="3" Grid.Column="1"/>
-
-                        <Label Content="Deadline:" Grid.Row="1" Grid.Column="3" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.LastArrivalTime, StringFormat='HH:mm'}" Grid.Row="1" Grid.Column="4"/>
-
-                        <Label Content="Time left to Deadline:" Grid.Row="2" Grid.Column="3" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.TimeGap, StringFormat='hh\\:mm'}" Grid.Row="2" Grid.Column="4"/>
-
-                        <Label Content="Air Distance:" Grid.Row="3" Grid.Column="3" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.AirDistance, StringFormat='{}{0:N1} km'}" Grid.Row="3" Grid.Column="4"/>
-
-                        <Label Content="Your Distance:" Grid.Row="4" Grid.Column="3" Style="{StaticResource LabelTitleStyle}"/>
-                        <TextBlock Text="{Binding CurrentCourier.InProgress.RealDistance, StringFormat='{}{0:N1} km', TargetNullValue='--'}" Grid.Row="4" Grid.Column="4"/>
-
-
-
-
-
-                    </Grid>
-
-                    <Separator Grid.Row="7" Margin="0,5" Background="#444444"/>
-
-                    <StackPanel Grid.Row="8">
-                        <Label Content="Notes:" Style="{StaticResource LabelTitleStyle}"/>
-                        <Border BorderBrush="#333333" BorderThickness="1" Background="#151515" CornerRadius="3" Padding="4" MinHeight="40">
-                            <TextBlock Text="{Binding CurrentCourier.InProgress.CustomerDescription, TargetNullValue='No special notes'}" 
-                           Style="{StaticResource ReadOnlyTextStyle}" 
-                           TextWrapping="Wrap" FontSize="12" Foreground="#AAAAAA"/>
-                        </Border>
-                    </StackPanel>
-
-                    <Grid Grid.Row="10" Height="35" Margin="0,10,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Button  Grid.Column="0" Content="Customer Unavailable" Click="CustomerUnavailable_Click" Style="{StaticResource DeleteButton}"/>
-                        <Button  Grid.Column="1" Content="Finish Delivery" Click="FinishDelivery_Click"/>
-                        <Button  Grid.Column="2" Content="Delivery Refused" Click="DeliveryRefused_Click" Style="{StaticResource DeleteButton}"/>
-
-
-                    </Grid>
-
-
-                </Grid>
-            </GroupBox>
-            <!--#endregion-->
-            <!--=========================-->
         </Grid>
     </Grid>
-
 </Window>

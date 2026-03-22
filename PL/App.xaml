@@ -8,7 +8,7 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Helpers/Styles/Style1.xaml"/>
+                <ResourceDictionary Source="/Helpers/Styles/Style2.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!--Enums Resources -->
