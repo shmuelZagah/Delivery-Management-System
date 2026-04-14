@@ -1,265 +1,101 @@
-﻿# 📦 Delivery Management System
+# Delivery Management System
 
-A sophisticated, enterprise-grade logistics management platform designed to streamline complex delivery operations with real-time tracking, intelligent routing, and comprehensive fleet management capabilities.
-
----
-
-## 🎯 Overview
-
-The **Delivery Management System** is a robust desktop application built with modern .NET technologies, providing a complete solution for managing orders, couriers, and real-time delivery simulations. Designed with scalability and maintainability in mind, it implements industry-standard architectural patterns and SOLID principles for maximum flexibility and reliability.
-
-### Key Highlights
-- **Real-time Fleet Operations**: Monitor multiple couriers and deliveries simultaneously with live status updates
-- **Intelligent Simulation Engine**: Model complex logistics scenarios to optimize delivery routes and predict completion times
-- **Secure Role-Based Access**: Separate authenticated interfaces for administrators and courier personnel
-- **Advanced Configuration Management**: Dynamic system parameters for speeds, distance ranges, and operational constraints
-- **Thread-Safe Data Management**: Concurrent-safe operations ensuring data integrity across multiple users
+A layered, multi-tier delivery management system in C# with a WPF desktop client, built around a pluggable data-access layer, an observer-driven UI update mechanism, and live integration with real mapping/routing services for courier-to-order assignment.
 
 ---
 
-## ✨ Core Features
+## Highlights
 
-### 🚚 Order Management
-- **Full Order Lifecycle**: Create, assign, track, and complete delivery orders
-- **Order Classification**: Support for multiple order types with customizable attributes (weight, volume, priority)
-- **Status Tracking**: Real-time status transitions (Open → In Progress → Completed/Canceled)
-- **Customer Integration**: Full customer information management with location-based delivery tracking
-
-### 👨‍💼 Courier Management  
-- **Courier Onboarding**: Complete courier registration with authentication and profile management
-- **Performance Tracking**: Monitor delivery metrics and assignment history
-- **Capability Management**: Define courier specializations and delivery constraints
-- **Preferred Delivery Types**: Assign courier preferences for order optimization
-
-### 📊 Administrator Dashboard
-- **Live Metrics**: Real-time summary of order statuses and system health
-- **System Configuration**: Manage fleet speeds, distance ranges, and operational parameters
-- **Database Management**: Initialize, reset, and backup database operations
-- **Simulation Controls**: Start/pause real-time delivery simulation with configurable intervals
-
-### 🔄 Simulation Engine
-- **Real-Time Modeling**: Simulate delivery operations with configurable time acceleration
-- **Route Optimization**: Calculate delivery times based on courier capabilities and configurations
-- **Time Management**: Advanced clock control (minute, hour, day, month, year increments)
-- **Dynamic Updates**: Live observer pattern for instant UI refresh on system changes
+- **Swappable persistence backend, chosen at runtime** — the data layer is accessed entirely through an `IDal`/`ICrud<T>` interface. Which concrete implementation runs (`DalList`, an in-memory store, or `DalXml`, file-based XML persistence) is decided at startup by `dal-config.xml` and loaded dynamically via reflection (`Assembly.Load` + `Type.GetType`). Switching storage backends requires no recompilation.
+- **Real-world routing, not just straight-line distance** — courier-to-order matching factors in actual travel distance by calling the OSRM routing API (driving/walking profiles) for real road-network distance, with address-to-coordinate geocoding via OpenStreetMap's Nominatim API, and a haversine-formula air-distance fallback if the routing call fails.
+- **Asynchronous courier simulation** — `CourierSimulatorAsync` runs an ongoing background process that evaluates open orders against available couriers (respecting each courier's max-range constraint and shipment-type preference) and assigns deliveries automatically, with parallelized data fetches (`Task.WhenAll`) to keep the UI responsive.
+- **Observer pattern for live UI sync** — `IObservable` exposes both list-level and per-entity observer registration, so WPF views can subscribe to changes in a specific order/courier or in the collection as a whole and stay in sync without polling.
+- **Manual concurrency control** — a lock-free `AsyncMutex` built on `Interlocked.CompareExchange` guards the simulator from re-entrant runs, alongside explicit mutexes for admin config and observer state.
+- **Custom Trie data structure** — a standalone, hand-built prefix-tree library (insert/delete/prefix-search/position-tracking) for fast text lookup, built from scratch rather than using a third-party package.
+- **Strict layer separation** — Presentation (WPF) → Business Logic → Data Access Facade → concrete Data Access implementation, with each layer talking only to the interface of the layer below it, and dedicated console test-harness projects (`DalTest`, `BITest`) for exercising each layer independently of the UI.
 
 ---
 
-## 🏗️ Architecture
-
-The system follows a **3-Tier Layered Architecture** with clean separation of concerns:
+## Architecture
 
 ```
-┌─────────────────────────────────────────┐
-│  Presentation Layer (PL)                │
-│  WPF Desktop Application & UI Logic     │
-├─────────────────────────────────────────┤
-│  Business Logic Layer (BL)              │
-│  Core Business Rules & Operations       │
-├─────────────────────────────────────────┤
-│  Data Access Layer (DAL)                │
-│  Database Abstraction & Persistence     │
-└─────────────────────────────────────────┘
+PL (WPF)
+  ↓ talks to
+BlApi (IBl, IAdmin, IOrder, ICourier, IObservable)
+  ↓ implemented by
+BlImplementation
+  ↓ talks to
+DalApi (IDal, ICrud<T>)         ← Factory resolves implementation via reflection
+  ↓ implemented by
+DalList (in-memory)   |   DalXml (file-based)
+
+DataBase / Trie         ← standalone prefix-tree library, used for search
 ```
 
-### Layer Responsibilities
-
-| Layer | Purpose | Key Components |
-|-------|---------|---|
-| **PL** | User interface and interaction | Windows, ViewModels, Converters, Styles |
-| **BL** | Business logic and workflows | Order operations, Courier logic, Admin functions |
-| **DAL** | Data persistence and retrieval | Entity models, Repository patterns, Storage implementations |
-
----
-
-## 🛠️ Technology Stack
-
-| Category | Technologies |
-|----------|---|
-| **Language** | C# 12 |
-| **Framework** | .NET 8.0 |
-| **UI Framework** | Windows Presentation Foundation (WPF) |
-| **Data Binding** | INotifyPropertyChanged pattern, XAML Data Binding |
-| **Storage** | In-memory collections, XML serialization |
-| **Architecture Patterns** | SOLID Principles, Repository Pattern, Singleton, Observer |
-| **Threading** | Thread-safe operations with lock mechanisms |
+| Layer | Responsibility |
+|---|---|
+| `PL` | WPF UI — login, admin console, courier and order management screens |
+| `BL` / `BlApi` / `BlImplementation` | Business rules, courier assignment logic, observers, simulation |
+| `DalFacade` / `DalApi` | Data contracts (`DO` entities, `ICrud<T>`, `IDal`) — the only thing BL depends on |
+| `DalList` / `DalXml` | Concrete, interchangeable storage implementations |
+| `DataBase` / `Trie` | Standalone prefix-tree library for fast lookup |
+| `DalTest` / `BITest` | Console harnesses for testing DAL/BL logic independently of the UI |
 
 ---
 
-## 🎨 Design Patterns & Best Practices
+## Tech Stack
 
-### ✅ SOLID Principles
-- **Single Responsibility**: Separated layers handle specific concerns
-- **Open/Closed**: Extensible interfaces for data access implementations
-- **Liskov Substitution**: Multiple DAL implementations (DalList, DalXml)
-- **Interface Segregation**: Focused, role-specific interfaces
-- **Dependency Inversion**: Abstraction-based components
-
-### 🔐 Advanced Features
-- **Thread-Safe Singleton**: Concurrent-safe data access layer initialization
-- **Observer Pattern**: Real-time UI updates triggered by system changes
-- **Dependency Injection**: Factory-based service initialization
-- **Input Validation**: Comprehensive user input sanitization (TryParse, regex validation)
-- **Async/Await Pattern**: Non-blocking operations for responsive UI
-
-### 🎨 UI/UX Enhancements
-- **Responsive Data Binding**: Two-way binding for instant UI synchronization
-- **Custom Control Templates**: Polished button styles with hover effects
-- **Theme System**: Consistent styling across the application
-- **Validation Feedback**: Visual indicators for invalid input
-- **Behavior Patterns**: XAML-attached behaviors for reusable validation logic
+| Layer | Technology |
+|---|---|
+| Language | C# (.NET) |
+| UI | WPF (XAML) |
+| Persistence | In-memory list / XML files (pluggable) |
+| External services | OSRM (routing), OpenStreetMap Nominatim (geocoding) |
+| Concurrency | `async`/`await`, `Task.WhenAll`, `Interlocked` |
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- Windows 10/11
-- .NET 8.0 SDK or Runtime
-- Visual Studio 2022 or equivalent IDE
+- Windows
+- Visual Studio 2022 (or later) with .NET desktop development workload
+- Internet access (for OSRM/Nominatim routing and geocoding calls)
 
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/shmuelZagah/Delivery-Management-System.git
-   cd Delivery-Management-System
-   ```
-
-2. **Open the solution**
-   ```bash
-   dotnet build dotNet5786_0814_8695.sln
-   ```
-
-3. **Run the application**
-   ```bash
-   dotnet run --project PL/PL.csproj
-   ```
+### Build & Run
+1. Clone the repository.
+2. Open `DeliveryManagementSystem.sln` in Visual Studio.
+3. Set `PL` as the startup project.
+4. Build and run.
+5. To switch the storage backend, edit `xml/dal-config.xml` (`list` or `xml`) before launching.
 
 ---
 
-## 🔓 Default Credentials
+## Project Structure
 
-### Administrator Access
 ```
-Username: 222222222
-Password: admin100
-```
-
-### Courier Access
-```
-Username: 234567890
-Password: 1234567890
+DalFacade/        # DO entities + DAL interfaces (the contract)
+DalList/          # in-memory DAL implementation
+DalXml/           # XML-file DAL implementation
+DalTest/          # console test harness for the DAL
+BL/
+  ├── BlApi/       # business-logic interfaces
+  ├── BlImplementation/
+  └── Helpers/     # CourierManager, OrderManager, Tools (routing/geocoding), mutexes
+BITest/           # console test harness for the BL
+PL/               # WPF application (login, admin, courier, order screens)
+DataBase/Trie/    # standalone prefix-tree library
+xml/              # runtime config + XML data store
 ```
 
 ---
 
-## 📖 Usage Guide
+## Status
 
-### For Administrators
-
-1. **Login** with admin credentials
-2. **Dashboard Overview**: Monitor order statistics and fleet status
-3. **Manage Orders**: Create, view, and assign delivery orders
-4. **Manage Couriers**: Register new couriers and manage assignments
-5. **Configure System**: Adjust speeds, ranges, and operational parameters
-6. **Run Simulation**: Start real-time delivery simulation
-
-### For Couriers
-
-1. **Login** with courier credentials
-2. **View Assignments**: See assigned orders and delivery details
-3. **Update Status**: Mark orders as picked up, in transit, or delivered
-4. **Track Metrics**: Monitor personal delivery statistics
+Built in deliberate stages (DAL → BL → simulation/observers → UI), with each layer independently testable via its own console harness before being wired into the WPF client.
 
 ---
 
-## 🏆 System Capabilities
+## License
 
-### Performance Metrics
-- **Concurrent Users**: Thread-safe operations support multiple simultaneous sessions
-- **Order Capacity**: Efficient handling of large order volumes
-- **Simulation Speed**: Configurable time acceleration (real-time to 1000x speed)
-
-### Configuration Parameters
-- Average speeds for car, motorcycle, bicycle, and walking
-- Maximum air delivery range
-- Company base coordinates (latitude/longitude)
-- Maximum supply time and activity windows
-
----
-
-## 🔒 Security Features
-
-- **Authentication Layer**: Secure login with credential validation
-- **Role-Based Access Control**: Separate interfaces for Admin and Courier roles
-- **Thread-Safe Operations**: Lock mechanisms prevent race conditions
-- **Input Validation**: All user inputs validated before processing
-
----
-
-## 📁 Project Structure
-
-```
-Delivery-Management-System/
-├── PL/                      # Presentation Layer (WPF)
-│   ├── MainWindow.xaml      # Admin Dashboard
-│   ├── LoginWindow.xaml     # Authentication
-│   ├── Order/               # Order management UI
-│   ├── Courier/             # Courier management UI
-│   └── Helpers/             # Converters, Styles, Utilities
-├── BL/                      # Business Logic Layer
-│   └── BL.cs                # Core business operations
-├── DalFacade/               # Data Access Facade
-│   ├── DO/                  # Data Objects (Models)
-│   └── DalApi/              # Interfaces & Contracts
-├── DalList/                 # In-Memory Implementation
-├── DalXml/                  # XML-Based Implementation
-└── DataBase/                # Database & Utilities
-```
-
----
-
-## 🧪 Testing & Quality Assurance
-
-The system includes comprehensive test projects:
-- **BITest**: Business layer validation
-- **DalTest**: Data access layer testing
-- Extensive input validation with TryParse operations
-- Real-world scenario simulations
-
----
-
-## 🚀 Future Enhancements
-
-- **Database Integration**: SQL Server or PostgreSQL backend
-- **REST API**: RESTful web services for third-party integration
-- **Mobile App**: Companion mobile application for couriers
-- **Advanced Analytics**: Machine learning for route optimization
-- **Real Geolocation**: Google Maps/GPS integration for true positioning
-- **Notification System**: SMS/Push notifications for order updates
-
----
-
-## 📝 License
-
-This project is provided as-is for educational and commercial purposes.
-
----
-
-## 👤 Authors
-
-**Shmuel Zagah**  
-**Daniel Bar**
-
----
-
-## 📧 Contact & Support
-
-For questions, feedback, or collaboration opportunities:
-- **GitHub**: [@shmuelZagah](https://github.com/shmuelZagah)
-- **Issues**: [GitHub Issues](https://github.com/shmuelZagah/Delivery-Management-System/issues)
-
----
-
-*Last Updated: April 14, 2026*
+No license file is currently included — all rights reserved by default. Add a license (MIT, Apache 2.0, etc.) if you want others to reuse this code.
