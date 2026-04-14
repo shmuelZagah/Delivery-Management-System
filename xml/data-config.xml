@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
   <NextOrderId>50</NextOrderId>
-  <NextDeliveryId>42</NextDeliveryId>
+  <NextDeliveryId>47</NextDeliveryId>
   <NextAddressId>8</NextAddressId>
   <!-- SYSTEM DATA -->
-  <Clock>01/01/2000 00:00:00</Clock>
+  <Clock>01/01/2000 00:36:00</Clock>
   <ManagerId>222222222</ManagerId>
   <ManagerPass>admin100</ManagerPass>
   <!-- COMPANY DETAILS -->
