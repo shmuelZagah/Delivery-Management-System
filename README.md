@@ -74,6 +74,12 @@ DataBase / Trie         ← standalone prefix-tree library, used for search
 4. Build and run.
 5. To switch the storage backend, edit `xml/dal-config.xml` (`list` or `xml`) before launching.
 
+manager id : 222222222
+manager pass: admin100
+
+courier id : 234567890
+courier pass: 1234567890
+
 ---
 
 ## Project Structure
