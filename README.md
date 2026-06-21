@@ -4,6 +4,11 @@ A layered, multi-tier delivery management system in C# with a WPF desktop client
 
 ---
 
+https://github.com/user-attachments/assets/bc062854-e5ed-4550-882f-d5041ff86c81
+
+---
+
+
 ## Highlights
 
 - **Swappable persistence backend, chosen at runtime** — the data layer is accessed entirely through an `IDal`/`ICrud<T>` interface. Which concrete implementation runs (`DalList`, an in-memory store, or `DalXml`, file-based XML persistence) is decided at startup by `dal-config.xml` and loaded dynamically via reflection (`Assembly.Load` + `Type.GetType`). Switching storage backends requires no recompilation.
